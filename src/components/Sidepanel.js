@@ -27,8 +27,8 @@ export default function Sidepanel() {
         id="container"
         style={{
           backgroundColor: "grey",
-          width: "90px",
-          height: "95vh",
+          width: "80px",
+          height: "100vh",
           borderRadius: "35px",
           display: "flex",
           flexDirection: "column",
@@ -36,7 +36,9 @@ export default function Sidepanel() {
           alignItems: "center",
           gap: "20px",
           padding: "5px 0px 20px 0px",
+          // position:'absolute'
         }}
+
       >
         <div
           style={{
