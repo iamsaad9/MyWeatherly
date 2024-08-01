@@ -13,7 +13,7 @@ export default function Home() {
             <Sidepanel/>
         </div>
        
-        <div id='home_cont' style={{backgroundColor:'red',width:'90vw'}}>
+        <div id='home_cont' style={{backgroundColor:'',width:'90vw'}}>
           <div id='nav_cont'>
             <Nav/>
           </div>
