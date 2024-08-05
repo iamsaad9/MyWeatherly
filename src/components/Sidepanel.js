@@ -38,7 +38,6 @@ export default function Sidepanel() {
           padding: "5px 0px 20px 0px",
           // position:'absolute'
         }}
-
       >
         <div
           style={{
