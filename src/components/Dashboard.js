@@ -131,73 +131,85 @@ export default function Dashboard() {
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>12 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">sunny</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>1 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">sunny</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>2 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">partly_cloudy_day</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>3 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">partly_cloudy_day</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>4 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">partly_cloudy_day</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>5 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">cloud</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>6 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">cloud</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>7 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">rainy</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>8 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">rainy</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>9 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">cloud</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>10 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">cloud</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
 
                 <div className='hours' style={{width:'8.5%',height:'95%',backgroundColor:'#be83de',borderRadius:'20px',flexShrink:'0',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center',gap:'5px'}}>
                     <span style={{backgroundColor:''}}>11 pm</span>
-                    <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div>
+                    {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
+                    <span class="material-symbols-outlined">partly_cloudy_night</span>
                     <span style={{backgroundColor:''}}>17*</span>
                 </div>
               </div>
