@@ -9,7 +9,7 @@ export default function Home() {
     <div>
       <div id='container' style={{backgroundColor:'black',display:'flex',gap:'20px'}}>
         
-        <div id='sidbar_cont' style={{backgroundColor:'wheat',height:'',width:'5vw',display:'flex',justifyContent:'center',alignItems:'center',position:''}}>
+        <div id='sidbar_cont' style={{backgroundColor:'black',height:'100vh',width:'5vw',display:'flex',justifyContent:'center',alignItems:'center',position:''}}>
             <Sidepanel/>
         </div>
        

@@ -6,8 +6,8 @@ export default function Nav() {
       <div
         id="container"
         style={{
-          backgroundColor: "black",
-          height: "7em",
+          backgroundColor: "",
+          height: "13vh",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -17,22 +17,22 @@ export default function Nav() {
           id="about"
           style={{
             backgroundColor: "",
-            padding: "10px",
+            padding: "5px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            margin: "10px",
+            // margin: "10px",
             gap: "15px",
           }}
         >
           <div
             id="dis_pic"
-            style={{ backgroundColor: "", width: "50px", height: "50px" }}
+            style={{ backgroundColor: "", width: "35px", height: "35px" }}
           >
             <div
               style={{
-                width: "50px",
-                height: "50px",
+                width: "35px",
+                height: "35px",
                 backgroundColor: "white",
                 borderRadius: "50%",
               }}
@@ -44,7 +44,7 @@ export default function Nav() {
               backgroundColor: "",
               display: "flex",
               width: "300px",
-              height: "80px",
+              // height: "5em",
               padding: "5px",
               paddingBottom: "10px",
               flexDirection: "column",
@@ -62,13 +62,13 @@ export default function Nav() {
             >
               <span
                 id="name_span"
-                style={{ color: "white", fontSize: "15px", marginTop: "5px" }}
+                style={{ color: "white", fontSize: "12px", marginTop: "5px" }}
               >
                 Hi, Saad
               </span>
               <span
                 id="date_span"
-                style={{ color: "white", fontSize: "30px", marginTop: "-5px" }}
+                style={{ color: "white", fontSize: "25px", marginTop: "-5px" }}
               >
                 Mon, 29 July, 2024
               </span>
@@ -80,21 +80,20 @@ export default function Nav() {
           id="nav_opt"
           style={{
             backgroundColor: "",
-            padding: "10px",
+            padding: "0px 10px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            gap: "15px",
             margin: "10px",
-            width: "620px",
+            width: "38vw",
           }}
         >
           <div
             id="search"
             style={{
               backgroundColor: "",
-              height: "70px",
-              width: "300px",
+              height: "3em",
+              width: "15em",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -103,13 +102,15 @@ export default function Nav() {
             <input
               type="search"
               style={{
-                height: "70%",
+                // height: "70%",
                 width: "100%",
                 borderRadius: "25px",
                 padding: "5px 10px",
                 fontSize: "18px",
                 color: "white",
                 backgroundColor: "grey",
+                textDecoration:'none',
+                
               }}
             ></input>
           </div>
@@ -117,8 +118,8 @@ export default function Nav() {
             id="language"
             style={{
               backgroundColor: "",
-              height: "70px",
-              width: "120px",
+              height: "3.6em",
+              width: "8vw",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -128,12 +129,12 @@ export default function Nav() {
               name="language"
               id="lang"
               style={{
-                height: "70%",
+                // height: "70%", 
                 width: "90%",
                 backgroundColor: "gray",
                 borderRadius: "25px",
                 padding: "5px 15px",
-                fontSize: "20px",
+                fontSize: "1.2em",
                 color: "white",
               }}
             >
@@ -145,7 +146,7 @@ export default function Nav() {
 
           <div
             id="temp_unit"
-            style={{ backgroundColor: "white", height: "70px", width: "120px" }}
+            style={{ backgroundColor: "white", height: "3em", width: "7vw" }}
           ></div>
         </div>
       </div>

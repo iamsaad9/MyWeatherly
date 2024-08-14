@@ -26,48 +26,51 @@ export default function Sidepanel() {
       <div
         id="container"
         style={{
-          backgroundColor: "grey",
-          width: "80px",
-          height: "100vh",
+          backgroundColor: "rgb(41, 41, 41)",
+          width: "4.5vw",
+          height: "90vh",
           borderRadius: "35px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "center",
-          gap: "20px",
+          gap: "",
           padding: "5px 0px 20px 0px",
           // position:'absolute'
+          contain: "content",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-            flexDirection: "column",
-            backgroundColor: "",
-            margin: "20px",
-          }}
-        >
+        <div style={{ display: "flex", backgroundColor: "", marginTop: "4vh" }}>
           <div
             id="logoDiv"
             className="sideBarDiv"
             style={{
-              marginBottom: "15px",
+              marginBottom: "2vh",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              fontSize: "50px",
+              fontSize: "2.5em",
               color: "white",
             }}
           >
             <span>G</span>
           </div>
-
+        </div>
+        <div
+          style={{
+            display: "flex",
+            gap: "",
+            flexDirection: "column",
+            backgroundColor: "",
+            margin: "",
+          }}
+        >
           <div
             id="accountDiv"
             className="sideBarDiv"
             style={{
-              marginBottom: "15px",
+              backgroundColor: "",
+              marginBottom: "",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -76,7 +79,7 @@ export default function Sidepanel() {
           >
             <span
               class="material-symbols-outlined"
-              style={{ fontSize: "40px" }}
+              style={{ fontSize: "1.5em" }}
             >
               person
             </span>
@@ -86,7 +89,8 @@ export default function Sidepanel() {
             id="notificationDiv"
             className="sideBarDiv"
             style={{
-              marginBottom: "15px",
+              backgroundColor: "",
+              marginBottom: "",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -95,7 +99,7 @@ export default function Sidepanel() {
           >
             <span
               class="material-symbols-outlined"
-              style={{ fontSize: "40px" }}
+              style={{ fontSize: "1.5em" }}
             >
               notifications
             </span>
@@ -105,7 +109,7 @@ export default function Sidepanel() {
             id="dashboardDiv"
             className="sideBarDiv"
             style={{
-              marginBottom: "15px",
+              // marginBottom: "15px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -114,7 +118,7 @@ export default function Sidepanel() {
           >
             <span
               class="material-symbols-outlined"
-              style={{ fontSize: "40px" }}
+              style={{ fontSize: "1.5em" }}
             >
               grid_view
             </span>
@@ -124,7 +128,7 @@ export default function Sidepanel() {
             id="settingDiv"
             className="sideBarDiv"
             style={{
-              marginBottom: "15px",
+              // marginBottom: "15px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -133,7 +137,7 @@ export default function Sidepanel() {
           >
             <span
               class="material-symbols-outlined"
-              style={{ fontSize: "40px" }}
+              style={{ fontSize: "1.5em" }}
             >
               settings
             </span>
@@ -154,7 +158,7 @@ export default function Sidepanel() {
           >
             <span
               class="material-symbols-outlined"
-              style={{ fontSize: "40px" }}
+              style={{ fontSize: "1.8em" }}
             >
               power_settings_new
             </span>
