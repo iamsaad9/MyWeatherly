@@ -1,7 +1,7 @@
 .sideBarDiv{
     /* background-color: rgb(154, 0, 0);  */
     height: 60px;
-    width: 85px;
+    width: 60px;
 } 
 
 
@@ -27,6 +27,7 @@
   
   /* Logo */
   #logoDiv.logo {
+    /* background-color: peru; */
     margin-bottom: 2vh;
     display: flex;
     justify-content: center;
@@ -48,6 +49,7 @@
     align-items: center;
     color: white;
   }
+
   
   /* Logout section */
   .logout-section {
@@ -71,4 +73,12 @@
   .logout-item .material-symbols-outlined {
     font-size: 1.8em;
   }
-  
+  #accountDiv,#notificationDiv,#dashboardDiv,#settingDiv,#loginDiv,#logoDiv{
+    /* border-radius: 50%; */
+    transition: ease-in-out 0.3s;
+  }
+
+  #accountDiv:hover,#notificationDiv:hover,#dashboardDiv:hover,#settingDiv:hover,#loginDiv:hover,#logoDiv:hover{
+    cursor: pointer;
+    background-color: #222121;
+  }

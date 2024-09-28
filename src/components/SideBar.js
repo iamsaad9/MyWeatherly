@@ -2,6 +2,11 @@ import React from "react";
 import "./SideBarCss.css";
 
 export default function Sidepanel() {
+
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
   return (
     <div>
       {/* Google Fonts */}
@@ -12,7 +17,7 @@ export default function Sidepanel() {
 
       <div id="container" className="sidebar-container">
         <div className="logo-section">
-          <div id="logoDiv" className="sideBarDiv logo">
+          <div id="logoDiv" className="sideBarDiv logo" onClick={reloadPage}>
             <span>G</span>
           </div>
         </div>

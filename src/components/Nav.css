@@ -96,6 +96,7 @@
     background-color: rgb(41, 41, 41);
     border: 1px solid gray;
     text-decoration: none;
+    outline: none;
   }
   
   /* Language section */
@@ -115,6 +116,7 @@
     padding: 5px 15px;
     font-size: 0.9em;
     color: white;
+    outline: none;
   }
   
   /* Temperature unit styling */

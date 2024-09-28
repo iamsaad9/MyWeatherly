@@ -1,118 +1,278 @@
-#hourly::-webkit-scrollbar{ 
-    display: none;
+#hourly::-webkit-scrollbar {
+  display: none;
 }
 
-#container{
-  background-color: '#be83de';
+#container {
+  background-color: "#be83de";
 }
-#hourly{
-    height: 100px;
-    width: 100%;
-    display: flex;
-    padding: 2px 5px;
-    gap: 5px;
-    flex-shrink: 0;
-    overflow-x: auto;
-}
-
-.hours{
-    width: 10%;
-    /* height: 90%; */
-    background-color: #be83de;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    flex-shrink: 0;
+#hourly {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  padding: 2px 5px;
+  gap: 5px;
+  flex-shrink: 0;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
+#scroll_left_btn {
+  outline: none;
+  height: 100%;
+  width: 30px;
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  transition: opacity 0.3s ease;
+  opacity: 0.8;
+}
 
-  
-  .mainRow {
-    display: flex;
-    gap: 20px;
+#scroll_left_btn:hover {
+  opacity: 1;
+}
+
+#scroll_right_btn {
+  outline: none;
+  height: 100%;
+  width: 30px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  transition: opacity 0.3s ease;
+  opacity: 0.8;
+}
+
+#scroll_right_btn:hover {
+  opacity: 1;
+}
+
+.hours:hover{
+  background-color: #b270d6;
+}
+
+.hours {
+  cursor: pointer;
+  width: 10%;
+  /* height: 90%; */
+  background-color: #be83de;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.mainRow {
+  display: flex;
+  gap: 20px;
+}
+
+.weatherCard {
+  background-color: #292929;
+  contain: content;
+  width: 45vw;
+  height: 40vh;
+  margin: 0px 10px;
+  border-radius: 30px;
+  border: 1px solid #474646;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.weatherInfo {
+  background-color: "orange";
+  width: 97%;
+  margin-bottom: 10px;
+  padding: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#weatherlogo {
+  background-color: white;
+  width: 70px;
+  height: 70px;
+}
+
+#weatherArea,
+#temperature,
+#humidity,
+#wind {
+  background-color: "blue";
+  display: flex;
+  justify-content: center;
+  margin: 0px 10px;
+}
+
+.weatherDetails {
+  display: flex;
+  flex-direction: column;
   }
-  
-  .weatherCard {
-    background-color: #292929;
-    contain: content    ;
-    width: 45vw;
-    height: 40vh;
-    margin: 0px 10px;
-    border-radius: 30px;
-    border: 1px solid #474646;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .weatherInfo {
-    width: 97%;
-    padding: 0px 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  #weatherlogo {
-    background-color: white;
-    width: 100px;
-  }
-  
-  #weatherArea, #temperature, #humidity, #wind {
-    display: flex;
-    justify-content: center;
-    margin: 0px 10px;
-  }
-  
-  .weatherDetails {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .location {
-    font-size: 40px;
-    color: white;
-  }
-  
-  .country, .tempLabel, .humidityLabel, .windLabel {
-    color: white;
-    text-align: left;
-  }
-  
-  .tempValue, .humidityValue, .windSpeed {
-    font-size: 40px;
-    color: white;
-  }
-  
-  .sideCard {
-    background-color: #292929;
-    border: 1px solid #474646;
-    width: 32vw;
-    height: 40vh;
-    margin: 0px 10px;
-    border-radius: 40px;
-  }
-  
-  #overviewDiv, #forcastDiv {
-    background-color: #292929;
-    border: 1px solid #474646;
-    border-radius: 40px;
-  }
-  
-  #overviewDiv {
-    width: 45vw;
-    height: 42vh;
-    margin: 10px;
-  }
-  
-  #forcastDiv {
-    width: 32vw;
-    height: 42vh;
-    margin: 10px;
-  }
-   
+
+.location {
+  font-size: 30px;
+  color: white;
+}
+
+.country,
+.tempLabel,
+.humidityLabel,
+.windLabel {
+  color: white;
+  text-align: left;
+  font-size: 12px;
+}
+
+.tempValue,
+.humidityValue,
+.windSpeed {
+  font-size: 30px;
+  color: white;
+}
+
+.worldmapDiv {
+  background-color: #292929;
+  border: 1px solid #474646;
+  width: 32vw;
+  height: 40vh;
+  margin: 0px 10px;
+  border-radius: 30px;
+}
+
+#overviewDiv,
+#forecastDiv {
+  background-color: #292929;
+  border: 1px solid #474646;
+  border-radius: 30px;
+}
+
+#overviewDiv {
+  width: 45vw;
+  height: 42vh;
+  margin: 10px;
+}
+
+#forecastDiv {
+  width: 32vw;
+  height: 42vh;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#forecastDivtitle{
+  background-color: 'orange';
+  width: 100%;
+  height: 25%;
+  display: flex;
+}
+
+
+#forecasttitle{
+  padding-left:20px ;
+  background-color:'red';
+  width: 50%;
+  height: 100%;
+}
+#titlespan{
+  color: white;
+  font-size: 35px;
+}
+
+#forecastday{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px; /* Rounded edges */
+  overflow: hidden;
+  width: 143px; /* Set width according to your design */
+  background-color: #1b1b1b; /* Background color of the switch */
+}
+
+.switch-button {
+  outline: none;
+  background-color: transparent; /* No background for buttons */
+  border: none; /* No border */
+  color: white; /* Text color */
+  padding: 7px 10px; /* Adjust padding */
+  margin: 1px;
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: ease-in-out 0.3s; /* Transition effects */
+  border-radius: 20px;
+}
+
+#day3btn{
+  background-color:#be83de;
+}
+
+
+#forecasts{
+  background-color: 'blue';
+  width: 95%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 5px;
+  overflow-Y: hidden;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.forcastdaysitem{
+  border-radius: 15px;
+  background-color: #1b1b1b;
+  width: 95%;
+  height: 30%;
+  flex-shrink: 0;
+}
+
+#forecasts::-webkit-scrollbar {
+  width: 12px;
+}
+#forecasts::-webkit-scrollbar-track {
+  background: #1b1b1b;
+  border-radius: 10px;
+}
+#forecasts::-webkit-scrollbar-thumb {
+  background-color:#be83de;
+  border-radius: 10px;
+  border: 2px solid black;    /* Adds space around the thumb */
+}
+
+#forecasts::-webkit-scrollbar-thumb:hover {
+  background-color:#b270d6;
+}
