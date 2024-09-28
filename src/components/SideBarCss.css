@@ -1,38 +1,44 @@
 .sideBarDiv{
     /* background-color: rgb(154, 0, 0);  */
     height: 60px;
-    width: 60px;
+    width: 50px;
 } 
 
 
 /* Sidebar container */
 #container.sidebar-container {
     background-color: rgb(41, 41, 41);
-    width: 4.5vw;
-    height: 90vh;
-    border-radius: 25px;
+    width: 4  vw;
+    height: 96vh;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 0px 20px 0px;
+    /* padding: 5px 0px 20px 0px; */
     contain: content;
+    border: 1px solid #474646;
   }
   
   /* Logo section */
   .logo-section {
+    /* background-color: #d82020; */
+    margin-top: 15px;
+    width: 50px;
+    height: 50px;
     display: flex;
-    margin-top: 4vh;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
   }
   
   /* Logo */
   #logoDiv.logo {
-    /* background-color: peru; */
-    margin-bottom: 2vh;
+    /* margin-bottom: 2vh; */
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5em;
+    font-size: 30px;  
     color: white;
   }
   
@@ -53,7 +59,13 @@
   
   /* Logout section */
   .logout-section {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
   }
   
   /* Logout item */
@@ -61,7 +73,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: #d82020;
   }
   
   /* Icons inside menu items */
@@ -73,12 +85,13 @@
   .logout-item .material-symbols-outlined {
     font-size: 1.8em;
   }
-  #accountDiv,#notificationDiv,#dashboardDiv,#settingDiv,#loginDiv,#logoDiv{
+  #accountDiv,#notificationDiv,#dashboardDiv,#settingDiv,.logout-section,.logo-section {
     /* border-radius: 50%; */
     transition: ease-in-out 0.3s;
   }
 
-  #accountDiv:hover,#notificationDiv:hover,#dashboardDiv:hover,#settingDiv:hover,#loginDiv:hover,#logoDiv:hover{
+  #accountDiv:hover,#notificationDiv:hover,#dashboardDiv:hover,#settingDiv:hover,.logout-section:hover,.logo-section:hover{
     cursor: pointer;
+    color: #b270d6;
     background-color: #222121;
   }

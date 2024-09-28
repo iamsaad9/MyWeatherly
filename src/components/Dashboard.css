@@ -110,7 +110,12 @@
 }
 
 #weatherlogo {
-  background-color: white;
+  /* background-color: white; */
+  background-image: url(../images/sun_with_clouds_icon.png);
+  background-size: cover;
+  background-position: center;
+  background-size: 100px;
+  background-repeat: no-repeat;
   width: 70px;
   height: 70px;
 }
@@ -225,7 +230,7 @@
   background-color: transparent; /* No background for buttons */
   border: none; /* No border */
   color: white; /* Text color */
-  padding: 7px 10px; /* Adjust padding */
+  padding: 6px 10px; /* Adjust padding */
   margin: 1px;
   cursor: pointer; /* Change cursor to pointer on hover */
   transition: ease-in-out 0.3s; /* Transition effects */
@@ -252,12 +257,20 @@
   box-sizing: border-box;
 }
 
-.forcastdaysitem{
+.forecastdaysitem{
+  /* background-color: orange; */
   border-radius: 15px;
   background-color: #1b1b1b;
   width: 95%;
   height: 30%;
   flex-shrink: 0;
+  display: flex;
+  cursor: pointer;
+}
+
+.forecastdaysitem:hover span{
+ 
+  color: #be83de;
 }
 
 #forecasts::-webkit-scrollbar {
@@ -275,4 +288,43 @@
 
 #forecasts::-webkit-scrollbar-thumb:hover {
   background-color:#b270d6;
+}
+
+.forecastitemtextDiv{
+  width: 70%;
+  background-color: 'blue';
+  padding: 0px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 10px;
+}
+.forecastitemtextDiv>span{
+  color:white;
+  font-size: 35px;
+}
+.forecasttextSpan{
+  font-size: 25px !important;
+  /* align-self: ; */
+}
+.forecastitemtextDiv div span:nth-child(2){
+  font-size: 12px !important;
+}
+
+.forecastitemdateDiv{
+  background-color: 'purple';
+  width: 40%;
+  padding: 0px 20px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+.forecastitemdateDiv>div{
+  font-size: 25px;
+  color: white;
+}
+.forecastitemdateDiv div span:nth-child(2){
+  align-self: flex-end;
+  font-size: 12px;
+  margin: 0px 5px;
 }
