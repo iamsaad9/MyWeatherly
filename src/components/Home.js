@@ -1,26 +1,27 @@
-import React from 'react'
-import Sidepanel from './Sidepanel'
-import Nav from './Nav'
-import Dashboard from './Dashboard'
-import Wordforcast from './Wordforcast'
+import React from 'react';
+import Sidepanel from './SideBar';
+import Nav from './Nav';
+import Dashboard from './Dashboard';
+import Wordforcast from './Worldforcast';
+import './Home.css';
 
 export default function Home() {
   return (
     <div>
-      <div id='container' style={{backgroundColor:'black',display:'flex',gap:'20px'}}>
+      <div id='container' className='main-container'>
         
-        <div id='sidbar_cont' style={{backgroundColor:'black',height:'100vh',width:'5vw',display:'flex',justifyContent:'center',alignItems:'center',position:''}}>
-            <Sidepanel/>
+        <div id='sidebarContainer' className='sidebar'>
+          <Sidepanel />
         </div>
-       
-        <div id='home_cont' style={{backgroundColor:'',width:'90vw'}}>
-          <div id='nav_cont'>
-            <Nav/>
+        
+        <div id='homeContainer' className='home-content'>
+          <div id='navContainer'>
+            <Nav />
           </div>
-            <div id='dash_cont' style={{backgroundColor:'green',padding:'5px',display:'flex'}}>
-              <Dashboard/>
-              <Wordforcast/>
-         </div>
+          <div id='dashboardContainer' className='dashboard'>
+            <Dashboard />
+            <Wordforcast />
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,51 @@
+/* Container for the forecast section */
+#forecastDiv.forecast-container::-webkit-scrollbar{ 
+  display: none;
+}
+
+#forecastDiv.forecast-container {
+    background-color: 'orange';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 130px;
+    height: 84vh;
+    padding: 0px;
+    overflow-y: auto;
+  }
+  
+  /* Individual forecast items */
+  .forecast-item {
+    background-color: 'red';
+    /* height: 500px; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 15px 0px;
+  }
+  
+  /* Circular logo at the top of each forecast item */
+  .forecast-logo {
+    background-color: grey;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+  }
+  
+  /* Box containing the letter in the forecast item */
+  .forecast-box {
+    background-color: #292929;
+    height: 150px;
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid #474646;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

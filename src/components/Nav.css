@@ -1,0 +1,126 @@
+/* Container for the navigation section */
+#container.nav-container {
+    background-color: transparent;
+    height: 13vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* About section container */
+  #about.about-section {
+    background-color: transparent;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  /* Display picture container */
+  #dis_pic.display-pic {
+    background-color: transparent;
+    width: 35px;
+    height: 35px;
+  }
+  
+  /* Circle style for the display picture */
+  .circle {
+    width: 35px;
+    height: 35px;
+    background-color: white;
+    border-radius: 50%;
+  }
+  
+  /* Information section containing name and date */
+  .info-section {
+    background-color: transparent;
+    display: flex;
+    width: 300px;
+    padding: 5px;
+    padding-bottom: 10px;
+    flex-direction: column;
+  }
+  
+  /* Name section */
+  #name.name-section {
+    background-color: transparent;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Text for the name */
+  #name_span.name-text {
+    color: white;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Text for the date */
+  #date_span.date-text {
+    color: white;
+    font-size: 25px;
+    margin-top: -5px;
+  }
+  
+  /* Navigation options container */
+  #nav_opt.nav-options {
+    background-color: transparent;
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+    width: 38vw;
+  }
+  
+  /* Search section */
+  #search.search-section {
+    background-color: transparent;
+    height: 0em;
+    width: 15em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Search input styling */
+  .search-input {
+    width: 100%;
+    border-radius: 25px;
+    padding: 5px 10px;
+    font-size: 0.9em;
+    color: white;
+    background-color: rgb(41, 41, 41);
+    border: 1px solid gray;
+    text-decoration: none;
+  }
+  
+  /* Language section */
+  #language.language-section {
+    background-color: transparent;
+    width: 8vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Language select dropdown styling */
+  .language-select {
+    width: 90%;
+    background-color: rgb(41, 41, 41);
+    border-radius: 25px;
+    padding: 5px 15px;
+    font-size: 0.9em;
+    color: white;
+  }
+  
+  /* Temperature unit styling */
+  #temp_unit.temp-unit {
+    background-color: rgb(41, 41, 41);
+    height: 3em;
+    width: 7vw;
+  }
+  

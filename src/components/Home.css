@@ -1,0 +1,43 @@
+/* Main container for the entire layout */
+#container.main-container {
+    background-color: black;
+    display: flex;
+    gap: 20px;
+    width: 100vw;
+  }
+  
+  /* Sidebar container */
+  #sidebarContainer.sidebar {
+    background-color: black;
+    height: 100vh;
+    width: 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Container for the main content on the right (home section) */
+  #homeContainer.home-content {
+    background-color: transparent; 
+    width: 100vw;
+    height: 100vh;
+    contain: content;
+  }
+  
+  /* Navigation container */
+  .navContainer {
+    width: 100%;
+      /* Add any custom styles for the Nav component if needed */
+  }
+  
+  /* Dashboard container */
+  #dashboardContainer.dashboard {
+    background-color: 'green';
+    padding-top: 5px;
+    /* padding-bottom: 20px; */
+    /* margin: 10px 0px; */
+    display: flex;
+    width: 90vw;
+    gap: 10px;
+  }
+  

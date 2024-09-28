@@ -1,5 +1,74 @@
 .sideBarDiv{
-    /* background-color: rgb(154, 0, 0); */
+    /* background-color: rgb(154, 0, 0);  */
     height: 60px;
     width: 85px;
-}
+} 
+
+
+/* Sidebar container */
+#container.sidebar-container {
+    background-color: rgb(41, 41, 41);
+    width: 4.5vw;
+    height: 90vh;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0px 20px 0px;
+    contain: content;
+  }
+  
+  /* Logo section */
+  .logo-section {
+    display: flex;
+    margin-top: 4vh;
+  }
+  
+  /* Logo */
+  #logoDiv.logo {
+    margin-bottom: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em;
+    color: white;
+  }
+  
+  /* Menu section */
+  .menu-section {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Menu items */
+  .menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  
+  /* Logout section */
+  .logout-section {
+    margin-bottom: 15px;
+  }
+  
+  /* Logout item */
+  .logout-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  
+  /* Icons inside menu items */
+  .menu-item .material-symbols-outlined,
+  .logout-item .material-symbols-outlined {
+    font-size: 1.5em;
+  }
+  
+  .logout-item .material-symbols-outlined {
+    font-size: 1.8em;
+  }
+  

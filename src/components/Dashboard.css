@@ -1,3 +1,118 @@
 #hourly::-webkit-scrollbar{ 
     display: none;
 }
+
+#container{
+  background-color: '#be83de';
+}
+#hourly{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    padding: 2px 5px;
+    gap: 5px;
+    flex-shrink: 0;
+    overflow-x: auto;
+}
+
+.hours{
+    width: 10%;
+    /* height: 90%; */
+    background-color: #be83de;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+
+  
+  .mainRow {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .weatherCard {
+    background-color: #292929;
+    contain: content    ;
+    width: 45vw;
+    height: 40vh;
+    margin: 0px 10px;
+    border-radius: 30px;
+    border: 1px solid #474646;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .weatherInfo {
+    width: 97%;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  #weatherlogo {
+    background-color: white;
+    width: 100px;
+  }
+  
+  #weatherArea, #temperature, #humidity, #wind {
+    display: flex;
+    justify-content: center;
+    margin: 0px 10px;
+  }
+  
+  .weatherDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .location {
+    font-size: 40px;
+    color: white;
+  }
+  
+  .country, .tempLabel, .humidityLabel, .windLabel {
+    color: white;
+    text-align: left;
+  }
+  
+  .tempValue, .humidityValue, .windSpeed {
+    font-size: 40px;
+    color: white;
+  }
+  
+  .sideCard {
+    background-color: #292929;
+    border: 1px solid #474646;
+    width: 32vw;
+    height: 40vh;
+    margin: 0px 10px;
+    border-radius: 40px;
+  }
+  
+  #overviewDiv, #forcastDiv {
+    background-color: #292929;
+    border: 1px solid #474646;
+    border-radius: 40px;
+  }
+  
+  #overviewDiv {
+    width: 45vw;
+    height: 42vh;
+    margin: 10px;
+  }
+  
+  #forcastDiv {
+    width: 32vw;
+    height: 42vh;
+    margin: 10px;
+  }
+   
