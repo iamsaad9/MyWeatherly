@@ -3,7 +3,7 @@
 }
 
 #container {
-  background-color: "#be83de";
+  /* background-color: "orange"; */
 }
 #hourly {
   height: 100px;
@@ -41,11 +41,12 @@
 }
 
 #scroll_right_btn {
+  /* display: none; */
   outline: none;
   height: 100%;
   width: 30px;
   position: absolute;
-  right: 0;
+  right: 0px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
@@ -54,6 +55,7 @@
   border: none;
   cursor: pointer;
   padding: 10px;
+  padding-right: 25px;
   transition: opacity 0.3s ease;
   opacity: 0.8;
 }
@@ -61,6 +63,12 @@
 #scroll_right_btn:hover {
   opacity: 1;
 }
+
+/* .hours:hover #scroll_left_btn_span,
+.hours:hover #scroll_right_btn_span{
+  color: red; 
+  transition: background-color 0.3s; 
+} */
 
 .hours:hover{
   background-color: #b270d6;
@@ -70,7 +78,7 @@
   cursor: pointer;
   width: 10%;
   /* height: 90%; */
-  background-color: #be83de;
+  background-color: var(--themeColor);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -86,13 +94,13 @@
 }
 
 .weatherCard {
-  background-color: #292929;
+  background-color: var(--elementBg);
   contain: content;
   width: 45vw;
   height: 40vh;
   margin: 0px 10px;
   border-radius: 30px;
-  border: 1px solid #474646;
+  border: 1.5px solid var(--borderColor);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -157,8 +165,8 @@
 }
 
 .worldmapDiv {
-  background-color: #292929;
-  border: 1px solid #474646;
+  background-color: var(--elementBg);
+  border: 1.5px solid var(--borderColor);
   width: 32vw;
   height: 40vh;
   margin: 0px 10px;
@@ -167,8 +175,8 @@
 
 #overviewDiv,
 #forecastDiv {
-  background-color: #292929;
-  border: 1px solid #474646;
+  background-color: var(--elementBg);
+  border: 1.5px solid var(--borderColor);
   border-radius: 30px;
 }
 
@@ -176,6 +184,62 @@
   width: 45vw;
   height: 42vh;
   margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#overviewDivtitle{
+  /* background-color: orange; */
+  width: 100%;
+  height: 25%;
+  display: flex;
+}
+
+#overviewtitle{
+  /* background-color: red; */
+  padding-left:20px ;
+  background-color:'red';
+  width: 40%;
+  height: 100%;
+}
+
+#overviewtype{
+  /* background-color: pink; */
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+  align-items: end;
+  justify-content: center;
+}
+
+.overview-toggle-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px; /* Rounded edges */
+  overflow: hidden;
+  /* width: 300px;  */
+  background-color: var(--elementDarkBg); /* Background color of the switch */
+  padding: 2px;
+}
+
+.overview-switch-button{
+  font-size: 12px;
+  font-weight: 500;
+  outline: none;
+  background-color: transparent; /* No background for buttons */
+  border: none; /* No border */
+  color: black; /* Text color */
+  padding: 6px 10px; /* Adjust padding */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: ease-in-out 0.3s; /* Transition effects */
+  border-radius: 20px;
+}
+
+#humiditybtn{
+  background-color: var(--themeColor);
 }
 
 #forecastDiv {
@@ -215,35 +279,41 @@
   justify-content: center;
 }
 
-.toggle-switch {
+.forecast-toggle-switch {
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 20px; /* Rounded edges */
   overflow: hidden;
   width: 143px; /* Set width according to your design */
-  background-color: #1b1b1b; /* Background color of the switch */
+  background-color: var(--elementDarkBg); /* Background color of the switch */
+  padding: 2px;
 }
 
-.switch-button {
+.forecast-switch-button {
   outline: none;
   background-color: transparent; /* No background for buttons */
   border: none; /* No border */
-  color: white; /* Text color */
+  color: black; /* Text color */
   padding: 6px 10px; /* Adjust padding */
-  margin: 1px;
   cursor: pointer; /* Change cursor to pointer on hover */
   transition: ease-in-out 0.3s; /* Transition effects */
   border-radius: 20px;
 }
 
 #day3btn{
-  background-color:#be83de;
+  background-color:var(--themeColor);
+}
+#day10btn{
+  color: white;
+}
+#uvIndexbtn,#rainfallbtn,#pressurebtn{
+  color: white;
 }
 
 
 #forecasts{
-  background-color: 'blue';
+  /* background-color: blue; */
   width: 95%;
   height: 70%;
   display: flex;
@@ -260,7 +330,7 @@
 .forecastdaysitem{
   /* background-color: orange; */
   border-radius: 15px;
-  background-color: #1b1b1b;
+  background-color: var(--elementDarkBg);
   width: 95%;
   height: 30%;
   flex-shrink: 0;
@@ -269,19 +339,18 @@
 }
 
 .forecastdaysitem:hover span{
- 
-  color: #be83de;
+  color: var(--themeColor);
 }
 
 #forecasts::-webkit-scrollbar {
   width: 12px;
 }
 #forecasts::-webkit-scrollbar-track {
-  background: #1b1b1b;
+  background: var(--elementDarkBg);
   border-radius: 10px;
 }
 #forecasts::-webkit-scrollbar-thumb {
-  background-color:#be83de;
+  background-color:var(--themeColor);
   border-radius: 10px;
   border: 2px solid black;    /* Adds space around the thumb */
 }
@@ -304,11 +373,11 @@
   font-size: 35px;
 }
 .forecasttextSpan{
-  font-size: 25px !important;
+  font-size: 25px ;
   /* align-self: ; */
 }
-.forecastitemtextDiv div span:nth-child(2){
-  font-size: 12px !important;
+.forecastitemtextDiv div span:nth-child(2),span:nth-child(3){
+  font-size: 12px ;
 }
 
 .forecastitemdateDiv{

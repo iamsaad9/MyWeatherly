@@ -7,7 +7,7 @@
 
 /* Sidebar container */
 #container.sidebar-container {
-    background-color: rgb(41, 41, 41);
+    background-color:var(--elementBg);
     width: 4  vw;
     height: 96vh;
     border-radius: 20px;
@@ -17,7 +17,7 @@
     align-items: center;
     /* padding: 5px 0px 20px 0px; */
     contain: content;
-    border: 1px solid #474646;
+    border: 1.5px solid var(--borderColor);
   }
   
   /* Logo section */
@@ -92,6 +92,6 @@
 
   #accountDiv:hover,#notificationDiv:hover,#dashboardDiv:hover,#settingDiv:hover,.logout-section:hover,.logo-section:hover{
     cursor: pointer;
-    color: #b270d6;
-    background-color: #222121;
+    color: var(--themeColor);
+    background-color: var(--elementDarkBg);
   }

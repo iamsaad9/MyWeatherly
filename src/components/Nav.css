@@ -73,30 +73,42 @@
     align-items: center;
     justify-content: space-between;
     margin: 10px;
-    width: 38vw;
+    width: 35vw;
   }
   
   /* Search section */
   #search.search-section {
-    background-color: transparent;
-    height: 0em;
+    background-color: pink;
+    background-color:var(--elementBg);
+    border: 1.5px solid var(--borderColor);
+
+    /* height: ; */
     width: 15em;
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
+    position: relative;
+        border-radius: 25px;
+
   }
   
+  #search.search-section span{
+    color: var(--borderColor) ;
+    position: absolute;
+    left: 6px;
+  }
   /* Search input styling */
   .search-input {
-    width: 100%;
-    border-radius: 25px;
+    /* background-color: orange; */
+    width: 90%;
+    border-radius: 0px 25px 25px 0px;
     padding: 5px 10px;
     font-size: 0.9em;
     color: white;
-    background-color: rgb(41, 41, 41);
-    border: 1px solid gray;
+    background-color:var(--elementBg);
     text-decoration: none;
     outline: none;
+    border: none;
   }
   
   /* Language section */
@@ -111,7 +123,8 @@
   /* Language select dropdown styling */
   .language-select {
     width: 90%;
-    background-color: rgb(41, 41, 41);
+    background-color:var(--elementBg);
+     border: 1.5px solid var(--borderColor);
     border-radius: 25px;
     padding: 5px 15px;
     font-size: 0.9em;
@@ -121,8 +134,50 @@
   
   /* Temperature unit styling */
   #temp_unit.temp-unit {
-    background-color: rgb(41, 41, 41);
-    height: 3em;
-    width: 7vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(41, 41, 41); */
+    /* height: 20em; */
+    margin-right: 10px;
+    /* width: 5vw; */
   }
+  .temp_toggle-switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 80px;
+    background-color: var(--elementBg);
+    padding: 2px;
+}
+
   
+  .temp-switch-button {
+    contain: content;
+    width: 35px ;
+    height: 30px;
+    font-size: 15px;
+    outline: none;
+    background-color: transparent;
+    border: none;
+    color: white;
+    /* padding: 6px 10px; */
+    margin: 1px;
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+    border-radius: 20px;
+}
+
+#celbtn{
+  background-color: var(--themeColor);
+}
+
+.MenuItem{
+  background-color: red;
+}
+.css-99wn1p-MuiList-root-MuiMenu-list{
+  background-color: var(--elementBg);
+  color: white;
+}

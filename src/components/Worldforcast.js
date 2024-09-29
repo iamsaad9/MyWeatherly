@@ -1,86 +1,159 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./Worldforcast.css";
 
-export default function Worldforcast() {
-  const [forecasts, setForecasts] = useState([
-    { id: 1, label: "B", logo: "logo" }, // Existing forecast item
-  ]);
+const ForecastItem = ({ city, country, temperature, minTemperature }) => {
+  return (
+    <div
+      className="forecast-item"
+      style={{
+        width: "9vw",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "relative",
+        padding: "15px 0px",
+      }}
+    >
+      <div
+        className="forecast-logo"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "pink",
+          height: "35px",
+          width: "35px",
+          borderRadius: "50%",
+          position: "absolute",
+          top: 0,
+        }}
+      >
+        <button
+          id="forcast_btn"
+          style={{
+            height: "35px",
+            width: "35px",
+            borderRadius: "50%",
+            position: "absolute",
+            top: 0,
+            border: "none",
+            backgroundColor: "#be83de",
+            display: "flex",
+          }}
+        >
+          <span className="material-symbols-outlined"></span>
+        </button>
+      </div>
+      <div
+        className="forecast-box"
+        style={{
+          height: "150px",
+          width: "100%",
+          borderRadius: "15px",
+          backgroundColor: "#1b1b1b",
+          border: "1.5px solid #474646",
+          padding: "10px 0px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <div
+            id="foracasttextDiv"
+            style={{
+              marginTop: "10px",
+              color: "white",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "50%",
+            }}
+          >
+            <span style={{ marginBottom: "-5px", fontSize: "20px" }}>{city}</span>
+            <span style={{ fontSize: "10px" }}>{country}</span>
+          </div>
 
-  // Function to add a new forecast item
+          <div
+            id="forcastsubtitleDiv"
+            style={{
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "flex-end",
+              flexDirection: "row",
+              width: "100%",
+              height: "40%",
+            }}
+          >
+            <span className="temp_degree" style={{ fontSize: "25px" }}>{temperature}*</span>
+            <span style={{ fontSize: "20px" }}>/</span>
+            <span className="temp_degree" style={{ fontSize: "15px" }}>{minTemperature}*</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default function Worldforcast() {
+  const [forecasts, setForecasts] = useState([]);
+
   const addForecast = () => {
+    // Here, you can customize the city, country, temperature, and minTemperature
     const newForecast = {
-      id: forecasts.length - 1,
-      label: "New",
-      logo: "logo",
+      city: "Tokyo",
+      country: "Japan",
+      temperature: 23,
+      minTemperature: 14,
     };
-    setForecasts([newForecast, ...forecasts]); // Add the new forecast at the top
+    setForecasts((prevForecasts) => [...prevForecasts, newForecast]);
   };
 
   return (
     <div>
       <div id="WorldforecastDiv" className="forecast-container">
-        
         <div className="forecast-item">
-          <div className="forecast-logo">
+          <div className="add-forecast-logo">
             <button id="add_forcast_btn" onClick={addForecast}>
-              <span class="material-symbols-outlined">add</span>
+              <span className="material-symbols-outlined">add</span>
             </button>
           </div>
-          <div className="add-forecast-box">A</div>
+          <div className="add-forecast-box">
+            <div>
+              <div id="add-foracasttextDiv">
+                <span style={{ marginBottom: "-5px" }}>World</span>
+                <span>Forecast</span>
+              </div>
+              <div id="add-forcastsubtitleDiv">
+                <span style={{ marginBottom: "-5px", fontSize: "10px" }}>
+                  Add the cities you
+                </span>
+                <span style={{ fontSize: "10px" }}>are interested in</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {forecasts.map((forecast) => (
-          <div key={forecast.id} className="forecast-item">
-            <div className="forecast-logo">{forecast.logo}</div>
-            <div className="forecast-box">{forecast.label}</div>
-          </div>
+        {forecasts.map((forecast, index) => (
+          <ForecastItem 
+            key={index}
+            city={forecast.city}
+            country={forecast.country}
+            temperature={forecast.temperature}
+            minTemperature={forecast.minTemperature}
+          />
         ))}
-
-        {/* <div className='forecast-item'>
-          <div className='forecast-logo'>
-            logo
-          </div>
-          <div className='forecast-box'>
-            B
-          </div>
-        </div>
-
-        <div className='forecast-item'>
-          <div className='forecast-logo'>
-            logo
-          </div>
-          <div className='forecast-box'>
-            C
-          </div>
-        </div>
-
-        <div className='forecast-item'>
-          <div className='forecast-logo'>
-            logo
-          </div>
-          <div className='forecast-box'>
-            D
-          </div>
-        </div>
-
-        <div className='forecast-item'>
-          <div className='forecast-logo'>
-            logo
-          </div>
-          <div className='forecast-box'>
-            D
-          </div>
-        </div>
-
-        <div className='forecast-item'>
-          <div className='forecast-logo'>
-            logo
-          </div>
-          <div className='forecast-box'>
-            D
-          </div>
-        </div> */}
       </div>
     </div>
   );

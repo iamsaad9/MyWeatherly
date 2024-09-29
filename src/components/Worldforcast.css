@@ -4,7 +4,7 @@
 }
 
 #WorldforecastDiv.forecast-container {
-    background-color: 'orange';
+    background-color: '';
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +17,7 @@
   
   /* Individual forecast items */
   .forecast-item {
-    background-color: 'red';
+    background-color: '';
     /* height: 500px; */
     width: 100%;
     display: flex;
@@ -28,8 +28,11 @@
   }
   
   /* Circular logo at the top of each forecast item */
-  .forecast-logo {
-    background-color: #be83de;
+  .add-forecast-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--themeColor);
     height: 35px;
     width: 35px;
     border-radius: 50%;
@@ -37,30 +40,55 @@
     top: 0;
   }
   
-  /* Box containing the letter in the forecast item */
-  .forecast-box {
-    background-color: #292929;
+  .forecast-box div{
+    height: 90%;
+    width: 100%;
+    /* background-color: 'orange'; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .add-forecast-box{
+    /* background-color:; */
     height: 150px;
     width: 100%;
     border-radius: 15px;
-    border: 1px solid #474646;
-    padding: 10px;
+    border: 1.5px solid var(--borderColor);
+    border-style: dashed;
+    padding: 10px;  
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
-  .add-forecast-box{
-    background-color: black;
-    height: 150px;
+  .add-forecast-box div{
+    height: 90%;
     width: 100%;
-    border-radius: 15px;
-    border: 1px solid #474646;
-    border-style: dashed;
-    padding: 10px;
+    /* background-color: 'orange'; */
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  #add-foracasttextDiv{
+    color: white;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 50%;
+    /* background-color: ; */
+  }
+  #add-forcastsubtitleDiv{
+    /* background-color: ; */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: 'pink';
+    width: 100%;
+    height: 40%;
   }
 
   #add_forcast_btn{
@@ -75,10 +103,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #be83de;
+    background-color: var(--themeColor);
   }
 
   #add_forcast_btn span{
     color: black;
     font-size: 25px;
   }
+  

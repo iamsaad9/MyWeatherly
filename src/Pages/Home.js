@@ -1,8 +1,8 @@
 import React from 'react';
-import Sidepanel from './SideBar';
-import Nav from './Nav';
-import Dashboard from './Dashboard';
-import Wordforcast from './Worldforcast';
+import Sidepanel from '../components/SideBar';
+import Nav from '../components/Nav';
+import Dashboard from '../components/Dashboard';
+import Wordforcast from '../components/Worldforcast';
 import './Home.css';
 
 export default function Home() {
