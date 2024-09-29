@@ -1,6 +1,9 @@
 import React from "react";
 import "./Dashboard.css";
 import { useRef, useState } from "react";
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+
 
 export default function Dashboard() {
   const scrollLeft = () => {
@@ -167,16 +170,16 @@ export default function Dashboard() {
               </button>
 
               <div id="hourly">
-                <div className="hours">
+                <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>12 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>1 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
@@ -184,9 +187,9 @@ export default function Dashboard() {
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>2 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
@@ -195,18 +198,18 @@ export default function Dashboard() {
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>3 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>4 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
@@ -215,9 +218,9 @@ export default function Dashboard() {
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>5 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">foggy</span>
@@ -225,36 +228,36 @@ export default function Dashboard() {
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>6 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">rainy</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>7 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">rainy</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>8 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">foggy</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>9 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
@@ -263,9 +266,9 @@ export default function Dashboard() {
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>20 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
@@ -274,36 +277,36 @@ export default function Dashboard() {
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>11 am</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">sunny</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>12 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">sunny</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>1 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">sunny</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>2 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
@@ -312,9 +315,9 @@ export default function Dashboard() {
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>3 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
@@ -323,9 +326,9 @@ export default function Dashboard() {
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>4 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
@@ -334,63 +337,63 @@ export default function Dashboard() {
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>5 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>6 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>7 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">rainy</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>8 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">rainy</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>9 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>10 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
 
-                <div className="hours">
+               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
                   <span style={{ backgroundColor: "" }}>11 pm</span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
@@ -399,7 +402,7 @@ export default function Dashboard() {
                   <span className="temp_degree" style={{ backgroundColor: "" }}>
                     17*
                   </span>
-                </div>
+                </Card>
               </div>
             </div>
           </div>
