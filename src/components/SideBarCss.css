@@ -40,6 +40,7 @@
     align-items: center;
     font-size: 30px;  
     color: white;
+    transition: color ease-in-out 0.2s;
   }
   
   /* Menu section */
@@ -61,7 +62,7 @@
   .logout-section {
     margin-bottom: 5px;
     width: 45px;
-    height: 45px;
+    height: 46px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,10 +71,11 @@
   
   /* Logout item */
   .logout-item {
+    transition: color ease-in-out 0.2s;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #d82020;
+    color: white;
   }
   
   /* Icons inside menu items */
@@ -81,7 +83,9 @@
   .logout-item .material-symbols-outlined {
     font-size: 1.5em;
   }
-  
+  .logout-item:hover{
+    color: red;
+  }
   .logout-item .material-symbols-outlined {
     font-size: 1.8em;
   }
@@ -89,7 +93,9 @@
     /* border-radius: 50%; */
     transition: ease-in-out 0.3s;
   }
-
+  #logoDiv.logo:hover{
+    color: var(--themeColor);
+  }
   #accountDiv:hover,#notificationDiv:hover,#dashboardDiv:hover,#settingDiv:hover,.logout-section:hover,.logo-section:hover{
     cursor: pointer;
     color: var(--themeColor);

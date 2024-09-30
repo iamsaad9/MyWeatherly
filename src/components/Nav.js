@@ -3,6 +3,8 @@ import "./Nav.css";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Avatar from "@mui/material/Avatar";
+import img from "../images/IMG_20210213_183032.jpg"
 
 export default function Nav() {
   const [lang, setLang] = React.useState("");
@@ -26,7 +28,6 @@ export default function Nav() {
   };
 
   const changetoFar = () => {
-    // setchangeUnit('F')
     if (activeUnit === "C" || activeUnit === "D") {
       setActiveUnit("F");
       setchangeUnit("true");
@@ -40,28 +41,49 @@ export default function Nav() {
       console.log(celbtn, farbtn);
       if (activeUnit === "D") {
         celbtn.current.style.backgroundColor = "#be83de";
+        celbtn.current.style.color = "black";
+        celbtn.current.style.fontWeight = "600";
         farbtn.current.style.backgroundColor = "transparent";
+        farbtn.current.style.color = "white";
       } else if (activeUnit === "C" && changeUnit === "true") {
         celbtn.current.style.backgroundColor = "#be83de";
+        celbtn.current.style.color = "black";
         farbtn.current.style.backgroundColor = "transparent";
+        farbtn.current.style.color = "white";
         const tempDegrees = document.getElementsByClassName("temp_degree");
+        // const unitDisplay = document.getElementsByClassName("unit-display");
+
         for (let i = 0; i < tempDegrees.length; i++) {
           const farValue = parseFloat(tempDegrees[i].textContent);
           console.log(toString(farValue));
           const celValue = (farValue - 32) * (5 / 9);
           console.log(toString(celValue));
-          tempDegrees[i].textContent = celValue.toFixed(0) + "*";
+          tempDegrees[i].textContent = celValue.toFixed(0) + "°";
         }
+        const unitDisplay = document.querySelectorAll('.unit-display');
+    for (let i = 0; i < unitDisplay.length; i++) {
+      unitDisplay[i].textContent = ' C';
+    }
+        console.log(unitDisplay)
       } else if (activeUnit === "F" && changeUnit === "true") {
         celbtn.current.style.backgroundColor = "transparent";
+        celbtn.current.style.color = "white";
         farbtn.current.style.backgroundColor = "#be83de";
+        farbtn.current.style.color = "black";
+        farbtn.current.style.fontWeight = "600";
         const tempDegrees = document.getElementsByClassName("temp_degree");
+        // const unitDisplay = document.getElementsByClassName("unit-display");
         for (let i = 0; i < tempDegrees.length; i++) {
           const celValue = parseFloat(tempDegrees[i].textContent);
           // console.log(celValue)
           const farValue = celValue * (9 / 5) + 32;
           // console.log(farValue)
-          tempDegrees[i].textContent = farValue.toFixed(1) + " F";
+          tempDegrees[i].textContent = farValue.toFixed(1) + `°`;
+        }
+
+        const unitDisplay = document.querySelectorAll('.unit-display');
+        for (let i = 0; i < unitDisplay.length; i++) {
+          unitDisplay[i].textContent = ' F';
         }
       }
     }
@@ -72,7 +94,9 @@ export default function Nav() {
       <div id="container" className="nav-container">
         <div id="about" className="about-section">
           <div id="dis_pic" className="display-pic">
-            <div className="circle"></div>
+            {/* <div className="circle"> */}
+            <Avatar alt="Saad Masood" src={img} />
+            {/* </div> */}
           </div>
 
           <div className="info-section">
@@ -155,7 +179,7 @@ export default function Nav() {
                 class="temp-switch-button"
                 onClick={changetoCel}
               >
-                C*
+                C°
               </button>
               <button
                 id="farbtn"
@@ -163,7 +187,7 @@ export default function Nav() {
                 class="temp-switch-button"
                 onClick={changetoFar}
               >
-                F*
+                F°
               </button>
             </div>
           </div>

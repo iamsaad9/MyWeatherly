@@ -1,9 +1,9 @@
 import React from "react";
 import "./Dashboard.css";
-import { useRef, useState } from "react";
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-
+import { useRef } from "react";
+import Card from "@mui/material/Card";
+import Graph from './Graph'
+import { useState } from "react";
 
 export default function Dashboard() {
   const scrollLeft = () => {
@@ -19,88 +19,124 @@ export default function Dashboard() {
   const day3Ref = useRef(null);
   const day10Ref = useRef(null);
   const forecastDiv = useRef(null);
-  const humidityRef = useRef(null)
-  const uvindexRef = useRef(null)
-  const rainfallRef = useRef(null)
-  const pressureRef = useRef(null)
+  const humidityRef = useRef(null);
+  const uvindexRef = useRef(null);
+  const rainfallRef = useRef(null);
+  const pressureRef = useRef(null);
+  const overview_active = 'active';
 
   const changetoDay3 = () => {
     if (day3Ref.current && day10Ref.current && forecastDiv.current) {
+      // Remove active class and inline styles from day10
       day10Ref.current.style.backgroundColor = "transparent";
       day10Ref.current.style.color = "white";
+      day10Ref.current.classList.remove('active_day'); // Remove the active class from day10
+  
+      // Apply styles and class to day3
       day3Ref.current.style.backgroundColor = "#be83de";
       day3Ref.current.style.color = "black";
+      day3Ref.current.style.fontWeight = "500";
+      day3Ref.current.classList.add('active_day'); // Add the active_day class
+  
+      // Additional styling for forecastDiv
       forecastDiv.current.style.overflow = "hidden";
     }
   };
 
   const changetoDay10 = () => {
     if (day3Ref.current && day10Ref.current && forecastDiv.current) {
+      // Remove active class and inline styles from day3
       day3Ref.current.style.backgroundColor = "transparent";
       day3Ref.current.style.color = "white";
+      day3Ref.current.classList.remove('active_day'); // Remove the active class from day3
+  
+      // Apply styles and class to day10
       day10Ref.current.style.backgroundColor = "#be83de";
       day10Ref.current.style.color = "black";
-      forecastDiv.current.style.overflowY = "scroll";
+      day10Ref.current.style.fontWeight = "500";
+      day10Ref.current.classList.add('active_day'); // Add the active_day class
+  
+      // Additional styling for forecastDiv
+      forecastDiv.current.style.overflow = "hidden";
+    }
+  };
+  
+
+  const changetouvIndex = () => {
+    if (
+      humidityRef.current &&
+      uvindexRef.current &&
+      rainfallRef.current &&
+      pressureRef.current
+    ) {
+      uvindexRef.current.style.backgroundColor = "#be83de";
+      uvindexRef.current.style.color = "black";
+      uvindexRef.current.style.fontWeight = "600";
+      humidityRef.current.style.backgroundColor = "transparent";
+      humidityRef.current.style.color = "white";
+      rainfallRef.current.style.backgroundColor = "transparent";
+      rainfallRef.current.style.color = "white";
+      pressureRef.current.style.backgroundColor = "transparent";
+      pressureRef.current.style.color = "white";
     }
   };
 
-  const changetouvIndex = () =>{
-    if(humidityRef.current && uvindexRef.current && rainfallRef.current && pressureRef.current){
-      uvindexRef.current.style.backgroundColor='#be83de'
-      uvindexRef.current.style.color='black'
-      humidityRef.current.style.backgroundColor='transparent'
-      humidityRef.current.style.color='white'
-      rainfallRef.current.style.backgroundColor='transparent'
-      rainfallRef.current.style.color='white'
-      pressureRef.current.style.backgroundColor='transparent'
-      pressureRef.current.style.color='white'
-
+  const changetohumidity = () => {
+    if (
+      humidityRef.current &&
+      uvindexRef.current &&
+      rainfallRef.current &&
+      pressureRef.current
+    ) {
+      humidityRef.current.style.backgroundColor = "#be83de";
+      humidityRef.current.style.color = "black";
+      humidityRef.current.style.fontWeight = "600";
+      uvindexRef.current.style.backgroundColor = "transparent";
+      uvindexRef.current.style.color = "white";
+      rainfallRef.current.style.backgroundColor = "transparent";
+      rainfallRef.current.style.color = "white";
+      pressureRef.current.style.backgroundColor = "transparent";
+      pressureRef.current.style.color = "white";
     }
-  }
+  };
 
-  const changetohumidity = () =>{
-    if(humidityRef.current && uvindexRef.current && rainfallRef.current && pressureRef.current){
-      humidityRef.current.style.backgroundColor='#be83de'
-      humidityRef.current.style.color='black'
-      uvindexRef.current.style.backgroundColor='transparent'
-      uvindexRef.current.style.color='white'
-      rainfallRef.current.style.backgroundColor='transparent'
-      rainfallRef.current.style.color='white'
-      pressureRef.current.style.backgroundColor='transparent'
-      pressureRef.current.style.color='white'
-
+  const changetorainfall = () => {
+    if (
+      humidityRef.current &&
+      uvindexRef.current &&
+      rainfallRef.current &&
+      pressureRef.current
+    ) {
+      rainfallRef.current.style.backgroundColor = "#be83de";
+      rainfallRef.current.style.color = "black";
+      rainfallRef.current.style.fontWeight = "600";
+      humidityRef.current.style.backgroundColor = "transparent";
+      humidityRef.current.style.color = "white";
+      pressureRef.current.style.backgroundColor = "transparent";
+      pressureRef.current.style.color = "white";
+      uvindexRef.current.style.backgroundColor = "transparent";
+      uvindexRef.current.style.color = "white";
     }
-  }
+  };
 
-  const changetorainfall = () =>{
-    if(humidityRef.current && uvindexRef.current && rainfallRef.current && pressureRef.current){
-      rainfallRef.current.style.backgroundColor='#be83de'
-      rainfallRef.current.style.color='black'
-      humidityRef.current.style.backgroundColor='transparent'
-      humidityRef.current.style.color='white'
-      pressureRef.current.style.backgroundColor='transparent'
-      pressureRef.current.style.color='white'
-      uvindexRef.current.style.backgroundColor='transparent'
-      uvindexRef.current.style.color='white'
-
+  const changetopressure = () => {
+    if (
+      humidityRef.current &&
+      uvindexRef.current &&
+      rainfallRef.current &&
+      pressureRef.current
+    ) {
+      pressureRef.current.style.backgroundColor = "#be83de";
+      pressureRef.current.style.color = "black";
+      pressureRef.current.style.fontWeight = "600";
+      humidityRef.current.style.backgroundColor = "transparent";
+      humidityRef.current.style.color = "white";
+      rainfallRef.current.style.backgroundColor = "transparent";
+      rainfallRef.current.style.color = "white";
+      uvindexRef.current.style.backgroundColor = "transparent";
+      uvindexRef.current.style.color = "white";
     }
-  }
-
-  const changetopressure = () =>{
-    if(humidityRef.current && uvindexRef.current && rainfallRef.current && pressureRef.current){
-      pressureRef.current.style.backgroundColor='#be83de'
-      pressureRef.current.style.color='black'
-      humidityRef.current.style.backgroundColor='transparent'
-      humidityRef.current.style.color='white'
-      rainfallRef.current.style.backgroundColor='transparent'
-      rainfallRef.current.style.color='white'
-      uvindexRef.current.style.backgroundColor='transparent'
-      uvindexRef.current.style.color='white'
-
-    }
-  }
-
-
+  };
 
   return (
     <div>
@@ -124,7 +160,19 @@ export default function Dashboard() {
 
               <div id="temperature">
                 <div className="weatherDetails">
-                  <span className="tempValue temp_degree">+22</span>
+                  <div>
+                    <span className="tempValue temp_degree">22°</span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "15px",
+                        marginLeft: "-5px",
+                        color: "var(--themeColor)",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                   <span className="tempLabel">Temperature</span>
                 </div>
               </div>
@@ -170,238 +218,814 @@ export default function Dashboard() {
               </button>
 
               <div id="hourly">
-                <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>12 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    12 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>1 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    1 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
 
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>2 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    2 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
                     partly_cloudy_night
                   </span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>3 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    3 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>4 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    4 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
                     thunderstorm
                   </span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>5 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    5 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">foggy</span>
 
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>6 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    6 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">rainy</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>7 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    7 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">rainy</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>8 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    8 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">foggy</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>9 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    9 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
                     partly_cloudy_day
                   </span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>20 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    20 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
                     partly_cloudy_day
                   </span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>11 am</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    11 am
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">sunny</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>12 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    12 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">sunny</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>1 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    1 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">sunny</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>2 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    2 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
                     partly_cloudy_day
                   </span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>3 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    3 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
                     partly_cloudy_day
                   </span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>4 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    4 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
                     partly_cloudy_day
                   </span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>5 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    5 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>6 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    6 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>7 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    7 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">rainy</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>8 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    8 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">rainy</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>9 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    9 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>10 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    10 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">cloud</span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
 
-               <Card sx={{backgroundColor:'var(--themeColor)', color:'var(--elementBg)',borderRadius:'20px'}} className="hours">
-                  <span style={{ backgroundColor: "" }}>11 pm</span>
+                <Card
+                  sx={{
+                    backgroundColor: "var(--themeColor)",
+                    color: "var(--elementBg)",
+                    borderRadius: "20px",
+                  }}
+                  className="hours"
+                >
+                  <span className="hour_text" style={{ backgroundColor: "" }}>
+                    11 pm
+                  </span>
                   {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
                   <span className="material-symbols-outlined">
                     partly_cloudy_night
                   </span>
-                  <span className="temp_degree" style={{ backgroundColor: "" }}>
-                    17*
-                  </span>
+                  <div>
+                    <span
+                      className="temp_degree"
+                      style={{ backgroundColor: "", fontWeight: "500" }}
+                    >
+                      17°
+                    </span>
+                    <span
+                      className="unit-display"
+                      style={{
+                        fontSize: "10px",
+                        marginLeft: "-5px",
+                        fontWeight: "700",
+                      }}
+                    >
+                      C
+                    </span>
+                  </div>
                 </Card>
               </div>
             </div>
@@ -421,7 +1045,7 @@ export default function Dashboard() {
                   <button
                     id="humiditybtn"
                     ref={humidityRef}
-                    class="overview-switch-button"
+                    class= {`overview-switch-button ${overview_active}`}
                     onClick={changetohumidity}
                   >
                     Humidity
@@ -453,6 +1077,9 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+            <div id="overview_chartDiv">
+            <Graph/>
+            </div>
           </div>
 
           <div id="forecastDiv">
@@ -466,7 +1093,7 @@ export default function Dashboard() {
                   <button
                     id="day3btn"
                     ref={day3Ref}
-                    class="forecast-switch-button"
+                    class="forecast-switch-button" 
                     onClick={changetoDay3}
                   >
                     3 days
@@ -487,14 +1114,40 @@ export default function Dashboard() {
               <div className="forecastdaysitem" id="forcastdayitem1">
                 <div className="forecastitemtextDiv">
                   <span className="material-symbols-outlined">cloud</span>
+                  <div style={{display:'flex'}}>
                   <div>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      +24*
-                    </span>
-                    <span className="humidityValue forecasttextSpan">/</span>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      14*
-                    </span>
+                      <span className="humidityValue temp_degree forecasttextSpan">
+                        24°{" "}
+                      </span>
+                      <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "15px",
+                          padding: "2px",
+                          marginLeft: "-10px",
+                          fontWeight: "500",
+                          color: "var(--themeColor)",
+                        }}
+                      >C
+                      </span>
+                    </div>
+                    <div style={{alignContent:'end'}}>
+                      <span className="humidityValue forecasttextSpan" style={{fontSize:'15px'}}>/</span>
+                      <span className="humidityValue temp_degree forecasttextSpan">
+                        14°
+                      </span>
+                      <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "10px",
+                            // marginLeft: "2px",
+                            fontWeight: "500",
+                            color: "var(--themeColor)",
+                          }}
+                        >
+                          C
+                        </span>
+                    </div>
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
@@ -508,15 +1161,42 @@ export default function Dashboard() {
               <div className="forecastdaysitem" id="forcastdayitem2">
                 <div className="forecastitemtextDiv">
                   <span className="material-symbols-outlined">sunny</span>
-                  <div>
+                  <div style={{display:'flex'}}>
+                    <div>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      +24*
+                      24°{" "}
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "15px",
+                          padding: "2px",
+                          marginLeft: "-10px",
+                          fontWeight: "500",
+                          color: "var(--themeColor) ",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
+                      <div style={{alignContent:'end'}}>
                     <span className="humidityValue forecasttextSpan">/</span>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      14*
+                      14°
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "10px",
+                          marginLeft: "",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
                   </div>
+                </div>
                 </div>
                 <div className="forecastitemdateDiv">
                   <div>
@@ -531,14 +1211,41 @@ export default function Dashboard() {
                   <span className="material-symbols-outlined">
                     thunderstorm
                   </span>
+                  <div style={{display:'flex'}}>
                   <div>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      +24*
+                      24°{" "}{" "}
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "15px",
+                          padding: "2px",
+                          marginLeft: "-10px",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
+                      <div style={{alignContent:'end'}}>
                     <span className="humidityValue forecasttextSpan">/</span>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      14*
+                      14°
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "10px",
+                          marginLeft: "",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
@@ -555,14 +1262,41 @@ export default function Dashboard() {
                   <span className="material-symbols-outlined">
                     partly_cloudy_night
                   </span>
-                  <div>
+                  <div style={{display:'flex'}}>
+                    <div>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      +24*
+                      24°{" "}
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "15px",
+                          padding: "2px",
+                          marginLeft: "-10px",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
+                      <div style={{alignContent:'end'}}>
                     <span className="humidityValue forecasttextSpan">/</span>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      14*
+                      14°
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "10px",
+                          marginLeft: "",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                    </div>
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
@@ -576,14 +1310,41 @@ export default function Dashboard() {
               <div className="forecastdaysitem" id="forcastdayitem5">
                 <div className="forecastitemtextDiv">
                   <span className="material-symbols-outlined">foggy</span>
-                  <div>
+                  <div style={{display:'flex'}}>
+                    <div>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      +24*
+                      24°{" "}
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "15px",
+                          padding: "2px",
+                          marginLeft: "-10px",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
+                      <div style={{alignContent:'end'}}>   
                     <span className="humidityValue forecasttextSpan">/</span>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      14*
+                      14°
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "10px",
+                          marginLeft: "",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
@@ -595,16 +1356,43 @@ export default function Dashboard() {
               </div>
 
               <div className="forecastdaysitem" id="forcastdayitem6">
-                <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">sunny</span>
-                  <div>
+              <div className="forecastitemtextDiv">
+                  <span className="material-symbols-outlined">foggy</span>
+                  <div style={{display:'flex'}}>
+                    <div>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      +24*
+                      24°{" "}
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "15px",
+                          padding: "2px",
+                          marginLeft: "-10px",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
+                      <div style={{alignContent:'end'}}>   
                     <span className="humidityValue forecasttextSpan">/</span>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      14*
+                      14°
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "10px",
+                          marginLeft: "",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
@@ -616,16 +1404,43 @@ export default function Dashboard() {
               </div>
 
               <div className="forecastdaysitem" id="forcastdayitem7">
-                <div className="forecastitemtextDiv">
+              <div className="forecastitemtextDiv">
                   <span className="material-symbols-outlined">sunny</span>
-                  <div>
+                  <div style={{display:'flex'}}>
+                    <div>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      +24*
+                      24°{" "}
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "15px",
+                          padding: "2px",
+                          marginLeft: "-10px",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
+                      <div style={{alignContent:'end'}}>   
                     <span className="humidityValue forecasttextSpan">/</span>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      14*
+                      14°
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "10px",
+                          marginLeft: "",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
@@ -637,37 +1452,91 @@ export default function Dashboard() {
               </div>
 
               <div className="forecastdaysitem" id="forcastdayitem8">
-                <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">cloud</span>
-                  <div>
+              <div className="forecastitemtextDiv">
+                  <span className="material-symbols-outlined">foggy</span>
+                  <div style={{display:'flex'}}>
+                    <div>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      +24*
+                      24°{" "}
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "15px",
+                          padding: "2px",
+                          marginLeft: "-10px",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
+                      <div style={{alignContent:'end'}}>   
                     <span className="humidityValue forecasttextSpan">/</span>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      14*
+                      14°
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "10px",
+                          marginLeft: "",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
                   <div>
-                    <span className="forcastdatespan">23</span>
+                    <span className="forcastdatespan">24</span>
                     <span className="forcastdatespan">May,Tue</span>
                   </div>
                 </div>
               </div>
 
               <div className="forecastdaysitem" id="forcastdayitem9">
-                <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">rainy</span>
-                  <div>
+              <div className="forecastitemtextDiv">
+                  <span className="material-symbols-outlined">foggy</span>
+                  <div style={{display:'flex'}}>
+                    <div>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      +24*
+                      24°{" "}
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "15px",
+                          padding: "2px",
+                          marginLeft: "-10px",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
+                      <div style={{alignContent:'end'}}>   
                     <span className="humidityValue forecasttextSpan">/</span>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      14*
+                      14°
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "10px",
+                          marginLeft: "",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
@@ -679,18 +1548,43 @@ export default function Dashboard() {
               </div>
 
               <div className="forecastdaysitem" id="forcastdayitem10">
-                <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">
-                    thunderstorm
-                  </span>
-                  <div>
+              <div className="forecastitemtextDiv">
+                  <span className="material-symbols-outlined">thunderstorm</span>
+                  <div style={{display:'flex'}}>
+                    <div>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      +24*
+                      24°{" "}
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "15px",
+                          padding: "2px",
+                          marginLeft: "-10px",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
+                      <div style={{alignContent:'end'}}>   
                     <span className="humidityValue forecasttextSpan">/</span>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      14*
+                      14°
                     </span>
+                    <span
+                        className="unit-display"
+                        style={{
+                          fontSize: "10px",
+                          marginLeft: "",
+                          fontWeight: "500",
+                          color: "var(--themeColor",
+                        }}
+                      >
+                        C
+                      </span>
+                      </div>
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
@@ -707,3 +1601,4 @@ export default function Dashboard() {
     </div>
   );
 }
+

@@ -2,9 +2,8 @@
   display: none;
 }
 
-
 #hourly {
-  height: 100px;
+  height: 95px;
   width: 100%;
   display: flex;
   padding: 2px 5px;
@@ -14,6 +13,10 @@
   scroll-behavior: smooth;
   white-space: nowrap;
   box-sizing: border-box;
+} 
+
+.active_day{
+  opacity: 0.5;
 }
 
 #scroll_left_btn {
@@ -48,7 +51,7 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 1;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  background: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
   color: white;
   border: none;
   cursor: pointer;
@@ -75,7 +78,6 @@
 .hours {
   cursor: pointer;
   width: 10%;
-  /* height: 90%; */
   background-color: var(--themeColor);
   border-radius: 20px;
   display: flex;
@@ -86,16 +88,21 @@
   flex-shrink: 0;
 }
 
+.hour_text{
+  font-weight: 500;
+}
+
 .mainRow {
   display: flex;
   gap: 20px;
+  height: 35vh;
 }
 
 .weatherCard {
   background-color: var(--elementBg);
   contain: content;
   width: 45vw;
-  height: 40vh;
+  height: 35vh;
   margin: 0px 10px;
   border-radius: 30px;
   border: 1.5px solid var(--borderColor);
@@ -109,7 +116,6 @@
 .weatherInfo {
   background-color: "orange";
   width: 97%;
-  margin-bottom: 10px;
   padding: 0px 20px;
   display: flex;
   justify-content: space-between;
@@ -166,7 +172,7 @@
   background-color: var(--elementBg);
   border: 1.5px solid var(--borderColor);
   width: 32vw;
-  height: 40vh;
+  height: 35vh;
   margin: 0px 10px;
   border-radius: 30px;
 }
@@ -180,7 +186,7 @@
 
 #overviewDiv {
   width: 45vw;
-  height: 42vh;
+  height: 47vh;
   margin: 10px;
   display: flex;
   flex-direction: column;
@@ -190,11 +196,12 @@
 #overviewDivtitle{
   /* background-color: orange; */
   width: 100%;
-  height: 25%;
+  height: 17%;
   display: flex;
 }
 
 #overviewtitle{
+  padding-top: 5px;
   /* background-color: red; */
   padding-left:20px ;
   background-color:'red';
@@ -208,6 +215,7 @@
   flex-direction: column;
   width: 58%;
   height: 100%;
+  margin-top: 10px;
   align-items: end;
   justify-content: center;
 }
@@ -237,12 +245,25 @@
 }
 
 #humiditybtn{
+  font-weight: 600;
   background-color: var(--themeColor);
+}
+
+#overview_chartDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 85%;
+  padding: 20px;
+  contain: content;
+  /* background-color: orange; */
+
 }
 
 #forecastDiv {
   width: 32vw;
-  height: 42vh;
+  height: 47vh;
   margin: 10px;
   display: flex;
   flex-direction: column;
@@ -250,7 +271,7 @@
 }
 
 #forecastDivtitle{
-  background-color: 'orange';
+  /* background-color: orange; */
   width: 100%;
   height: 25%;
   display: flex;
@@ -259,6 +280,7 @@
 
 #forecasttitle{
   padding-left:20px ;
+  padding-top: 5px;
   background-color:'red';
   width: 50%;
   height: 100%;
@@ -300,9 +322,11 @@
 }
 
 #day3btn{
+  font-weight: 500;
   background-color:var(--themeColor);
 }
 #day10btn{
+  font-weight: 500;
   color: white;
 }
 #uvIndexbtn,#rainfallbtn,#pressurebtn{
@@ -375,7 +399,9 @@
   /* align-self: ; */
 }
 .forecastitemtextDiv div span:nth-child(2),span:nth-child(3){
-  font-size: 12px ;
+  font-size: 15px;
+  font-weight: 500;
+  /* color: red; */
 }
 
 .forecastitemdateDiv{
