@@ -5,38 +5,46 @@ import Card from "@mui/material/Card";
 import Graph from './Graph'
 import { useState } from "react";
 
-export default function Dashboard() {
-  const scrollLeft = () => {
-    const div = document.getElementById("hourly");
-    div.scrollLeft -= 300; // Adjust value to control scroll speed
-  };
 
-  const scrollRight = () => {
-    const div = document.getElementById("hourly");
-    div.scrollLeft += 300; // Adjust value to control scroll speed
-  };
+export default function Dashboard() {
 
   const day3Ref = useRef(null);
   const day10Ref = useRef(null);
+  const day10DivRef = useRef(null);
   const forecastDiv = useRef(null);
   const humidityRef = useRef(null);
   const uvindexRef = useRef(null);
   const rainfallRef = useRef(null);
   const pressureRef = useRef(null);
-  const overview_active = 'active';
+  const [activeOverview,setactiveOverview] = useState('humidity');
+
+
+  const scrollLeft = () => {
+    const div = document.getElementById("hourly");
+    div.scrollLeft -= 320; // Adjust value to control scroll speed
+   
+  };
+
+  const scrollRight = () => {
+    const div = document.getElementById("hourly");
+    div.scrollLeft += 320; // Adjust value to control scroll speed
+  };
+
 
   const changetoDay3 = () => {
-    if (day3Ref.current && day10Ref.current && forecastDiv.current) {
+    if (day3Ref.current && day10Ref.current && forecastDiv.current && day10DivRef) {
+      // console.log(active_idText)
       // Remove active class and inline styles from day10
       day10Ref.current.style.backgroundColor = "transparent";
       day10Ref.current.style.color = "white";
-      day10Ref.current.classList.remove('active_day'); // Remove the active class from day10
+      day10DivRef.current.style.display = 'none'
+      // day10Ref.current.classList.remove('active_day');
   
       // Apply styles and class to day3
       day3Ref.current.style.backgroundColor = "#be83de";
       day3Ref.current.style.color = "black";
       day3Ref.current.style.fontWeight = "500";
-      day3Ref.current.classList.add('active_day'); // Add the active_day class
+      // day3Ref.current.classList.add('active_day'); 
   
       // Additional styling for forecastDiv
       forecastDiv.current.style.overflow = "hidden";
@@ -48,16 +56,18 @@ export default function Dashboard() {
       // Remove active class and inline styles from day3
       day3Ref.current.style.backgroundColor = "transparent";
       day3Ref.current.style.color = "white";
-      day3Ref.current.classList.remove('active_day'); // Remove the active class from day3
+      // day3Ref.current.classList.remove('active_day'); 
   
       // Apply styles and class to day10
       day10Ref.current.style.backgroundColor = "#be83de";
       day10Ref.current.style.color = "black";
       day10Ref.current.style.fontWeight = "500";
-      day10Ref.current.classList.add('active_day'); // Add the active_day class
+      day10DivRef.current.style.display = 'flex'
+      // day10Ref.current.classList.add('active_day'); 
   
       // Additional styling for forecastDiv
-      forecastDiv.current.style.overflow = "hidden";
+      forecastDiv.current.style.overflow = "scroll";
+      forecastDiv.current.style.overflowX = "hidden";
     }
   };
   
@@ -69,6 +79,7 @@ export default function Dashboard() {
       rainfallRef.current &&
       pressureRef.current
     ) {
+      setactiveOverview('uvindex');
       uvindexRef.current.style.backgroundColor = "#be83de";
       uvindexRef.current.style.color = "black";
       uvindexRef.current.style.fontWeight = "600";
@@ -88,6 +99,7 @@ export default function Dashboard() {
       rainfallRef.current &&
       pressureRef.current
     ) {
+      setactiveOverview('humidity');
       humidityRef.current.style.backgroundColor = "#be83de";
       humidityRef.current.style.color = "black";
       humidityRef.current.style.fontWeight = "600";
@@ -107,6 +119,7 @@ export default function Dashboard() {
       rainfallRef.current &&
       pressureRef.current
     ) {
+      setactiveOverview('rainfall');
       rainfallRef.current.style.backgroundColor = "#be83de";
       rainfallRef.current.style.color = "black";
       rainfallRef.current.style.fontWeight = "600";
@@ -126,6 +139,7 @@ export default function Dashboard() {
       rainfallRef.current &&
       pressureRef.current
     ) {
+      setactiveOverview('pressure');
       pressureRef.current.style.backgroundColor = "#be83de";
       pressureRef.current.style.color = "black";
       pressureRef.current.style.fontWeight = "600";
@@ -201,7 +215,7 @@ export default function Dashboard() {
             >
               <button id="scroll_left_btn" onClick={scrollLeft}>
                 <span
-                  class="material-symbols-outlined"
+                  className="material-symbols-outlined"
                   id="scroll_left_btn_span"
                 >
                   arrow_back_ios
@@ -210,7 +224,7 @@ export default function Dashboard() {
 
               <button id="scroll_right_btn" onClick={scrollRight}>
                 <span
-                  class="material-symbols-outlined"
+                  className="material-symbols-outlined"
                   id="scroll_right_btn_span"
                 >
                   arrow_forward_ios
@@ -1041,11 +1055,11 @@ export default function Dashboard() {
               </div>
 
               <div id="overviewtype">
-                <div class="overview-toggle-switch">
+                <div className="overview-toggle-switch">
                   <button
                     id="humiditybtn"
                     ref={humidityRef}
-                    class= {`overview-switch-button ${overview_active}`}
+                    className= 'overview-switch-button'
                     onClick={changetohumidity}
                   >
                     Humidity
@@ -1053,7 +1067,7 @@ export default function Dashboard() {
                   <button
                     id="uvIndexbtn"
                     ref={uvindexRef}
-                    class="overview-switch-button"
+                    className="overview-switch-button"
                     onClick={changetouvIndex}
                   >
                     UV index
@@ -1061,7 +1075,7 @@ export default function Dashboard() {
                   <button
                     id="rainfallbtn"
                     ref={rainfallRef}
-                    class="overview-switch-button"
+                    className="overview-switch-button"
                     onClick={changetorainfall}
                   >
                     Rainfall
@@ -1069,7 +1083,7 @@ export default function Dashboard() {
                   <button
                     id="pressurebtn"
                     ref={pressureRef}
-                    class="overview-switch-button"
+                    className="overview-switch-button"
                     onClick={changetopressure}
                   >
                     Pressure
@@ -1078,7 +1092,7 @@ export default function Dashboard() {
               </div>
             </div>
             <div id="overview_chartDiv">
-            <Graph/>
+            <Graph activebtn={activeOverview}/>
             </div>
           </div>
 
@@ -1089,11 +1103,11 @@ export default function Dashboard() {
               </div>
 
               <div id="forecastday">
-                <div class="forecast-toggle-switch">
+                <div className="forecast-toggle-switch">
                   <button
                     id="day3btn"
                     ref={day3Ref}
-                    class="forecast-switch-button" 
+                    className="forecast-switch-button" 
                     onClick={changetoDay3}
                   >
                     3 days
@@ -1101,7 +1115,7 @@ export default function Dashboard() {
                   <button
                     id="day10btn"
                     ref={day10Ref}
-                    class="forecast-switch-button"
+                    className="forecast-switch-button"
                     onClick={changetoDay10}
                   >
                     10 days
@@ -1117,7 +1131,7 @@ export default function Dashboard() {
                   <div style={{display:'flex'}}>
                   <div>
                       <span className="humidityValue temp_degree forecasttextSpan">
-                        24°{" "}
+                        1°{" "}
                       </span>
                       <span
                         className="unit-display"
@@ -1164,7 +1178,7 @@ export default function Dashboard() {
                   <div style={{display:'flex'}}>
                     <div>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      24°{" "}
+                      2°{" "}
                     </span>
                     <span
                         className="unit-display"
@@ -1214,7 +1228,7 @@ export default function Dashboard() {
                   <div style={{display:'flex'}}>
                   <div>
                     <span className="humidityValue temp_degree forecasttextSpan">
-                      24°{" "}{" "}
+                      3°{" "}{" "}
                     </span>
                     <span
                         className="unit-display"
@@ -1256,6 +1270,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
+                <div id="display10dayDiv" ref={day10DivRef}>
               <div className="forecastdaysitem" id="forcastdayitem4">
                 {" "}
                 <div className="forecastitemtextDiv">
@@ -1593,6 +1608,7 @@ export default function Dashboard() {
                     <span className="forcastdatespan">May,Thu</span>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>

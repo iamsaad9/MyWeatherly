@@ -5,6 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Avatar from "@mui/material/Avatar";
 import img from "../images/IMG_20210213_183032.jpg"
+import Button from "@mui/material/Button";
 
 export default function Nav() {
   const [lang, setLang] = React.useState("");
@@ -16,6 +17,8 @@ export default function Nav() {
   const farbtn = useRef(null);
   const [activeUnit, setActiveUnit] = useState("D");
   const [changeUnit, setchangeUnit] = useState("false");
+
+
 
   const changetoCel = () => {
     setchangeUnit("C");
@@ -40,13 +43,13 @@ export default function Nav() {
     if (celbtn.current && farbtn.current) {
       console.log(celbtn, farbtn);
       if (activeUnit === "D") {
-        celbtn.current.style.backgroundColor = "#be83de";
+        celbtn.current.style.backgroundColor = "var(--themeColor";
         celbtn.current.style.color = "black";
         celbtn.current.style.fontWeight = "600";
         farbtn.current.style.backgroundColor = "transparent";
         farbtn.current.style.color = "white";
       } else if (activeUnit === "C" && changeUnit === "true") {
-        celbtn.current.style.backgroundColor = "#be83de";
+        celbtn.current.style.backgroundColor = "var(--themeColor";
         celbtn.current.style.color = "black";
         farbtn.current.style.backgroundColor = "transparent";
         farbtn.current.style.color = "white";
@@ -68,7 +71,7 @@ export default function Nav() {
       } else if (activeUnit === "F" && changeUnit === "true") {
         celbtn.current.style.backgroundColor = "transparent";
         celbtn.current.style.color = "white";
-        farbtn.current.style.backgroundColor = "#be83de";
+        farbtn.current.style.backgroundColor = "var(--themeColor";
         farbtn.current.style.color = "black";
         farbtn.current.style.fontWeight = "600";
         const tempDegrees = document.getElementsByClassName("temp_degree");
