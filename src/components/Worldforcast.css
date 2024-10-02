@@ -1,4 +1,3 @@
-/* Container for the forecast section */
 #WorldforecastDiv.forecast-container::-webkit-scrollbar{ 
   display: none;
 }
@@ -13,12 +12,11 @@
     padding: 0px;
     overflow-y: scroll;
     scroll-behavior: smooth;
+    gap: 0px;
   }
   
-  /* Individual forecast items */
   .forecast-item {
     background-color: '';
-    /* height: 500px; */
     width: 100%;
     display: flex;
     justify-content: center;
@@ -27,7 +25,6 @@
     padding: 15px 0px;
   }
   
-  /* Circular logo at the top of each forecast item */
   .add-forecast-logo {
     display: flex;
     align-items: center;
@@ -39,18 +36,8 @@
     position: absolute;
     top: 0;
   }
-  
-  .forecast-box div{
-    height: 90%;
-    width: 100%;
-    /* background-color: 'orange'; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
 
   .add-forecast-box{
-    /* background-color:; */
     height: 150px;
     width: 100%;
     border-radius: 15px;

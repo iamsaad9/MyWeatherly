@@ -228,7 +228,7 @@
   overflow: hidden;
   /* width: 300px;  */
   background-color: var(--elementDarkBg); /* Background color of the switch */
-  padding: 2px;
+  padding: 3px;
 }
 
 .overview-switch-button{
@@ -293,11 +293,11 @@
 
 #forecastday{
   display: flex;
-  flex-direction: column;
   width: 50%;
   height: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
+  margin-right: 20px;
 }
 
 .forecast-toggle-switch {
@@ -306,28 +306,27 @@
   align-items: center;
   border-radius: 20px; /* Rounded edges */
   overflow: hidden;
-  /* width: 1px;  */
   background-color: var(--elementDarkBg); /* Background color of the switch */
-  padding: 2px;
+  padding: 3px;
 }
 
 .forecast-switch-button {
+  font-size: 12px;
+  font-weight: 600;
   outline: none;
   background-color: transparent; /* No background for buttons */
   border: none; /* No border */
   color: black; /* Text color */
-  padding: 6px 10px; /* Adjust padding */
+  padding: 5px 7px; /* Adjust padding */
   cursor: pointer; /* Change cursor to pointer on hover */
   transition: ease-in-out 0.3s; /* Transition effects */
   border-radius: 20px;
 }
 
 #day3btn{
-  font-weight: 500;
   background-color:var(--themeColor);
 }
 #day10btn{
-  font-weight: 500;
   color: white;
 }
 #uvIndexbtn,#rainfallbtn,#pressurebtn{

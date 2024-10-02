@@ -43,7 +43,7 @@ export default function Dashboard() {
       // Apply styles and class to day3
       day3Ref.current.style.backgroundColor = "#be83de";
       day3Ref.current.style.color = "black";
-      day3Ref.current.style.fontWeight = "500";
+      day3Ref.current.style.fontWeight = "600";
       // day3Ref.current.classList.add('active_day'); 
   
       // Additional styling for forecastDiv
@@ -61,7 +61,7 @@ export default function Dashboard() {
       // Apply styles and class to day10
       day10Ref.current.style.backgroundColor = "#be83de";
       day10Ref.current.style.color = "black";
-      day10Ref.current.style.fontWeight = "500";
+      day10Ref.current.style.fontWeight = "600";
       day10DivRef.current.style.display = 'flex'
       // day10Ref.current.classList.add('active_day'); 
   
