@@ -1,21 +1,20 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState,useContext  } from "react";
 import "./Nav.css";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Avatar from "@mui/material/Avatar";
 import img from "../images/IMG_20210213_183032.jpg"
-import Button from "@mui/material/Button";
+import { ActiveUnitContext } from '../ActiveUnitContext';
 
 export default function Nav() {
   const [lang, setLang] = React.useState("");
   const handleChange = (event) => {
     setLang(event.target.value);
   };
-
+  const { activeUnit, setActiveUnit } = useContext(ActiveUnitContext);
   const celbtn = useRef(null);
   const farbtn = useRef(null);
-  const [activeUnit, setActiveUnit] = useState("D");
   const [changeUnit, setchangeUnit] = useState("false");
 
 

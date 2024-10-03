@@ -98,3 +98,8 @@
     font-size: 25px;
   }
   
+  .swal2-confirm{
+    width: 100px;
+    color: black;
+    font-weight: 600;
+  }
