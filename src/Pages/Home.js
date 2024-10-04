@@ -1,12 +1,21 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import Sidepanel from '../components/SideBar';
 import Nav from '../components/Nav';
 import Dashboard from '../components/Dashboard';
 import Wordforcast from '../components/Worldforcast';
+import { ActiveUnitContext } from '../ActiveUnitContext';
+import LoadingScreen from '../components/LoadingScreen';
+
 import './Home.css';
 
 export default function Home() {
+
+  const { loading } = useContext(ActiveUnitContext); // Accessing context here
+  console.log(loading)
+
   return (
+    <>
+   
     <div>
       <div id='container' className='main-container'>
         
@@ -25,5 +34,7 @@ export default function Home() {
         </div>
       </div>
     </div>
+    {loading && <LoadingScreen />}
+    </>
   )
 }

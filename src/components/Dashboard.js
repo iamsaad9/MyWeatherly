@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext,useEffect } from "react";
 import "./Dashboard.css";
 import { useRef } from "react";
 import Card from "@mui/material/Card";
 import Graph from './Graph'
 import { useState } from "react";
-
+import Worldmap from "./Worldmap";
+import { ActiveUnitContext } from '../ActiveUnitContext';
+import countries from "i18n-iso-countries";
+import enLocale from "i18n-iso-countries/langs/en.json"; 
 
 export default function Dashboard() {
 
@@ -17,6 +20,54 @@ export default function Dashboard() {
   const rainfallRef = useRef(null);
   const pressureRef = useRef(null);
   const [activeOverview,setactiveOverview] = useState('humidity');
+  const [location, setLocation] = useState({ city: "", country: "" });
+  // const { setLoading } = useContext(ActiveUnitContext);
+
+
+  useEffect(() => {
+    countries.registerLocale(enLocale);
+
+    const getLocation = () => {
+      // setLoading(true)
+      // Set loading to true when starting to fetch location
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, handleError);
+      } else {
+        // setLoading(false); // Stop loading if geolocation is not supported
+      }
+    };
+
+    const success = (position) => {
+      const { latitude, longitude } = position.coords;
+      getCityName(latitude, longitude);
+    };
+
+    const handleError = () => {
+      // setLoading(false); // Stop loading if there’s an error fetching location
+    };
+
+    const getCityName = async (lat, lon) => {
+      const apiKey = '12ceedd020611e9b8cdd00440f158b2a'; // Your OpenWeather API key
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.name && data.sys.country) {
+          const fullCountryName = countries.getName(data.sys.country, 'en');
+          setLocation({ city: data.name, country: fullCountryName });
+          // setLoading(false);
+        }
+      } catch (err) {
+        console.error('Error fetching city name:', err);
+      } finally {
+        // setLoading(false); // Set loading to false when the data fetching is done
+      }
+    };
+
+    getLocation();
+  }, []);
+
 
 
   const scrollLeft = () => {
@@ -167,8 +218,8 @@ export default function Dashboard() {
 
               <div id="weatherArea">
                 <div className="weatherDetails">
-                  <span className="location">Berlin</span>
-                  <span className="country">Germany</span>
+                  <span className="location">{location.city}</span>
+                  <span className="country">{location.country}</span>
                 </div>
               </div>
 
@@ -1044,7 +1095,9 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="worldmapDiv"></div>
+          <div className="worldmapDiv">
+            <Worldmap/>
+          </div>
         </div>
 
         <div className="mainRow">

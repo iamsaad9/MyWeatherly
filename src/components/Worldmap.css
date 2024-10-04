@@ -1,0 +1,21 @@
+/* Custom styles for the Tooltip */
+.custom-tooltip {
+    background-color: rgba(0, 0, 0, 0.7) !important; /* Dark background with some transparency */
+    color: #fff !important;  /* White text */
+    padding: 5px 10px !important;
+    border-radius: 8px !important;
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3) !important;
+    pointer-events: none !important;  /* Prevent interaction */
+  }
+  
+  /* Ensure the tooltip has no margin/padding if needed */
+  .leaflet-tooltip {
+    margin: 0 !important;
+    padding: 10 !important;
+    border: none;
+    background-color: transparent;
+    transition:ease-in-out 0.3s
+  }
+  
