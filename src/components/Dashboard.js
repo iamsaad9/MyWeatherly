@@ -1,16 +1,15 @@
-import React, { useContext,useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import "./Dashboard.css";
 import { useRef } from "react";
 import Card from "@mui/material/Card";
-import Graph from './Graph'
+import Graph from "./Graph";
 import { useState } from "react";
 import Worldmap from "./Worldmap";
-import { ActiveUnitContext } from '../ActiveUnitContext';
+import { ActiveUnitContext } from "../ActiveUnitContext";
 import countries from "i18n-iso-countries";
-import enLocale from "i18n-iso-countries/langs/en.json"; 
+import enLocale from "i18n-iso-countries/langs/en.json";
 
 export default function Dashboard() {
-
   const day3Ref = useRef(null);
   const day10Ref = useRef(null);
   const day10DivRef = useRef(null);
@@ -19,61 +18,61 @@ export default function Dashboard() {
   const uvindexRef = useRef(null);
   const rainfallRef = useRef(null);
   const pressureRef = useRef(null);
-  const [activeOverview,setactiveOverview] = useState('humidity');
+  const [activeOverview, setactiveOverview] = useState("humidity");
   const [location, setLocation] = useState({ city: "", country: "" });
-  // const { setLoading } = useContext(ActiveUnitContext);
-
+  const { setLoading } = useContext(ActiveUnitContext);
 
   useEffect(() => {
     countries.registerLocale(enLocale);
-
+  
     const getLocation = () => {
-      // setLoading(true)
-      // Set loading to true when starting to fetch location
+      // setLoading(true); // Start loading when beginning to fetch location
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, handleError);
       } else {
         // setLoading(false); // Stop loading if geolocation is not supported
       }
     };
-
+  
     const success = (position) => {
       const { latitude, longitude } = position.coords;
       getCityName(latitude, longitude);
     };
-
+  
     const handleError = () => {
-      // setLoading(false); // Stop loading if there’s an error fetching location
+      // setLoading(false); // Stop loading if there's an error fetching location
+      // You may want to set an error state here to inform the user
     };
-
+  
     const getCityName = async (lat, lon) => {
-      const apiKey = '12ceedd020611e9b8cdd00440f158b2a'; // Your OpenWeather API key
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-
-      try {
+      // const apiKey = "24ac5750d6ad16e1431572932f4e42fa"; // Your OpenWeather API key
+      const url = `https://api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`;
+  
+    
         const response = await fetch(url);
-        const data = await response.json();
-        if (data.name && data.sys.country) {
-          const fullCountryName = countries.getName(data.sys.country, 'en');
-          setLocation({ city: data.name, country: fullCountryName });
-          // setLoading(false);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`); // Check for response status
         }
-      } catch (err) {
-        console.error('Error fetching city name:', err);
-      } finally {
-        // setLoading(false); // Set loading to false when the data fetching is done
-      }
+        const data = await response.json();
+        if (data.city && data.countryCode) {
+          const fullCountryName = countries.getName(data.countryCode, "en");
+          setLocation({ city: data.city, country: fullCountryName });
+        }
+     
+        
+        // You can handle the error further here if needed
+      
+        // setLoading(false); // Always set loading to false after the fetch is complete
+      
     };
-
+  
     getLocation();
   }, []);
-
-
+  
 
   const scrollLeft = () => {
     const div = document.getElementById("hourly");
     div.scrollLeft -= 320; // Adjust value to control scroll speed
-   
   };
 
   const scrollRight = () => {
@@ -81,22 +80,26 @@ export default function Dashboard() {
     div.scrollLeft += 320; // Adjust value to control scroll speed
   };
 
-
   const changetoDay3 = () => {
-    if (day3Ref.current && day10Ref.current && forecastDiv.current && day10DivRef) {
+    if (
+      day3Ref.current &&
+      day10Ref.current &&
+      forecastDiv.current &&
+      day10DivRef
+    ) {
       // console.log(active_idText)
       // Remove active class and inline styles from day10
       day10Ref.current.style.backgroundColor = "transparent";
       day10Ref.current.style.color = "white";
-      day10DivRef.current.style.display = 'none'
+      day10DivRef.current.style.display = "none";
       // day10Ref.current.classList.remove('active_day');
-  
+
       // Apply styles and class to day3
       day3Ref.current.style.backgroundColor = "#be83de";
       day3Ref.current.style.color = "black";
       day3Ref.current.style.fontWeight = "600";
-      // day3Ref.current.classList.add('active_day'); 
-  
+      // day3Ref.current.classList.add('active_day');
+
       // Additional styling for forecastDiv
       forecastDiv.current.style.overflow = "hidden";
     }
@@ -107,21 +110,20 @@ export default function Dashboard() {
       // Remove active class and inline styles from day3
       day3Ref.current.style.backgroundColor = "transparent";
       day3Ref.current.style.color = "white";
-      // day3Ref.current.classList.remove('active_day'); 
-  
+      // day3Ref.current.classList.remove('active_day');
+
       // Apply styles and class to day10
       day10Ref.current.style.backgroundColor = "#be83de";
       day10Ref.current.style.color = "black";
       day10Ref.current.style.fontWeight = "600";
-      day10DivRef.current.style.display = 'flex'
-      // day10Ref.current.classList.add('active_day'); 
-  
+      day10DivRef.current.style.display = "flex";
+      // day10Ref.current.classList.add('active_day');
+
       // Additional styling for forecastDiv
       forecastDiv.current.style.overflow = "scroll";
       forecastDiv.current.style.overflowX = "hidden";
     }
   };
-  
 
   const changetouvIndex = () => {
     if (
@@ -130,7 +132,7 @@ export default function Dashboard() {
       rainfallRef.current &&
       pressureRef.current
     ) {
-      setactiveOverview('uvindex');
+      setactiveOverview("uvindex");
       uvindexRef.current.style.backgroundColor = "#be83de";
       uvindexRef.current.style.color = "black";
       uvindexRef.current.style.fontWeight = "600";
@@ -150,7 +152,7 @@ export default function Dashboard() {
       rainfallRef.current &&
       pressureRef.current
     ) {
-      setactiveOverview('humidity');
+      setactiveOverview("humidity");
       humidityRef.current.style.backgroundColor = "#be83de";
       humidityRef.current.style.color = "black";
       humidityRef.current.style.fontWeight = "600";
@@ -170,7 +172,7 @@ export default function Dashboard() {
       rainfallRef.current &&
       pressureRef.current
     ) {
-      setactiveOverview('rainfall');
+      setactiveOverview("rainfall");
       rainfallRef.current.style.backgroundColor = "#be83de";
       rainfallRef.current.style.color = "black";
       rainfallRef.current.style.fontWeight = "600";
@@ -190,7 +192,7 @@ export default function Dashboard() {
       rainfallRef.current &&
       pressureRef.current
     ) {
-      setactiveOverview('pressure');
+      setactiveOverview("pressure");
       pressureRef.current.style.backgroundColor = "#be83de";
       pressureRef.current.style.color = "black";
       pressureRef.current.style.fontWeight = "600";
@@ -1096,7 +1098,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="worldmapDiv">
-            <Worldmap/>
+            {/* <Worldmap /> */}
           </div>
         </div>
 
@@ -1112,7 +1114,7 @@ export default function Dashboard() {
                   <button
                     id="humiditybtn"
                     ref={humidityRef}
-                    className= 'overview-switch-button'
+                    className="overview-switch-button"
                     onClick={changetohumidity}
                   >
                     Humidity
@@ -1145,7 +1147,7 @@ export default function Dashboard() {
               </div>
             </div>
             <div id="overview_chartDiv">
-            <Graph activebtn={activeOverview}/>
+              {/* <Graph activebtn={activeOverview} /> */}
             </div>
           </div>
 
@@ -1160,7 +1162,7 @@ export default function Dashboard() {
                   <button
                     id="day3btn"
                     ref={day3Ref}
-                    className="forecast-switch-button" 
+                    className="forecast-switch-button"
                     onClick={changetoDay3}
                   >
                     3 days
@@ -1181,8 +1183,8 @@ export default function Dashboard() {
               <div className="forecastdaysitem" id="forcastdayitem1">
                 <div className="forecastitemtextDiv">
                   <span className="material-symbols-outlined">cloud</span>
-                  <div style={{display:'flex'}}>
-                  <div>
+                  <div style={{ display: "flex" }}>
+                    <div>
                       <span className="humidityValue temp_degree forecasttextSpan">
                         1°{" "}
                       </span>
@@ -1195,25 +1197,31 @@ export default function Dashboard() {
                           fontWeight: "500",
                           color: "var(--themeColor)",
                         }}
-                      >C
+                      >
+                        C
                       </span>
                     </div>
-                    <div style={{alignContent:'end'}}>
-                      <span className="humidityValue forecasttextSpan" style={{fontSize:'15px'}}>/</span>
+                    <div style={{ alignContent: "end" }}>
+                      <span
+                        className="humidityValue forecasttextSpan"
+                        style={{ fontSize: "15px" }}
+                      >
+                        /
+                      </span>
                       <span className="humidityValue temp_degree forecasttextSpan">
                         14°
                       </span>
                       <span
-                          className="unit-display"
-                          style={{
-                            fontSize: "10px",
-                            // marginLeft: "2px",
-                            fontWeight: "500",
-                            color: "var(--themeColor)",
-                          }}
-                        >
-                          C
-                        </span>
+                        className="unit-display"
+                        style={{
+                          fontSize: "10px",
+                          // marginLeft: "2px",
+                          fontWeight: "500",
+                          color: "var(--themeColor)",
+                        }}
+                      >
+                        C
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -1228,12 +1236,12 @@ export default function Dashboard() {
               <div className="forecastdaysitem" id="forcastdayitem2">
                 <div className="forecastitemtextDiv">
                   <span className="material-symbols-outlined">sunny</span>
-                  <div style={{display:'flex'}}>
+                  <div style={{ display: "flex" }}>
                     <div>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      2°{" "}
-                    </span>
-                    <span
+                      <span className="humidityValue temp_degree forecasttextSpan">
+                        2°{" "}
+                      </span>
+                      <span
                         className="unit-display"
                         style={{
                           fontSize: "15px",
@@ -1245,115 +1253,13 @@ export default function Dashboard() {
                       >
                         C
                       </span>
-                      </div>
-                      <div style={{alignContent:'end'}}>
-                    <span className="humidityValue forecasttextSpan">/</span>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      14°
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "10px",
-                          marginLeft: "",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
+                    </div>
+                    <div style={{ alignContent: "end" }}>
+                      <span className="humidityValue forecasttextSpan">/</span>
+                      <span className="humidityValue temp_degree forecasttextSpan">
+                        14°
                       </span>
-                  </div>
-                </div>
-                </div>
-                <div className="forecastitemdateDiv">
-                  <div>
-                    <span className="forcastdatespan">17</span>
-                    <span className="forcastdatespan">May,Wed</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="forecastdaysitem" id="forcastdayitem3">
-                <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">
-                    thunderstorm
-                  </span>
-                  <div style={{display:'flex'}}>
-                  <div>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      3°{" "}{" "}
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "15px",
-                          padding: "2px",
-                          marginLeft: "-10px",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                      <div style={{alignContent:'end'}}>
-                    <span className="humidityValue forecasttextSpan">/</span>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      14°
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "10px",
-                          marginLeft: "",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                  </div>
-                </div>
-                <div className="forecastitemdateDiv">
-                  <div>
-                    <span className="forcastdatespan">18</span>
-                    <span className="forcastdatespan">May,Thu</span>
-                  </div>
-                </div>
-              </div>
-
-                <div id="display10dayDiv" ref={day10DivRef}>
-              <div className="forecastdaysitem" id="forcastdayitem4">
-                {" "}
-                <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">
-                    partly_cloudy_night
-                  </span>
-                  <div style={{display:'flex'}}>
-                    <div>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      24°{" "}
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "15px",
-                          padding: "2px",
-                          marginLeft: "-10px",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                      <div style={{alignContent:'end'}}>
-                    <span className="humidityValue forecasttextSpan">/</span>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      14°
-                    </span>
-                    <span
+                      <span
                         className="unit-display"
                         style={{
                           fontSize: "10px",
@@ -1369,261 +1275,23 @@ export default function Dashboard() {
                 </div>
                 <div className="forecastitemdateDiv">
                   <div>
-                    <span className="forcastdatespan">19</span>
-                    <span className="forcastdatespan">May,Fri</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="forecastdaysitem" id="forcastdayitem5">
-                <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">foggy</span>
-                  <div style={{display:'flex'}}>
-                    <div>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      24°{" "}
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "15px",
-                          padding: "2px",
-                          marginLeft: "-10px",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                      <div style={{alignContent:'end'}}>   
-                    <span className="humidityValue forecasttextSpan">/</span>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      14°
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "10px",
-                          marginLeft: "",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                  </div>
-                </div>
-                <div className="forecastitemdateDiv">
-                  <div>
-                    <span className="forcastdatespan">20</span>
-                    <span className="forcastdatespan">May,Sat</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="forecastdaysitem" id="forcastdayitem6">
-              <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">foggy</span>
-                  <div style={{display:'flex'}}>
-                    <div>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      24°{" "}
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "15px",
-                          padding: "2px",
-                          marginLeft: "-10px",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                      <div style={{alignContent:'end'}}>   
-                    <span className="humidityValue forecasttextSpan">/</span>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      14°
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "10px",
-                          marginLeft: "",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                  </div>
-                </div>
-                <div className="forecastitemdateDiv">
-                  <div>
-                    <span className="forcastdatespan">21</span>
-                    <span className="forcastdatespan">May,Sun</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="forecastdaysitem" id="forcastdayitem7">
-              <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">sunny</span>
-                  <div style={{display:'flex'}}>
-                    <div>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      24°{" "}
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "15px",
-                          padding: "2px",
-                          marginLeft: "-10px",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                      <div style={{alignContent:'end'}}>   
-                    <span className="humidityValue forecasttextSpan">/</span>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      14°
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "10px",
-                          marginLeft: "",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                  </div>
-                </div>
-                <div className="forecastitemdateDiv">
-                  <div>
-                    <span className="forcastdatespan">22</span>
-                    <span className="forcastdatespan">May,Mon</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="forecastdaysitem" id="forcastdayitem8">
-              <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">foggy</span>
-                  <div style={{display:'flex'}}>
-                    <div>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      24°{" "}
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "15px",
-                          padding: "2px",
-                          marginLeft: "-10px",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                      <div style={{alignContent:'end'}}>   
-                    <span className="humidityValue forecasttextSpan">/</span>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      14°
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "10px",
-                          marginLeft: "",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                  </div>
-                </div>
-                <div className="forecastitemdateDiv">
-                  <div>
-                    <span className="forcastdatespan">24</span>
-                    <span className="forcastdatespan">May,Tue</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="forecastdaysitem" id="forcastdayitem9">
-              <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">foggy</span>
-                  <div style={{display:'flex'}}>
-                    <div>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      24°{" "}
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "15px",
-                          padding: "2px",
-                          marginLeft: "-10px",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                      <div style={{alignContent:'end'}}>   
-                    <span className="humidityValue forecasttextSpan">/</span>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      14°
-                    </span>
-                    <span
-                        className="unit-display"
-                        style={{
-                          fontSize: "10px",
-                          marginLeft: "",
-                          fontWeight: "500",
-                          color: "var(--themeColor",
-                        }}
-                      >
-                        C
-                      </span>
-                      </div>
-                  </div>
-                </div>
-                <div className="forecastitemdateDiv">
-                  <div>
-                    <span className="forcastdatespan">24</span>
+                    <span className="forcastdatespan">17</span>
                     <span className="forcastdatespan">May,Wed</span>
                   </div>
                 </div>
               </div>
 
-              <div className="forecastdaysitem" id="forcastdayitem10">
-              <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">thunderstorm</span>
-                  <div style={{display:'flex'}}>
+              <div className="forecastdaysitem" id="forcastdayitem3">
+                <div className="forecastitemtextDiv">
+                  <span className="material-symbols-outlined">
+                    thunderstorm
+                  </span>
+                  <div style={{ display: "flex" }}>
                     <div>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      24°{" "}
-                    </span>
-                    <span
+                      <span className="humidityValue temp_degree forecasttextSpan">
+                        3°{" "}
+                      </span>
+                      <span
                         className="unit-display"
                         style={{
                           fontSize: "15px",
@@ -1635,13 +1303,13 @@ export default function Dashboard() {
                       >
                         C
                       </span>
-                      </div>
-                      <div style={{alignContent:'end'}}>   
-                    <span className="humidityValue forecasttextSpan">/</span>
-                    <span className="humidityValue temp_degree forecasttextSpan">
-                      14°
-                    </span>
-                    <span
+                    </div>
+                    <div style={{ alignContent: "end" }}>
+                      <span className="humidityValue forecasttextSpan">/</span>
+                      <span className="humidityValue temp_degree forecasttextSpan">
+                        14°
+                      </span>
+                      <span
                         className="unit-display"
                         style={{
                           fontSize: "10px",
@@ -1652,16 +1320,372 @@ export default function Dashboard() {
                       >
                         C
                       </span>
-                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
                   <div>
-                    <span className="forcastdatespan">25</span>
+                    <span className="forcastdatespan">18</span>
                     <span className="forcastdatespan">May,Thu</span>
                   </div>
                 </div>
               </div>
+
+              <div id="display10dayDiv" ref={day10DivRef}>
+                <div className="forecastdaysitem" id="forcastdayitem4">
+                  {" "}
+                  <div className="forecastitemtextDiv">
+                    <span className="material-symbols-outlined">
+                      partly_cloudy_night
+                    </span>
+                    <div style={{ display: "flex" }}>
+                      <div>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          24°{" "}
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "15px",
+                            padding: "2px",
+                            marginLeft: "-10px",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                      <div style={{ alignContent: "end" }}>
+                        <span className="humidityValue forecasttextSpan">
+                          /
+                        </span>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          14°
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "10px",
+                            marginLeft: "",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="forecastitemdateDiv">
+                    <div>
+                      <span className="forcastdatespan">19</span>
+                      <span className="forcastdatespan">May,Fri</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="forecastdaysitem" id="forcastdayitem5">
+                  <div className="forecastitemtextDiv">
+                    <span className="material-symbols-outlined">foggy</span>
+                    <div style={{ display: "flex" }}>
+                      <div>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          24°{" "}
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "15px",
+                            padding: "2px",
+                            marginLeft: "-10px",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                      <div style={{ alignContent: "end" }}>
+                        <span className="humidityValue forecasttextSpan">
+                          /
+                        </span>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          14°
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "10px",
+                            marginLeft: "",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="forecastitemdateDiv">
+                    <div>
+                      <span className="forcastdatespan">20</span>
+                      <span className="forcastdatespan">May,Sat</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="forecastdaysitem" id="forcastdayitem6">
+                  <div className="forecastitemtextDiv">
+                    <span className="material-symbols-outlined">foggy</span>
+                    <div style={{ display: "flex" }}>
+                      <div>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          24°{" "}
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "15px",
+                            padding: "2px",
+                            marginLeft: "-10px",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                      <div style={{ alignContent: "end" }}>
+                        <span className="humidityValue forecasttextSpan">
+                          /
+                        </span>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          14°
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "10px",
+                            marginLeft: "",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="forecastitemdateDiv">
+                    <div>
+                      <span className="forcastdatespan">21</span>
+                      <span className="forcastdatespan">May,Sun</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="forecastdaysitem" id="forcastdayitem7">
+                  <div className="forecastitemtextDiv">
+                    <span className="material-symbols-outlined">sunny</span>
+                    <div style={{ display: "flex" }}>
+                      <div>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          24°{" "}
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "15px",
+                            padding: "2px",
+                            marginLeft: "-10px",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                      <div style={{ alignContent: "end" }}>
+                        <span className="humidityValue forecasttextSpan">
+                          /
+                        </span>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          14°
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "10px",
+                            marginLeft: "",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="forecastitemdateDiv">
+                    <div>
+                      <span className="forcastdatespan">22</span>
+                      <span className="forcastdatespan">May,Mon</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="forecastdaysitem" id="forcastdayitem8">
+                  <div className="forecastitemtextDiv">
+                    <span className="material-symbols-outlined">foggy</span>
+                    <div style={{ display: "flex" }}>
+                      <div>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          24°{" "}
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "15px",
+                            padding: "2px",
+                            marginLeft: "-10px",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                      <div style={{ alignContent: "end" }}>
+                        <span className="humidityValue forecasttextSpan">
+                          /
+                        </span>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          14°
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "10px",
+                            marginLeft: "",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="forecastitemdateDiv">
+                    <div>
+                      <span className="forcastdatespan">24</span>
+                      <span className="forcastdatespan">May,Tue</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="forecastdaysitem" id="forcastdayitem9">
+                  <div className="forecastitemtextDiv">
+                    <span className="material-symbols-outlined">foggy</span>
+                    <div style={{ display: "flex" }}>
+                      <div>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          24°{" "}
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "15px",
+                            padding: "2px",
+                            marginLeft: "-10px",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                      <div style={{ alignContent: "end" }}>
+                        <span className="humidityValue forecasttextSpan">
+                          /
+                        </span>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          14°
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "10px",
+                            marginLeft: "",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="forecastitemdateDiv">
+                    <div>
+                      <span className="forcastdatespan">24</span>
+                      <span className="forcastdatespan">May,Wed</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="forecastdaysitem" id="forcastdayitem10">
+                  <div className="forecastitemtextDiv">
+                    <span className="material-symbols-outlined">
+                      thunderstorm
+                    </span>
+                    <div style={{ display: "flex" }}>
+                      <div>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          24°{" "}
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "15px",
+                            padding: "2px",
+                            marginLeft: "-10px",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                      <div style={{ alignContent: "end" }}>
+                        <span className="humidityValue forecasttextSpan">
+                          /
+                        </span>
+                        <span className="humidityValue temp_degree forecasttextSpan">
+                          14°
+                        </span>
+                        <span
+                          className="unit-display"
+                          style={{
+                            fontSize: "10px",
+                            marginLeft: "",
+                            fontWeight: "500",
+                            color: "var(--themeColor",
+                          }}
+                        >
+                          C
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="forecastitemdateDiv">
+                    <div>
+                      <span className="forcastdatespan">25</span>
+                      <span className="forcastdatespan">May,Thu</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1670,4 +1694,3 @@ export default function Dashboard() {
     </div>
   );
 }
-

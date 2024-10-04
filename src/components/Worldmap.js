@@ -10,7 +10,7 @@ import "leaflet/dist/leaflet.css";
 import "./Worldmap.css"; // Import your CSS file
 import { ActiveUnitContext } from '../ActiveUnitContext';
 
-const API_KEY = "12ceedd020611e9b8cdd00440f158b2a";
+const API_KEY = "24ac5750d6ad16e1431572932f4e42fa";
 
 export default function Worldmap() {
   const {currentCity, setcurrentCity} = useContext(ActiveUnitContext)
@@ -154,62 +154,47 @@ export default function Worldmap() {
   // Fetch weather data
   useEffect(() => {
     const fetchWeatherData = async () => {
-      setLoading(true); // Set loading to true before fetching data
-      try {
-        const data = await Promise.all(
-          [...majorCities, ...minorCities, ...additionalCities].map(
-            async (city) => {
-              const response = await fetch(
-                `https://api.openweathermap.org/data/2.5/weather?lat=${city.coords[0]}&lon=${city.coords[1]}&appid=${API_KEY}`
-              );
-              const weather = await response.json();
-              return { ...city, weather };
-            }
-          )
-        );
-        setWeatherData(data);
-      } catch (error) {
-        console.error("Error fetching weather data:", error);
-      } finally {
-        setLoading(false); // Set loading to false after data is fetched or an error occurs
-      }
-    };
-
-    fetchWeatherData();
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          console.log(position);
-          const { latitude, longitude } = position.coords;
-          setUserLocation([latitude, longitude]); // Set user location
-
-          // Fetch weather data for the user's city
-          try {
-            setLoading(true); // Set loading to true while fetching user weather data
+      const data = await Promise.all(
+        [...majorCities, ...minorCities, ...additionalCities].map(
+          async (city) => {
+            const response = await fetch(
+              `https://api.openweathermap.org/data/2.5/weather?lat=${city.coords[0]}&lon=${city.coords[1]}&appid=${API_KEY}`
+            );
+            const weather = await response.json();
+            return { ...city, weather };
+          }
+        )
+      );
+      setWeatherData(data); // Update weather data
+  
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            setUserLocation([latitude, longitude]); // Set user location
+  
+            // Fetch weather data for the user's city
             const response = await fetch(
               `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`
             );
             const weather = await response.json();
             setUserWeather({ coords: [latitude, longitude], weather });
-
+            
+            // Set the current city based on the fetched user's weather data
+            setcurrentCity(weather.name); // Use the weather from the user's location
+  
             // Zoom to user's location and set the map view
             if (mapRef.current) {
               mapRef.current.setView([latitude, longitude], 8); // Zoom and center to the user's location
             }
-          } catch (error) {
-            console.error("Error fetching user weather data:", error);
-          } finally {
-            setLoading(false); // Set loading to false after fetching user weather data
-          }
-        },
-        (error) => {
-          console.error("Error getting user location:", error);
-        }
-      );
-    }
-  }, [additionalCities, majorCities, minorCities, setLoading, setUserLocation, setUserWeather]); // Include necessary dependencies
-
+          },
+        );
+      }
+    };
+  
+    fetchWeatherData();
+  }, [majorCities, minorCities, additionalCities, API_KEY]); // Add dependencies as needed
+  
 
   function ZoomHandler() {
     const map = useMap();
