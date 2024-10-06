@@ -60,6 +60,8 @@ export default function Dashboard() {
   const [wmoCode, setWmoCode] = useState([]);
   const [timeStamps, setTimeStamps] = useState([]);
   const [dailyDate, setdailyDate] = useState([]);
+  const [forecastDate, setforecastDate] = useState([]);
+  const [forecastMonth, setforecastMonth] = useState([]);
   const [forecastWmoCode, setforecastWmoCode] = useState([]);
   const [dailyTempMax,setdailyTempMax] = useState([]);
   const [dailyTempMin,setdailyTempMin] = useState([]);
@@ -67,6 +69,10 @@ export default function Dashboard() {
   
   const wmoCodeMap = {
     0: {
+      forecast: {
+        description: "Sunny",
+        image: <WiDaySunny size={35} color="white" />,
+      },
       day: {
         description: "Sunny",
         image: <WiDaySunny size={30} color="#000" />,
@@ -77,6 +83,10 @@ export default function Dashboard() {
       },
     },
     1: {
+      forecast: {
+        description: "Mainly Sunny",
+        image: <WiDaySunnyOvercast size={35} color="white" />,
+      },  
       day: {
         description: "Mainly Sunny",
         image: <WiDaySunnyOvercast size={30} color="#000" />,
@@ -87,6 +97,10 @@ export default function Dashboard() {
       },
     },
     2: {
+      forecast: {
+        description: "Partly Cloudy",
+        image: <WiDayCloudy size={35} color="white" />,
+      },
       day: {
         description: "Partly Cloudy",
         image: <WiDayCloudy size={30} color="#000" />,
@@ -97,6 +111,10 @@ export default function Dashboard() {
       },
     },
     3: {
+      forecast: {
+        description: "Cloudy",
+        image: <WiCloudy size={35} color="white" />,
+      },
       day: {
         description: "Cloudy",
         image: <WiCloudy size={30} color="#000" />,
@@ -107,6 +125,10 @@ export default function Dashboard() {
       },
     },
     45: {
+      forecast: {
+        description: "Foggy",
+        image: <WiDayFog size={35} color="white" />,
+      },
       day: {
         description: "Foggy",
         image: <WiDayFog size={30} color="#000" />,
@@ -117,7 +139,11 @@ export default function Dashboard() {
       },
     },
     48: {
-      day: {
+      forecast: {
+        description: "Rime Fog",
+        image: <WiNightFog size={35} color="white" />,
+      },
+            day: {
         description: "Rime Fog",
         image: <WiNightFog size={30} color="#000" />,
       },
@@ -127,6 +153,10 @@ export default function Dashboard() {
       },
     },
     51: {
+      forecast: {
+        description: "Light Drizzle",
+        image: <WiDayShowers size={35} color="white" />,
+      },
       day: {
         description: "Light Drizzle",
         image: <WiDayShowers size={30} color="#000" />,
@@ -137,6 +167,10 @@ export default function Dashboard() {
       },
     },
     53: {
+      forecast: {
+        description: "Drizzle",
+        image: <WiDayShowers size={35} color="white" />,
+      },
       day: {
         description: "Drizzle",
         image: <WiDayShowers size={30} color="#000" />,
@@ -147,6 +181,10 @@ export default function Dashboard() {
       },
     },
     55: {
+      forecast: {
+        description: "Heavy Drizzle",
+        image: <WiDayShowers size={35} color="white" />,
+      },
       day: {
         description: "Heavy Drizzle",
         image: <WiDayShowers size={30} color="#000" />,
@@ -157,6 +195,10 @@ export default function Dashboard() {
       },
     },
     56: {
+      forecast: {
+        description: "Light Freezing Drizzle",
+        image: <WiDaySleet size={35} color="white" />,
+      },
       day: {
         description: "Light Freezing Drizzle",
         image: <WiDaySleet size={30} color="#000" />,
@@ -167,6 +209,10 @@ export default function Dashboard() {
       },
     },
     57: {
+      forecast: {
+        description: "Freezing Drizzle",
+        image: <WiDaySleet size={35} color="white" />,
+      },
       day: {
         description: "Freezing Drizzle",
         image: <WiDaySleet size={30} color="#000" />,
@@ -177,6 +223,10 @@ export default function Dashboard() {
       },
     },
     61: {
+      forecast: {
+        description: "Light Rain",
+        image: <WiDayRain size={35} color="white" />,
+      },
       day: {
         description: "Light Rain",
         image: <WiDayRain size={30} color="#000" />,
@@ -187,6 +237,10 @@ export default function Dashboard() {
       },
     },
     63: {
+      forecast: {
+        description: "Rain",
+        image: <WiRain size={35} color="white" />,
+      },
       day: {
         description: "Rain",
         image: <WiRain size={30} color="#000" />,
@@ -197,6 +251,10 @@ export default function Dashboard() {
       },
     },
     65: {
+      forecast: {
+        description: "Heavy Rain",
+        image: <WiRain size={35} color="white" />,
+      },
       day: {
         description: "Heavy Rain",
         image: <WiRain size={30} color="#000" />,
@@ -207,6 +265,10 @@ export default function Dashboard() {
       },
     },
     66: {
+      forecast: {
+        description: "Light Freezing Rain",
+        image: <WiRainMix size={35} color="white" />,
+      },
       day: {
         description: "Light Freezing Rain",
         image: <WiRainMix size={30} color="#000" />,
@@ -217,6 +279,10 @@ export default function Dashboard() {
       },
     },
     67: {
+      forecast: {
+        description: "Freezing Rain",
+        image: <WiRainMix size={35} color="white" />,
+      },
       day: {
         description: "Freezing Rain",
         image: <WiRainMix size={30} color="#000" />,
@@ -227,6 +293,10 @@ export default function Dashboard() {
       },
     },
     71: {
+      forecast: {
+        description: "Light Snow",
+        image: <WiDaySnow size={35} color="white" />,
+      },
       day: {
         description: "Light Snow",
         image: <WiDaySnow size={30} color="#000" />,
@@ -237,6 +307,10 @@ export default function Dashboard() {
       },
     },
     73: {
+      forecast: {
+        description: "Snow",
+        image: <WiSnow size={35} color="white" />,
+      },
       day: {
         description: "Snow",
         image: <WiSnow size={30} color="#000" />,
@@ -247,6 +321,10 @@ export default function Dashboard() {
       },
     },
     75: {
+      forecast: {
+        description: "Heavy Snow",
+        image: <WiSnow size={35} color="white" />,
+      },
       day: {
         description: "Heavy Snow",
         image: <WiSnow size={30} color="#000" />,
@@ -257,6 +335,10 @@ export default function Dashboard() {
       },
     },
     77: {
+      forecast: {
+        description: "Snow Grains",
+        image: <WiSnow size={35} color="white" />,
+      },
       day: {
         description: "Snow Grains",
         image: <WiSnow size={30} color="#000" />,
@@ -267,6 +349,10 @@ export default function Dashboard() {
       },
     },
     80: {
+      forecast: {
+        description: "Light Showers",
+        image: <WiDayShowers size={35} color="white" />,
+      },
       day: {
         description: "Light Showers",
         image: <WiDayShowers size={30} color="#000" />,
@@ -277,6 +363,10 @@ export default function Dashboard() {
       },
     },
     81: {
+      forecast: {
+        description: "Showers",
+        image: <WiDayShowers size={35} color="white" />,
+      },
       day: {
         description: "Showers",
         image: <WiDayShowers size={30} color="#000" />,
@@ -287,6 +377,10 @@ export default function Dashboard() {
       },
     },
     82: {
+      forecast: {
+        description: "Heavy Showers",
+        image: <WiDayShowers size={35} color="white" />,
+      },
       day: {
         description: "Heavy Showers",
         image: <WiDayShowers size={30} color="#000" />,
@@ -297,6 +391,10 @@ export default function Dashboard() {
       },
     },
     85: {
+      forecast: {
+        description: "Light Snow Showers",
+        image: <WiDayHail size={35} color="white" />,
+      },
       day: {
         description: "Light Snow Showers",
         image: <WiDayHail size={30} color="#000" />,
@@ -307,6 +405,10 @@ export default function Dashboard() {
       },
     },
     86: {
+      forecast: {
+        description: "Snow Showers",
+        image: <WiDayRainMix size={35} color="white" />,
+      },
       day: {
         description: "Snow Showers",
         image: <WiDayRainMix size={30} color="#000" />,
@@ -317,6 +419,10 @@ export default function Dashboard() {
       },
     },
     95: {
+      forecast: {
+        description: "Thunderstorm",
+        image: <WiThunderstorm size={35} color="white" />,
+      },
       day: {
         description: "Thunderstorm",
         image: <WiThunderstorm size={30} color="#000" />,
@@ -327,6 +433,10 @@ export default function Dashboard() {
       },
     },
     96: {
+      forecast: {
+        description: "Light Thunderstorms With Hail",
+        image: <WiDaySleetStorm size={35} color="white" />,
+      },
       day: {
         description: "Light Thunderstorms With Hail",
         image: <WiDaySleetStorm size={30} color="#000" />,
@@ -337,6 +447,10 @@ export default function Dashboard() {
       },
     },
     99: {
+      forecast: {
+        description: "Thunderstorm With Hail",
+        image: <WiDaySleetStorm size={35} color="white" />,
+      },
       day: {
         description: "Thunderstorm With Hail",
         image: <WiDaySleetStorm size={30} color="#000" />,
@@ -350,27 +464,10 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    // countries.registerLocale(enLocale);
-
-    const getLocation = () => {
-      // setLoading(true);
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success, handleError);
-      } else {
-        // setLoading(false);
-      }
-    };
-
-    const success = (position) => {
-      const { latitude, longitude } = position.coords;
-      getCityInfo(latitude, longitude);
-    };
-    const handleError = () => {
-      // setLoading(false);
-    };
+    countries.registerLocale(enLocale);
 
     const getCityInfo = async (lat, lon) => {             //Fetching current City Weather
-      setLoading(true);
+      // setLoading(true);
       console.log(lat, lon);
       // karachi coods: lat = 24.8607 long = 67.0011
       const city_url = `https://api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`;
@@ -382,7 +479,6 @@ export default function Dashboard() {
       if (!cityName.ok || !cityWeather.ok) {
         throw new Error(`HTTP error!`);
       }
-      setLoading(false);
       const citydata = await cityName.json();
       const weatherData = await cityWeather.json();
 
@@ -393,7 +489,7 @@ export default function Dashboard() {
           weatherData.current.relative_humidity_2m &&
           weatherData.current.wind_speed_10m &&
           weatherData.hourly.temperature_2m,
-        weatherData.hourly.time)
+         weatherData.hourly.time)
       ) {
         const fullCountryName = countries.getName(citydata.countryCode, "en");
         const roundedTemperatures = weatherData.hourly.temperature_2m.map(
@@ -410,28 +506,86 @@ export default function Dashboard() {
     };
 
 
-
-    const getForecastInfo = async (lat, lon) => {             //Fetching current City Weather
-      setLoading(true);
+    const getForecastInfo = async (lat, lon) => {             //Fetching forecast Weather
+      // setLoading(true);
       const forecast_url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=14`;
     
-      // const forecast = await fetch(city_url);
-      if (!forecast_url.ok) {
+      const forecast = await fetch(forecast_url);
+      if (!forecast.ok) {
         throw new Error(`HTTP error!`);
       }
-      const forecastData = await forecast_url.json();      
-      setLoading(false);
+      const forecastData = await forecast.json();      
       if (
         (forecastData.daily.time &&
-          forecastData.daily.weather_code &&  forecastData.daily.temperature_2m_max && forecastData.daily.temperature_2m_min)
+          forecastData.daily.weather_code &&  forecastData.daily.temperature_2m_max && forecastData.daily.temperature_2m_min && forecastData.daily.precipitation_probability_max)
       ) {
-        // const fullCountryName = countries.getName(citydata.countryCode, "en");
+        const maxForecastTemp = forecastData.daily.temperature_2m_max.map(
+          (temp) => parseFloat(temp).toFixed(0)
+        ); 
+        const minForecastTemp = forecastData.daily.temperature_2m_min.map(
+          (temp) => parseFloat(temp).toFixed(0)
+        );
 
-        // setLocation({ city: citydata.city, country: fullCountryName });
-       
+        setdailyDate(forecastData.daily.time)
+        setforecastWmoCode(forecastData.daily.weather_code)
+        setdailyTempMax(maxForecastTemp)
+        setdailyTempMin(minForecastTemp)
+        setdailyPrec(forecastData.daily.precipitation_probability_max)
+        
       }
     };
+
+   
+
+    const getLocation = () => {
+      // setLoading(true);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, handleError);
+      } else {
+        // setLoading(false);
+      }
+    };
+
+    const success = (position) => {
+      const { latitude, longitude } = position.coords;
+      getCityInfo(latitude, longitude);
+      getForecastInfo(latitude,longitude)
+      
+    };
+    const handleError = () => {
+      // setLoading(false);
+    };
+
+    getLocation()
   }, []);
+  
+
+  const formatDates = (datefetched) => {
+    if(datefetched){
+      const date = new Date(datefetched);   
+      const fullDate = date.toLocaleDateString('en-GB', {
+        day: 'numeric',
+      }).replace(',', '.'); 
+  
+      const monthDay = date.toLocaleDateString('en-GB', {
+        month: 'short',
+        weekday: 'short'
+      }).replace(' ', ',');
+  
+      // setforecastDate(fullDate);
+      // setforecastMonth(monthDay);
+
+      return( 
+        <>
+        <span className="forcastdatespan">{fullDate}</span>
+      <span className="forcastdatespan">{monthDay}</span>
+      </>
+      );
+  }else{
+    console.log('not found')
+  }
+  }
+
 
   const isDayTime = (localtime) => {
     const hours = localtime.getHours();
@@ -440,9 +594,7 @@ export default function Dashboard() {
 
   const renderWeather = (code, localTime) => {
     const dayOrNight = isDayTime(localTime) ? "day" : "night";
-    console.log(dayOrNight);
     const weatherData = wmoCodeMap[code];
-    console.log(localTime);
 
     if (weatherData) {
       return <div>{weatherData[dayOrNight].image}</div>;
@@ -452,6 +604,16 @@ export default function Dashboard() {
     }
   };
 
+  const renderForecastWeather = (code) => {
+    const foreweatherData = wmoCodeMap[code];
+    if (foreweatherData) {
+      return <div >{foreweatherData['forecast'].image}</div>;
+    } 
+    else {
+      return <WiNA size={30} color="#000" />
+    }
+  }
+  
   const scrollLeft = () => {
     const div = document.getElementById("hourly");
     div.scrollLeft -= 320; // Adjust value to control scroll speed
@@ -692,7 +854,7 @@ export default function Dashboard() {
                   {wmoCode && timeStamps ? (
                     renderWeather(wmoCode[0], new Date(timeStamps[0]))
                   ) : (
-                    <WiNA size={30} color="#000" />
+                    <WiNA size={35} color="white" />
                   )}
 
                   <div>
@@ -1608,11 +1770,15 @@ export default function Dashboard() {
             <div className="forecast-innerDiv" id="forecasts" ref={forecastDiv}>
               <div className="forecastdaysitem" id="forcastdayitem1">
                 <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">cloud</span>
+                 {forecastWmoCode ? (
+                    renderForecastWeather(forecastWmoCode[1])
+                  ) : (
+                    <WiNA size={35} color="white" />
+                  )}
                   <div style={{ display: "flex" }}>
                     <div>
                       <span className="humidityValue temp_degree forecasttextSpan">
-                        1°{" "}
+                        {dailyTempMax[1]}°{" "}
                       </span>
                       <span
                         className="unit-display"
@@ -1635,7 +1801,7 @@ export default function Dashboard() {
                         /
                       </span>
                       <span className="humidityValue temp_degree forecasttextSpan">
-                        14°
+                      {dailyTempMin[1]}°
                       </span>
                       <span
                         className="unit-display"
@@ -1654,22 +1820,29 @@ export default function Dashboard() {
                 <div className="forecastitemdateDiv">
                 <div>
                     <img style={{width:'20px',height:'20px'}} src={PrecipitationIcon} alt="PrecipitationIcon" />
-                    <span className="forcastdatespan">16%</span>
+                    <span className="forcastdatespan">{dailyPrec[1]}%</span>
                   </div>
                   <div>
-                    <span className="forcastdatespan">16</span>
-                    <span className="forcastdatespan">May,Tue</span>
+                     {dailyDate ? (
+                    formatDates(dailyDate[1])
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   </div>
                 </div>
               </div>
 
               <div className="forecastdaysitem" id="forcastdayitem2">
                 <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">sunny</span>
-                  <div style={{ display: "flex" }}>
+                {forecastWmoCode ? (
+                    renderForecastWeather(forecastWmoCode[2])
+                  ) : (
+                    <WiNA size={35} color="white" />
+                  )}                 
+                   <div style={{ display: "flex" }}>
                     <div>
                       <span className="humidityValue temp_degree forecasttextSpan">
-                        2°{" "}
+                      {dailyTempMax[2]}{" "}
                       </span>
                       <span
                         className="unit-display"
@@ -1687,7 +1860,7 @@ export default function Dashboard() {
                     <div style={{ alignContent: "end" }}>
                       <span className="humidityValue forecasttextSpan">/</span>
                       <span className="humidityValue temp_degree forecasttextSpan">
-                        14°
+                      {dailyTempMin[2]}°
                       </span>
                       <span
                         className="unit-display"
@@ -1704,22 +1877,31 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
+                <div>
+                    <img style={{width:'20px',height:'20px'}} src={PrecipitationIcon} alt="PrecipitationIcon" />
+                    <span className="forcastdatespan">{dailyPrec[2]}%</span>
+                  </div>
                   <div>
-                    <span className="forcastdatespan">17</span>
-                    <span className="forcastdatespan">May,Wed</span>
+                     {dailyDate ? (
+                    formatDates(dailyDate[2])
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   </div>
                 </div>
               </div>
 
               <div className="forecastdaysitem" id="forcastdayitem3">
                 <div className="forecastitemtextDiv">
-                  <span className="material-symbols-outlined">
-                    thunderstorm
-                  </span>
+                {forecastWmoCode ? (
+                    renderForecastWeather(forecastWmoCode[3])
+                  ) : (
+                    <WiNA size={35} color="white" />
+                  )}
                   <div style={{ display: "flex" }}>
                     <div>
                       <span className="humidityValue temp_degree forecasttextSpan">
-                        3°{" "}
+                      {dailyTempMax[3]}°{" "}
                       </span>
                       <span
                         className="unit-display"
@@ -1737,7 +1919,7 @@ export default function Dashboard() {
                     <div style={{ alignContent: "end" }}>
                       <span className="humidityValue forecasttextSpan">/</span>
                       <span className="humidityValue temp_degree forecasttextSpan">
-                        14°
+                      {dailyTempMin[2]}°
                       </span>
                       <span
                         className="unit-display"
@@ -1754,9 +1936,16 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
+                <div>
+                    <img style={{width:'20px',height:'20px'}} src={PrecipitationIcon} alt="PrecipitationIcon" />
+                    <span className="forcastdatespan">{dailyPrec[3]}%</span>
+                  </div>
                   <div>
-                    <span className="forcastdatespan">18</span>
-                    <span className="forcastdatespan">May,Thu</span>
+                     {dailyDate ? (
+                    formatDates(dailyDate[3])
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   </div>
                 </div>
               </div>
@@ -1765,13 +1954,15 @@ export default function Dashboard() {
                 <div className="forecastdaysitem" id="forcastdayitem4">
                   {" "}
                   <div className="forecastitemtextDiv">
-                    <span className="material-symbols-outlined">
-                      partly_cloudy_night
-                    </span>
+                  {forecastWmoCode ? (
+                    renderForecastWeather(forecastWmoCode[4])
+                  ) : (
+                    <WiNA size={35} color="white" />
+                  )}
                     <div style={{ display: "flex" }}>
                       <div>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          24°{" "}
+                        {dailyTempMax[4]}°{" "}
                         </span>
                         <span
                           className="unit-display"
@@ -1791,7 +1982,7 @@ export default function Dashboard() {
                           /
                         </span>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          14°
+                        {dailyTempMax[4]}°
                         </span>
                         <span
                           className="unit-display"
@@ -1808,20 +1999,31 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="forecastitemdateDiv">
-                    <div>
-                      <span className="forcastdatespan">19</span>
-                      <span className="forcastdatespan">May,Fri</span>
-                    </div>
+                  <div>
+                    <img style={{width:'20px',height:'20px'}} src={PrecipitationIcon} alt="PrecipitationIcon" />
+                    <span className="forcastdatespan">{dailyPrec[4]}%</span>
+                  </div>
+                  <div>
+                     {dailyDate ? (
+                    formatDates(dailyDate[4])
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
+                  </div>
                   </div>
                 </div>
 
                 <div className="forecastdaysitem" id="forcastdayitem5">
                   <div className="forecastitemtextDiv">
-                    <span className="material-symbols-outlined">foggy</span>
+                  {forecastWmoCode ? (
+                    renderForecastWeather(forecastWmoCode[5])
+                  ) : (
+                    <WiNA size={35} color="white" />
+                  )}
                     <div style={{ display: "flex" }}>
                       <div>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          24°{" "}
+                        {dailyTempMax[5]}°{" "}
                         </span>
                         <span
                           className="unit-display"
@@ -1841,7 +2043,7 @@ export default function Dashboard() {
                           /
                         </span>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          14°
+                        {dailyTempMax[5]}°
                         </span>
                         <span
                           className="unit-display"
@@ -1858,20 +2060,31 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="forecastitemdateDiv">
-                    <div>
-                      <span className="forcastdatespan">20</span>
-                      <span className="forcastdatespan">May,Sat</span>
-                    </div>
+                  <div>
+                    <img style={{width:'20px',height:'20px'}} src={PrecipitationIcon} alt="PrecipitationIcon" />
+                    <span className="forcastdatespan">{dailyPrec[5]}%</span>
+                  </div>
+                  <div>
+                     {dailyDate ? (
+                    formatDates(dailyDate[5])
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
+                  </div>
                   </div>
                 </div>
 
                 <div className="forecastdaysitem" id="forcastdayitem6">
                   <div className="forecastitemtextDiv">
-                    <span className="material-symbols-outlined">foggy</span>
+                  {forecastWmoCode ? (
+                    renderForecastWeather(forecastWmoCode[6])
+                  ) : (
+                    <WiNA size={35} color="white" />
+                  )}
                     <div style={{ display: "flex" }}>
                       <div>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          24°{" "}
+                        {dailyTempMax[6]}°{" "}
                         </span>
                         <span
                           className="unit-display"
@@ -1891,7 +2104,7 @@ export default function Dashboard() {
                           /
                         </span>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          14°
+                        {dailyTempMax[6]}°
                         </span>
                         <span
                           className="unit-display"
@@ -1908,20 +2121,31 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="forecastitemdateDiv">
-                    <div>
-                      <span className="forcastdatespan">21</span>
-                      <span className="forcastdatespan">May,Sun</span>
-                    </div>
+                  <div>
+                    <img style={{width:'20px',height:'20px'}} src={PrecipitationIcon} alt="PrecipitationIcon" />
+                    <span className="forcastdatespan">{dailyPrec[6]}%</span>
+                  </div>
+                  <div>
+                     {dailyDate ? (
+                    formatDates(dailyDate[6])
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
+                  </div>
                   </div>
                 </div>
 
                 <div className="forecastdaysitem" id="forcastdayitem7">
                   <div className="forecastitemtextDiv">
-                    <span className="material-symbols-outlined">sunny</span>
+                  {forecastWmoCode ? (
+                    renderForecastWeather(forecastWmoCode[7])
+                  ) : (
+                    <WiNA size={35} color="white" />
+                  )}
                     <div style={{ display: "flex" }}>
                       <div>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          24°{" "}
+                        {dailyTempMax[7]}°{" "}
                         </span>
                         <span
                           className="unit-display"
@@ -1941,7 +2165,7 @@ export default function Dashboard() {
                           /
                         </span>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          14°
+                        {dailyTempMax[7]}°
                         </span>
                         <span
                           className="unit-display"
@@ -1958,20 +2182,31 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="forecastitemdateDiv">
-                    <div>
-                      <span className="forcastdatespan">22</span>
-                      <span className="forcastdatespan">May,Mon</span>
-                    </div>
+                  <div>
+                    <img style={{width:'20px',height:'20px'}} src={PrecipitationIcon} alt="PrecipitationIcon" />
+                    <span className="forcastdatespan">{dailyPrec[7]}%</span>
+                  </div>
+                  <div>
+                     {dailyDate ? (
+                    formatDates(dailyDate[7])
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
+                  </div>
                   </div>
                 </div>
 
                 <div className="forecastdaysitem" id="forcastdayitem8">
                   <div className="forecastitemtextDiv">
-                    <span className="material-symbols-outlined">foggy</span>
+                  {forecastWmoCode ? (
+                    renderForecastWeather(forecastWmoCode[8])
+                  ) : (
+                    <WiNA size={35} color="white" />
+                  )}
                     <div style={{ display: "flex" }}>
                       <div>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          24°{" "}
+                        {dailyTempMax[8]}°{" "}
                         </span>
                         <span
                           className="unit-display"
@@ -1991,7 +2226,7 @@ export default function Dashboard() {
                           /
                         </span>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          14°
+                        {dailyTempMax[8]}°
                         </span>
                         <span
                           className="unit-display"
@@ -2008,20 +2243,31 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="forecastitemdateDiv">
-                    <div>
-                      <span className="forcastdatespan">24</span>
-                      <span className="forcastdatespan">May,Tue</span>
-                    </div>
+                  <div>
+                    <img style={{width:'20px',height:'20px'}} src={PrecipitationIcon} alt="PrecipitationIcon" />
+                    <span className="forcastdatespan">{dailyPrec[8]}%</span>
+                  </div>
+                  <div>
+                     {dailyDate ? (
+                    formatDates(dailyDate[8])
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
+                  </div>
                   </div>
                 </div>
 
                 <div className="forecastdaysitem" id="forcastdayitem9">
                   <div className="forecastitemtextDiv">
-                    <span className="material-symbols-outlined">foggy</span>
+                  {forecastWmoCode ? (
+                    renderForecastWeather(forecastWmoCode[9])
+                  ) : (
+                    <WiNA size={35} color="white" />
+                  )}
                     <div style={{ display: "flex" }}>
                       <div>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          24°{" "}
+                        {dailyTempMax[9]}°{" "}
                         </span>
                         <span
                           className="unit-display"
@@ -2041,7 +2287,7 @@ export default function Dashboard() {
                           /
                         </span>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          14°
+                        {dailyTempMax[9]}°
                         </span>
                         <span
                           className="unit-display"
@@ -2058,22 +2304,31 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="forecastitemdateDiv">
-                    <div>
-                      <span className="forcastdatespan">24</span>
-                      <span className="forcastdatespan">May,Wed</span>
-                    </div>
+                  <div>
+                    <img style={{width:'20px',height:'20px'}} src={PrecipitationIcon} alt="PrecipitationIcon" />
+                    <span className="forcastdatespan">{dailyPrec[9]}%</span>
+                  </div>
+                  <div>
+                     {dailyDate ? (
+                    formatDates(dailyDate[9])
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
+                  </div>
                   </div>
                 </div>
 
                 <div className="forecastdaysitem" id="forcastdayitem10">
                   <div className="forecastitemtextDiv">
-                    <span className="material-symbols-outlined">
-                      thunderstorm
-                    </span>
+                  {forecastWmoCode ? (
+                    renderForecastWeather(forecastWmoCode[10])
+                  ) : (
+                    <WiNA size={35} color="white" />
+                  )}
                     <div style={{ display: "flex" }}>
                       <div>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          24°{" "}
+                        {dailyTempMax[10]}°{" "}
                         </span>
                         <span
                           className="unit-display"
@@ -2093,7 +2348,7 @@ export default function Dashboard() {
                           /
                         </span>
                         <span className="humidityValue temp_degree forecasttextSpan">
-                          14°
+                        {dailyTempMax[10]}°
                         </span>
                         <span
                           className="unit-display"
@@ -2110,10 +2365,17 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <div className="forecastitemdateDiv">
-                    <div>
-                      <span className="forcastdatespan">25</span>
-                      <span className="forcastdatespan">May,Thu</span>
-                    </div>
+                  <div>
+                    <img style={{width:'20px',height:'20px'}} src={PrecipitationIcon} alt="PrecipitationIcon" />
+                    <span className="forcastdatespan">{dailyPrec[10]}%</span>
+                  </div>
+                  <div>
+                     {dailyDate ? (
+                    formatDates(dailyDate[10])
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
+                  </div>
                   </div>
                 </div>
               </div>

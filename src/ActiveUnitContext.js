@@ -8,7 +8,7 @@ export const ActiveUnitContext = createContext();
 export const ActiveUnitProvider = ({ children }) => {
   const [activeUnit, setActiveUnit] = useState("D");
   const [currentCity,setcurrentCity] = useState('Berlin')
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
 
   return (
