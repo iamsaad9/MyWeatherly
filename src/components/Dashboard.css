@@ -84,13 +84,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  /* gap: 5px; */
   flex-shrink: 0;
+  font-weight: 600;
 }
 
-.hour_text{
-  font-weight: 500;
-}
 
 .mainRow {
   display: flex;
@@ -424,6 +422,7 @@
   display: flex;
   justify-content: right;
   align-items: center;
+  gap: 10px;
 }
 .forecastitemdateDiv>div{
   font-size: 25px;

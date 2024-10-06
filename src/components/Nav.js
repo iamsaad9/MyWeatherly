@@ -16,8 +16,22 @@ export default function Nav() {
   const celbtn = useRef(null);
   const farbtn = useRef(null);
   const [changeUnit, setchangeUnit] = useState("false");
+  const [currentDate,setCurrentDate] = useState();
 
-
+  useEffect(() => {
+    // Get the current date
+    const today = new Date();
+    
+    // Format the date to "Mon, 29 July, 2024"
+    const formattedDate = today.toLocaleDateString('en-US', {
+      weekday: 'short',  // 'Mon'
+      day: 'numeric',    // '29'
+      month: 'long',     // 'July'
+      year: 'numeric'    // '2024'
+    });
+    
+    setCurrentDate(formattedDate);
+  }, []);
 
   const changetoCel = () => {
     setchangeUnit("C");
@@ -60,11 +74,11 @@ export default function Nav() {
           console.log(toString(farValue));
           const celValue = (farValue - 32) * (5 / 9);
           console.log(toString(celValue));
-          tempDegrees[i].textContent = celValue.toFixed(0) + "°";
+          tempDegrees[i].textContent = celValue.toFixed(1) + "°";
         }
         const unitDisplay = document.querySelectorAll('.unit-display');
     for (let i = 0; i < unitDisplay.length; i++) {
-      unitDisplay[i].textContent = ' C';
+      unitDisplay[i].textContent = 'C';
     }
         console.log(unitDisplay)
       } else if (activeUnit === "F" && changeUnit === "true") {
@@ -85,7 +99,7 @@ export default function Nav() {
 
         const unitDisplay = document.querySelectorAll('.unit-display');
         for (let i = 0; i < unitDisplay.length; i++) {
-          unitDisplay[i].textContent = ' F';
+          unitDisplay[i].textContent = 'F';
         }
       }
     }
@@ -107,7 +121,7 @@ export default function Nav() {
                 Hi, Saad
               </span>
               <span id="date_span" className="date-text">
-                Mon, 29 July, 2024
+                {currentDate}
               </span>
             </div>
           </div>
@@ -115,7 +129,7 @@ export default function Nav() {
 
         <div id="nav_opt" className="nav-options">
           <div id="search" className="search-section">
-            <span class="material-symbols-outlined">search</span>
+            <span className="material-symbols-outlined">search</span>
             <input
               type="search"
               className="search-input"
@@ -174,11 +188,11 @@ export default function Nav() {
           </div>
 
           <div id="temp_unit" className="temp-unit">
-            <div class="temp_toggle-switch">
+            <div className="temp_toggle-switch">
               <button
                 id="celbtn"
                 ref={celbtn}
-                class="temp-switch-button"
+                className="temp-switch-button"
                 onClick={changetoCel}
               >
                 C°
@@ -186,7 +200,7 @@ export default function Nav() {
               <button
                 id="farbtn"
                 ref={farbtn}
-                class="temp-switch-button"
+                className="temp-switch-button"
                 onClick={changetoFar}
               >
                 F°

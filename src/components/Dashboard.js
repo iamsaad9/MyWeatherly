@@ -8,6 +8,38 @@ import Worldmap from "./Worldmap";
 import { ActiveUnitContext } from "../ActiveUnitContext";
 import countries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
+import PrecipitationIcon from '../images/Weather Icons/PrecipitationIcon.png'
+import {
+  WiNA,
+  WiDaySunny,
+  WiDayCloudy,
+  WiNightAltCloudy,
+  WiDayShowers,
+  WiNightAltShowers,
+  WiCloudy,
+  WiRain,
+  WiThunderstorm,
+  WiNightAltPartlyCloudy,
+  WiSnow,
+  WiDaySunnyOvercast,
+  WiNightFog,
+  WiDayFog,
+  WiDaySleet,
+  WiNightAltSleet,
+  WiDayRain,
+  WiNightAltRain,
+  WiRainMix,
+  WiDaySnow,
+  WiNightSnow,
+  WiDayHail,
+  WiNightAltHail,
+  WiNightAltRainMix,
+  WiDayRainMix,
+  WiNightSleetStorm,
+  WiDaySleetStorm,
+  WiNightClear,
+} from "weather-icons-react";
+import nightCloud from "../images/Weather Icons/nightcloud.png";
 
 export default function Dashboard() {
   const day3Ref = useRef(null);
@@ -21,54 +53,404 @@ export default function Dashboard() {
   const [activeOverview, setactiveOverview] = useState("humidity");
   const [location, setLocation] = useState({ city: "", country: "" });
   const { setLoading } = useContext(ActiveUnitContext);
+  const [cityTemp, setcityTemp] = useState("");
+  const [cityHumid, setcityHumid] = useState("");
+  const [cityWind, setcityWind] = useState("");
+  const [hourlyTemp, sethourlyTemp] = useState([]);
+  const [wmoCode, setWmoCode] = useState([]);
+  const [timeStamps, setTimeStamps] = useState([]);
+  const [dailyDate, setdailyDate] = useState([]);
+  const [forecastWmoCode, setforecastWmoCode] = useState([]);
+  const [dailyTempMax,setdailyTempMax] = useState([]);
+  const [dailyTempMin,setdailyTempMin] = useState([]);
+  const [dailyPrec,setdailyPrec] = useState([]);
+  
+  const wmoCodeMap = {
+    0: {
+      day: {
+        description: "Sunny",
+        image: <WiDaySunny size={30} color="#000" />,
+      },
+      night: {
+        description: "Clear",
+        image: <WiNightClear size={30} color="#000" />,
+      },
+    },
+    1: {
+      day: {
+        description: "Mainly Sunny",
+        image: <WiDaySunnyOvercast size={30} color="#000" />,
+      },
+      night: {
+        description: "Mainly Clear",
+        image: <WiNightAltPartlyCloudy size={30} color="#000" />,
+      },
+    },
+    2: {
+      day: {
+        description: "Partly Cloudy",
+        image: <WiDayCloudy size={30} color="#000" />,
+      },
+      night: {
+        description: "Partly Cloudy",
+        image: <WiNightAltCloudy size={30} color="#000" />,
+      },
+    },
+    3: {
+      day: {
+        description: "Cloudy",
+        image: <WiCloudy size={30} color="#000" />,
+      },
+      night: {
+        description: "Cloudy",
+        image: <WiCloudy size={30} color="#000" />,
+      },
+    },
+    45: {
+      day: {
+        description: "Foggy",
+        image: <WiDayFog size={30} color="#000" />,
+      },
+      night: {
+        description: "Foggy",
+        image: <WiNightFog size={30} color="#000" />,
+      },
+    },
+    48: {
+      day: {
+        description: "Rime Fog",
+        image: <WiNightFog size={30} color="#000" />,
+      },
+      night: {
+        description: "Rime Fog",
+        image: <WiNightFog size={30} color="#000" />,
+      },
+    },
+    51: {
+      day: {
+        description: "Light Drizzle",
+        image: <WiDayShowers size={30} color="#000" />,
+      },
+      night: {
+        description: "Light Drizzle",
+        image: <WiNightAltShowers size={30} color="#000" />,
+      },
+    },
+    53: {
+      day: {
+        description: "Drizzle",
+        image: <WiDayShowers size={30} color="#000" />,
+      },
+      night: {
+        description: "Drizzle",
+        image: <WiNightAltShowers size={30} color="#000" />,
+      },
+    },
+    55: {
+      day: {
+        description: "Heavy Drizzle",
+        image: <WiDayShowers size={30} color="#000" />,
+      },
+      night: {
+        description: "Heavy Drizzle",
+        image: <WiNightAltShowers size={30} color="#000" />,
+      },
+    },
+    56: {
+      day: {
+        description: "Light Freezing Drizzle",
+        image: <WiDaySleet size={30} color="#000" />,
+      },
+      night: {
+        description: "Light Freezing Drizzle",
+        image: <WiNightAltSleet size={30} color="#000" />,
+      },
+    },
+    57: {
+      day: {
+        description: "Freezing Drizzle",
+        image: <WiDaySleet size={30} color="#000" />,
+      },
+      night: {
+        description: "Freezing Drizzle",
+        image: <WiNightAltSleet size={30} color="#000" />,
+      },
+    },
+    61: {
+      day: {
+        description: "Light Rain",
+        image: <WiDayRain size={30} color="#000" />,
+      },
+      night: {
+        description: "Light Rain",
+        image: <WiNightAltRain size={30} color="#000" />,
+      },
+    },
+    63: {
+      day: {
+        description: "Rain",
+        image: <WiRain size={30} color="#000" />,
+      },
+      night: {
+        description: "Rain",
+        image: <WiRain size={30} color="#000" />,
+      },
+    },
+    65: {
+      day: {
+        description: "Heavy Rain",
+        image: <WiRain size={30} color="#000" />,
+      },
+      night: {
+        description: "Heavy Rain",
+        image: <WiRain size={30} color="#000" />,
+      },
+    },
+    66: {
+      day: {
+        description: "Light Freezing Rain",
+        image: <WiRainMix size={30} color="#000" />,
+      },
+      night: {
+        description: "Light Freezing Rain",
+        image: <WiRainMix size={30} color="#000" />,
+      },
+    },
+    67: {
+      day: {
+        description: "Freezing Rain",
+        image: <WiRainMix size={30} color="#000" />,
+      },
+      night: {
+        description: "Freezing Rain",
+        image: <WiRainMix size={30} color="#000" />,
+      },
+    },
+    71: {
+      day: {
+        description: "Light Snow",
+        image: <WiDaySnow size={30} color="#000" />,
+      },
+      night: {
+        description: "Light Snow",
+        image: <WiNightSnow size={30} color="#000" />,
+      },
+    },
+    73: {
+      day: {
+        description: "Snow",
+        image: <WiSnow size={30} color="#000" />,
+      },
+      night: {
+        description: "Snow",
+        image: <WiSnow size={30} color="#000" />,
+      },
+    },
+    75: {
+      day: {
+        description: "Heavy Snow",
+        image: <WiSnow size={30} color="#000" />,
+      },
+      night: {
+        description: "Heavy Snow",
+        image: <WiSnow size={30} color="#000" />,
+      },
+    },
+    77: {
+      day: {
+        description: "Snow Grains",
+        image: <WiSnow size={30} color="#000" />,
+      },
+      night: {
+        description: "Snow Grains",
+        image: <WiSnow size={30} color="#000" />,
+      },
+    },
+    80: {
+      day: {
+        description: "Light Showers",
+        image: <WiDayShowers size={30} color="#000" />,
+      },
+      night: {
+        description: "Light Showers",
+        image: <WiNightAltShowers size={30} color="#000" />,
+      },
+    },
+    81: {
+      day: {
+        description: "Showers",
+        image: <WiDayShowers size={30} color="#000" />,
+      },
+      night: {
+        description: "Showers",
+        image: <WiNightAltShowers size={30} color="#000" />,
+      },
+    },
+    82: {
+      day: {
+        description: "Heavy Showers",
+        image: <WiDayShowers size={30} color="#000" />,
+      },
+      night: {
+        description: "Heavy Showers",
+        image: <WiNightAltShowers size={30} color="#000" />,
+      },
+    },
+    85: {
+      day: {
+        description: "Light Snow Showers",
+        image: <WiDayHail size={30} color="#000" />,
+      },
+      night: {
+        description: "Light Snow Showers",
+        image: <WiNightAltHail size={30} color="#000" />,
+      },
+    },
+    86: {
+      day: {
+        description: "Snow Showers",
+        image: <WiDayRainMix size={30} color="#000" />,
+      },
+      night: {
+        description: "Snow Showers",
+        image: <WiNightAltRainMix size={30} color="#000" />,
+      },
+    },
+    95: {
+      day: {
+        description: "Thunderstorm",
+        image: <WiThunderstorm size={30} color="#000" />,
+      },
+      night: {
+        description: "Thunderstorm",
+        image: <WiThunderstorm size={30} color="#000" />,
+      },
+    },
+    96: {
+      day: {
+        description: "Light Thunderstorms With Hail",
+        image: <WiDaySleetStorm size={30} color="#000" />,
+      },
+      night: {
+        description: "Light Thunderstorms With Hail",
+        image: <WiNightSleetStorm size={30} color="#000" />,
+      },
+    },
+    99: {
+      day: {
+        description: "Thunderstorm With Hail",
+        image: <WiDaySleetStorm size={30} color="#000" />,
+      },
+      night: {
+        description: "Thunderstorm With Hail",
+        image: <WiNightSleetStorm size={30} color="#000" />,
+      },
+    },
+    // Add more WMO codes as needed
+  };
 
   useEffect(() => {
-    countries.registerLocale(enLocale);
-  
+    // countries.registerLocale(enLocale);
+
     const getLocation = () => {
-      // setLoading(true); // Start loading when beginning to fetch location
+      // setLoading(true);
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, handleError);
       } else {
-        // setLoading(false); // Stop loading if geolocation is not supported
+        // setLoading(false);
       }
     };
-  
+
     const success = (position) => {
       const { latitude, longitude } = position.coords;
-      getCityName(latitude, longitude);
+      getCityInfo(latitude, longitude);
     };
-  
     const handleError = () => {
-      // setLoading(false); // Stop loading if there's an error fetching location
-      // You may want to set an error state here to inform the user
+      // setLoading(false);
     };
-  
-    const getCityName = async (lat, lon) => {
-      // const apiKey = "24ac5750d6ad16e1431572932f4e42fa"; // Your OpenWeather API key
-      const url = `https://api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`;
-  
+
+    const getCityInfo = async (lat, lon) => {             //Fetching current City Weather
+      setLoading(true);
+      console.log(lat, lon);
+      // karachi coods: lat = 24.8607 long = 67.0011
+      const city_url = `https://api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`;
+      const weather_url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&hourly=temperature_2m,weather_code&timezone=auto&forecast_days=1`;
+
+      const cityName = await fetch(city_url);
+      const cityWeather = await fetch(weather_url);
+
+      if (!cityName.ok || !cityWeather.ok) {
+        throw new Error(`HTTP error!`);
+      }
+      setLoading(false);
+      const citydata = await cityName.json();
+      const weatherData = await cityWeather.json();
+
+      if (
+        (citydata.city &&
+          citydata.countryCode &&
+          weatherData.current.temperature_2m &&
+          weatherData.current.relative_humidity_2m &&
+          weatherData.current.wind_speed_10m &&
+          weatherData.hourly.temperature_2m,
+        weatherData.hourly.time)
+      ) {
+        const fullCountryName = countries.getName(citydata.countryCode, "en");
+        const roundedTemperatures = weatherData.hourly.temperature_2m.map(
+          (temp) => parseFloat(temp).toFixed(0)
+        );
+        setLocation({ city: citydata.city, country: fullCountryName });
+        setcityTemp(weatherData.current.temperature_2m);
+        setcityHumid(weatherData.current.relative_humidity_2m);
+        setcityWind(weatherData.current.wind_speed_10m);
+        sethourlyTemp(roundedTemperatures);
+        setWmoCode(weatherData.hourly.weather_code);
+        setTimeStamps(weatherData.hourly.time);
+      }
+    };
+
+
+
+    const getForecastInfo = async (lat, lon) => {             //Fetching current City Weather
+      setLoading(true);
+      const forecast_url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=14`;
     
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`); // Check for response status
-        }
-        const data = await response.json();
-        if (data.city && data.countryCode) {
-          const fullCountryName = countries.getName(data.countryCode, "en");
-          setLocation({ city: data.city, country: fullCountryName });
-        }
-     
-        
-        // You can handle the error further here if needed
-      
-        // setLoading(false); // Always set loading to false after the fetch is complete
-      
+      // const forecast = await fetch(city_url);
+      if (!forecast_url.ok) {
+        throw new Error(`HTTP error!`);
+      }
+      const forecastData = await forecast_url.json();      
+      setLoading(false);
+      if (
+        (forecastData.daily.time &&
+          forecastData.daily.weather_code &&  forecastData.daily.temperature_2m_max && forecastData.daily.temperature_2m_min)
+      ) {
+        // const fullCountryName = countries.getName(citydata.countryCode, "en");
+
+        // setLocation({ city: citydata.city, country: fullCountryName });
+       
+      }
     };
-  
-    getLocation();
   }, []);
-  
+
+  const isDayTime = (localtime) => {
+    const hours = localtime.getHours();
+    return hours >= 6 && hours < 18;
+  };
+
+  const renderWeather = (code, localTime) => {
+    const dayOrNight = isDayTime(localTime) ? "day" : "night";
+    console.log(dayOrNight);
+    const weatherData = wmoCodeMap[code];
+    console.log(localTime);
+
+    if (weatherData) {
+      return <div>{weatherData[dayOrNight].image}</div>;
+    } 
+    else {
+      return <WiNA size={30} color="#000" />
+    }
+  };
 
   const scrollLeft = () => {
     const div = document.getElementById("hourly");
@@ -87,39 +469,28 @@ export default function Dashboard() {
       forecastDiv.current &&
       day10DivRef
     ) {
-      // console.log(active_idText)
-      // Remove active class and inline styles from day10
       day10Ref.current.style.backgroundColor = "transparent";
       day10Ref.current.style.color = "white";
       day10DivRef.current.style.display = "none";
-      // day10Ref.current.classList.remove('active_day');
 
-      // Apply styles and class to day3
       day3Ref.current.style.backgroundColor = "#be83de";
       day3Ref.current.style.color = "black";
       day3Ref.current.style.fontWeight = "600";
-      // day3Ref.current.classList.add('active_day');
 
-      // Additional styling for forecastDiv
       forecastDiv.current.style.overflow = "hidden";
     }
   };
 
   const changetoDay10 = () => {
     if (day3Ref.current && day10Ref.current && forecastDiv.current) {
-      // Remove active class and inline styles from day3
       day3Ref.current.style.backgroundColor = "transparent";
       day3Ref.current.style.color = "white";
-      // day3Ref.current.classList.remove('active_day');
 
-      // Apply styles and class to day10
       day10Ref.current.style.backgroundColor = "#be83de";
       day10Ref.current.style.color = "black";
       day10Ref.current.style.fontWeight = "600";
       day10DivRef.current.style.display = "flex";
-      // day10Ref.current.classList.add('active_day');
 
-      // Additional styling for forecastDiv
       forecastDiv.current.style.overflow = "scroll";
       forecastDiv.current.style.overflowX = "hidden";
     }
@@ -228,12 +599,12 @@ export default function Dashboard() {
               <div id="temperature">
                 <div className="weatherDetails">
                   <div>
-                    <span className="tempValue temp_degree">22°</span>
+                    <span className="tempValue temp_degree">{cityTemp}° </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "15px",
-                        marginLeft: "-5px",
+                        // marginLeft: "-5px",
                         color: "var(--themeColor)",
                       }}
                     >
@@ -246,14 +617,36 @@ export default function Dashboard() {
 
               <div id="humidity">
                 <div className="weatherDetails">
-                  <span className="humidityValue">24%</span>
+                  <div>
+                    <span className="humidityValue">{cityHumid} </span>
+                    <span
+                      style={{
+                        fontSize: "15px",
+                        // marginLeft: "-5px",
+                        color: "var(--themeColor)",
+                      }}
+                    >
+                      %
+                    </span>
+                  </div>
                   <span className="humidityLabel">Humidity</span>
                 </div>
               </div>
 
               <div id="wind">
                 <div className="weatherDetails">
-                  <span className="windSpeed">24km/h</span>
+                  <div>
+                    <span className="windSpeed">{cityWind} </span>
+                    <span
+                      style={{
+                        fontSize: "15px",
+                        // marginLeft: "-5px",
+                        color: "var(--themeColor)",
+                      }}
+                    >
+                      Km/h
+                    </span>
+                  </div>
                   <span className="windLabel">Wind Speed</span>
                 </div>
               </div>
@@ -296,20 +689,23 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     12 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">cloud</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[0], new Date(timeStamps[0]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
+
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[0]}
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -329,21 +725,23 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     1 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">cloud</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[1], new Date(timeStamps[1]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
 
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[1]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -363,22 +761,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     2 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">
-                    partly_cloudy_night
-                  </span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[2], new Date(timeStamps[2]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[2]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -398,20 +796,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     3 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">cloud</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[3], new Date(timeStamps[3]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[3]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -431,22 +831,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     4 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">
-                    thunderstorm
-                  </span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[4], new Date(timeStamps[4]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[4]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -464,23 +864,25 @@ export default function Dashboard() {
                   className="hours"
                 >
                   <span className="hour_text" style={{ backgroundColor: "" }}>
-                    5 am
+                    4 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">foggy</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[5], new Date(timeStamps[5]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
 
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[5]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -500,20 +902,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     6 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">rainy</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[6], new Date(timeStamps[6]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[6]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -533,20 +937,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     7 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">rainy</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[7], new Date(timeStamps[7]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[7]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -566,20 +972,23 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     8 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">foggy</span>
+
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[8], new Date(timeStamps[8]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[8]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -599,22 +1008,23 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     9 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">
-                    partly_cloudy_day
-                  </span>
+
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[9], new Date(timeStamps[9]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[9]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -632,24 +1042,24 @@ export default function Dashboard() {
                   className="hours"
                 >
                   <span className="hour_text" style={{ backgroundColor: "" }}>
-                    20 am
+                    10 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">
-                    partly_cloudy_day
-                  </span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[10], new Date(timeStamps[10]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[10]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -669,20 +1079,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     11 am
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">sunny</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[11], new Date(timeStamps[11]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[11]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -702,20 +1114,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     12 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">sunny</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[12], new Date(timeStamps[12]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[12]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -735,20 +1149,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     1 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">sunny</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[13], new Date(timeStamps[13]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[13]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -768,22 +1184,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     2 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">
-                    partly_cloudy_day
-                  </span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[14], new Date(timeStamps[14]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[14]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -803,22 +1219,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     3 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">
-                    partly_cloudy_day
-                  </span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[15], new Date(timeStamps[15]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[15]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -838,22 +1254,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     4 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">
-                    partly_cloudy_day
-                  </span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[16], new Date(timeStamps[16]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[16]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -873,20 +1289,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     5 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">cloud</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[17], new Date(timeStamps[17]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[17]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -906,20 +1324,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     6 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">cloud</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[18], new Date(timeStamps[18]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[18]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -939,20 +1359,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     7 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">rainy</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[19], new Date(timeStamps[19]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[19]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -972,20 +1394,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     8 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">rainy</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[20], new Date(timeStamps[20]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[20]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -1005,20 +1429,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     9 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">cloud</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[21], new Date(timeStamps[21]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[21]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -1038,20 +1464,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     10 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">cloud</span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[22], new Date(timeStamps[22]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[22]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -1071,22 +1499,22 @@ export default function Dashboard() {
                   <span className="hour_text" style={{ backgroundColor: "" }}>
                     11 pm
                   </span>
-                  {/* <div style={{backgroundColor:'',height:'33px',width:'45px'}}>icon</div> */}
-                  <span className="material-symbols-outlined">
-                    partly_cloudy_night
-                  </span>
+                  {wmoCode && timeStamps ? (
+                    renderWeather(wmoCode[23], new Date(timeStamps[23]))
+                  ) : (
+                    <WiNA size={30} color="#000" />
+                  )}
                   <div>
                     <span
                       className="temp_degree"
                       style={{ backgroundColor: "", fontWeight: "500" }}
                     >
-                      17°
+                      {hourlyTemp[23]}°
                     </span>
                     <span
                       className="unit-display"
                       style={{
                         fontSize: "10px",
-                        marginLeft: "-5px",
                         fontWeight: "700",
                       }}
                     >
@@ -1097,9 +1525,7 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="worldmapDiv">
-            {/* <Worldmap /> */}
-          </div>
+          <div className="worldmapDiv">{/* <Worldmap /> */}</div>
         </div>
 
         <div className="mainRow">
@@ -1147,7 +1573,7 @@ export default function Dashboard() {
               </div>
             </div>
             <div id="overview_chartDiv">
-              {/* <Graph activebtn={activeOverview} /> */}
+              <Graph activebtn={activeOverview} />
             </div>
           </div>
 
@@ -1226,6 +1652,10 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div className="forecastitemdateDiv">
+                <div>
+                    <img style={{width:'20px',height:'20px'}} src={PrecipitationIcon} alt="PrecipitationIcon" />
+                    <span className="forcastdatespan">16%</span>
+                  </div>
                   <div>
                     <span className="forcastdatespan">16</span>
                     <span className="forcastdatespan">May,Tue</span>
