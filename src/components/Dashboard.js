@@ -852,7 +852,7 @@ export default function Dashboard() {
             <div className="weatherInfo">
               <div id="weatherlogo">
                 {currentCode !== undefined && isDay !== undefined ? (
-                  renderWeatherIcon(63, 0)
+                  renderWeatherIcon(currentCode, isDay)
                 ) : (
                   <WiNA size={30} color="#000" />
                 )}
@@ -873,7 +873,6 @@ export default function Dashboard() {
                       className="unit-display"
                       style={{
                         fontSize: "15px",
-                        // marginLeft: "-5px",
                         color: "var(--themeColor)",
                       }}
                     >
