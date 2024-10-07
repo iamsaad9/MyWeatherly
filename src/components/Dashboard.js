@@ -83,8 +83,8 @@ export default function Dashboard() {
   const [dailyTempMax, setdailyTempMax] = useState([]);
   const [dailyTempMin, setdailyTempMin] = useState([]);
   const [dailyPrec, setdailyPrec] = useState([]);
-  const [currentCode, setcurrentCode] = useState();
-  const [isDay, setisDay] = useState();
+  const [currentCode, setcurrentCode] = useState("");
+  const [isDay, setisDay] = useState("");
   const wmoCodeMap = {
     0: {
       forecast: {
@@ -574,8 +574,6 @@ export default function Dashboard() {
         const roundedTemperatures = weatherData.hourly.temperature_2m.map(
           (temp) => parseFloat(temp).toFixed(0)
         );
-        setcurrentCode(weatherData.current.weather_code);
-        setisDay(weatherData.current.is_day);
         setLocation({ city: citydata.city, country: fullCountryName });
         setcityTemp(weatherData.current.temperature_2m);
         setcityHumid(weatherData.current.relative_humidity_2m);
@@ -583,10 +581,10 @@ export default function Dashboard() {
         sethourlyTemp(roundedTemperatures);
         setWmoCode(weatherData.hourly.weather_code);
         setTimeStamps(weatherData.hourly.time);
+        setcurrentCode(weatherData.current.weather_code);
+        setisDay(weatherData.current.is_day);
       }
     };
-
-    
 
     const getForecastInfo = async (lat, lon) => {
       //Fetching forecast Weather
@@ -642,8 +640,8 @@ export default function Dashboard() {
     getLocation();
   }, []);
 
-  console.log(isDay)
-    console.log(currentCode)
+  console.log(isDay);
+  console.log(currentCode);
 
   const formatDates = (datefetched) => {
     if (datefetched) {
@@ -698,8 +696,8 @@ export default function Dashboard() {
   };
 
   const renderWeatherIcon = (weatherCode, isDay) => {
-    console.log("currentCode", weatherCode);
-    console.log("isDay", isDay);
+    console.log("function currentCode", weatherCode);
+    console.log("function isDay", isDay);
     const weatherData = wmoCodeMap[weatherCode];
 
     if (!weatherData) {
@@ -726,7 +724,6 @@ export default function Dashboard() {
     const div = document.getElementById("hourly");
     div.scrollLeft += 320; // Adjust value to control scroll speed
   };
-
 
   const changetoDay3 = () => {
     if (
@@ -854,8 +851,8 @@ export default function Dashboard() {
           <div className="weatherCard">
             <div className="weatherInfo">
               <div id="weatherlogo">
-                {currentCode && isDay ? (
-                  renderWeatherIcon(currentCode, isDay)
+                {currentCode !== undefined && isDay !== undefined ? (
+                  renderWeatherIcon(63, 0)
                 ) : (
                   <WiNA size={30} color="#000" />
                 )}
