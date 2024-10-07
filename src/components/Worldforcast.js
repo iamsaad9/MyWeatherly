@@ -146,7 +146,7 @@ export default function Worldforcast() {
                   position: "absolute",
                   top: 0,
                   border: "none",
-                  backgroundColor: "#be83de",
+                  backgroundColor: "var(--themeColor",
                   display: "flex",
                 }}
                 onClick={() => {

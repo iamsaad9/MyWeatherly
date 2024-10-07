@@ -1,5 +1,11 @@
 :root{
-    --themeColor: #be83de;
+    /* --themeColor: #b8e2e9; */
+    /* --themeColor: #be83de; */
+    /* --theme1Hover:#b270d6 */
+    --themeColor: #ff7777;
+    --theme2Hover:#f56767;
+    /* --themeColor: hsl(233, 99%, 72%); */
+    /* --themeColor: hsl(108, 42%, 49%); */
     --elementBg: #1b1b1b;
     --elementDarkBg:#0d0d0d;
     --borderColor: #474646;

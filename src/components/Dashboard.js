@@ -508,6 +508,7 @@ export default function Dashboard() {
 
     const getForecastInfo = async (lat, lon) => {             //Fetching forecast Weather
       // setLoading(true);
+            // karachi coods: lat = 24.8607 long = 67.0011
       const forecast_url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=14`;
     
       const forecast = await fetch(forecast_url);
@@ -635,7 +636,7 @@ export default function Dashboard() {
       day10Ref.current.style.color = "white";
       day10DivRef.current.style.display = "none";
 
-      day3Ref.current.style.backgroundColor = "#be83de";
+      day3Ref.current.style.backgroundColor = "var(--themeColor";
       day3Ref.current.style.color = "black";
       day3Ref.current.style.fontWeight = "600";
 
@@ -648,7 +649,7 @@ export default function Dashboard() {
       day3Ref.current.style.backgroundColor = "transparent";
       day3Ref.current.style.color = "white";
 
-      day10Ref.current.style.backgroundColor = "#be83de";
+      day10Ref.current.style.backgroundColor = "var(--themeColor";
       day10Ref.current.style.color = "black";
       day10Ref.current.style.fontWeight = "600";
       day10DivRef.current.style.display = "flex";
@@ -666,7 +667,7 @@ export default function Dashboard() {
       pressureRef.current
     ) {
       setactiveOverview("uvindex");
-      uvindexRef.current.style.backgroundColor = "#be83de";
+      uvindexRef.current.style.backgroundColor = "var(--themeColor";
       uvindexRef.current.style.color = "black";
       uvindexRef.current.style.fontWeight = "600";
       humidityRef.current.style.backgroundColor = "transparent";
@@ -686,7 +687,7 @@ export default function Dashboard() {
       pressureRef.current
     ) {
       setactiveOverview("humidity");
-      humidityRef.current.style.backgroundColor = "#be83de";
+      humidityRef.current.style.backgroundColor = "var(--themeColor";
       humidityRef.current.style.color = "black";
       humidityRef.current.style.fontWeight = "600";
       uvindexRef.current.style.backgroundColor = "transparent";
@@ -706,7 +707,7 @@ export default function Dashboard() {
       pressureRef.current
     ) {
       setactiveOverview("rainfall");
-      rainfallRef.current.style.backgroundColor = "#be83de";
+      rainfallRef.current.style.backgroundColor = "var(--themeColor";
       rainfallRef.current.style.color = "black";
       rainfallRef.current.style.fontWeight = "600";
       humidityRef.current.style.backgroundColor = "transparent";
@@ -726,7 +727,7 @@ export default function Dashboard() {
       pressureRef.current
     ) {
       setactiveOverview("pressure");
-      pressureRef.current.style.backgroundColor = "#be83de";
+      pressureRef.current.style.backgroundColor = "var(--themeColor";
       pressureRef.current.style.color = "black";
       pressureRef.current.style.fontWeight = "600";
       humidityRef.current.style.backgroundColor = "transparent";

@@ -72,7 +72,7 @@
 } */
 
 .hours:hover{
-  background-color: #b270d6;
+  background-color: var(--theme2Hover);
 }
 
 .hours {

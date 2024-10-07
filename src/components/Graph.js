@@ -65,11 +65,11 @@ const Graph = (activebtn) => {
    },
     stroke: {
       curve: 'smooth',
-      colors:['#b270d6'], 
+      colors:['var(--themeColor'], 
       // fill:['#be83de'], 
     },
     fill: {
-      colors: ['#be83de'],
+      colors: ['var(--themeColor'],
       type: "gradient",
       gradient: {
         gradientToColors: ['#1b1b1b'], 
