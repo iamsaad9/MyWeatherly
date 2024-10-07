@@ -8,27 +8,28 @@ import Worldmap from "./Worldmap";
 import { ActiveUnitContext } from "../ActiveUnitContext";
 import countries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
-import PrecipitationIcon from "../images/Weather Icons/PrecipitationIcon.png";
-import sunny from "../images/New folder/sunny.png";
-import clear from "../images/New folder/clear.png";
-import mostlysunny from "../images/New folder/mostlysunny.png";
-import mostlyclear from "../images/New folder/mostlyclear.png";
-import daypartlycloudy from "../images/New folder/daypartlycloudy.png";
-import nightpartlycloudy from "../images/New folder/nightpartlycloudy.png";
-import dayfog from "../images/New folder/dayfog.png";
-import nightfog from "../images/New folder/nightfog.png";
-import dayrain from "../images/New folder/dayrain.png";
-import nightrain from "../images/New folder/nightraining.png";
-import daysnow from "../images/New folder/daysnow.png";
-import nightsnow from "../images/New folder/nightsnowing.png";
-import dayshower from "../images/New folder/dayshower.png";
-import nightshower from "../images/New folder/nightshower.png";
-import daythunderstorm from "../images/New folder/daythunderstorm.png";
-import nightthunderstorm from "../images/New folder/nightthunderstorm.png";
-import daydrizzle from "../images/New folder/daydrizzle.png";
-import nightdrizzle from "../images/New folder/nightdrizzle.png";
-import daycloudy from "../images/New folder/daycloudy.png";
-import nightcloud from "../images/New folder/nightcloud.png";
+import sunny from "../images/Logo Icons/sunny.png";
+import clear from "../images/Logo Icons/clear.png";
+import mostlysunny from "../images/Logo Icons/mostlysunny.png";
+import mostlyclear from "../images/Logo Icons/mostlyclear.png";
+import daypartlycloudy from "../images/Logo Icons/daypartlycloudy.png";
+import nightpartlycloudy from "../images/Logo Icons/nightpartlycloudy.png";
+import dayfog from "../images/Logo Icons/dayfog.png";
+import nightfog from "../images/Logo Icons/nightfog.png";
+import dayrain from "../images/Logo Icons/dayrain.png";
+import nightrain from "../images/Logo Icons/nightraining.png";
+import daysnow from "../images/Logo Icons/daysnow.png";
+import nightsnow from "../images/Logo Icons/nightsnowing.png";
+import dayshower from "../images/Logo Icons/dayshower.png";
+import nightshower from "../images/Logo Icons/nightshower.png";
+import daythunderstorm from "../images/Logo Icons/daythunderstorm.png";
+import nightthunderstorm from "../images/Logo Icons/nightthunderstorm.png";
+import daydrizzle from "../images/Logo Icons/daydrizzle.png";
+import nightdrizzle from "../images/Logo Icons/nightdrizzle.png";
+import daycloudy from "../images/Logo Icons/daycloudy.png";
+import nightcloud from "../images/Logo Icons/nightcloud.png";
+import PrecipitationIcon from "../images/Logo Icons/PrecipitationIcon.png";
+
 import {
   WiNA,
   WiDaySunny,
@@ -59,6 +60,10 @@ import {
   WiDaySleetStorm,
   WiNightClear,
 } from "weather-icons-react";
+
+
+
+  
 
 export default function Dashboard() {
   const day3Ref = useRef(null);
@@ -541,39 +546,29 @@ export default function Dashboard() {
 
   useEffect(() => {
     countries.registerLocale(enLocale);
-
+  
     const getCityInfo = async (lat, lon) => {
-      //Fetching current City Weather
-      // setLoading(true);
-      console.log(lat, lon);
-      // karachi coods: lat = 24.8607 long = 67.0011
       const city_url = `https://api-bdc.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`;
       const weather_url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,is_day,weather_code,wind_speed_10m&hourly=temperature_2m,weather_code&timezone=auto&forecast_days=1`;
-
-      const cityName = await fetch(city_url);
-      const cityWeather = await fetch(weather_url);
-
+  
+      const [cityName, cityWeather] = await Promise.all([
+        fetch(city_url),
+        fetch(weather_url)
+      ]);
+  
       if (!cityName.ok || !cityWeather.ok) {
         throw new Error(`HTTP error!`);
       }
+  
       const citydata = await cityName.json();
       const weatherData = await cityWeather.json();
-
-      if (
-        (citydata.city &&
-          citydata.countryCode &&
-          weatherData.current.temperature_2m &&
-          weatherData.current.relative_humidity_2m &&
-          weatherData.current.wind_speed_10m &&
-          weatherData.current.is_day &&
-          weatherData.current.weather_code &&
-          weatherData.hourly.temperature_2m,
-        weatherData.hourly.time)
-      ) {
+  
+      if (citydata.city && citydata.countryCode && weatherData.current) {
         const fullCountryName = countries.getName(citydata.countryCode, "en");
-        const roundedTemperatures = weatherData.hourly.temperature_2m.map(
-          (temp) => parseFloat(temp).toFixed(0)
+        const roundedTemperatures = weatherData.hourly.temperature_2m.map((temp) =>
+          parseFloat(temp).toFixed(0)
         );
+  
         setLocation({ city: citydata.city, country: fullCountryName });
         setcityTemp(weatherData.current.temperature_2m);
         setcityHumid(weatherData.current.relative_humidity_2m);
@@ -585,32 +580,23 @@ export default function Dashboard() {
         setisDay(weatherData.current.is_day);
       }
     };
-
+  
     const getForecastInfo = async (lat, lon) => {
-      //Fetching forecast Weather
-      // setLoading(true);
-      // karachi coods: lat = 24.8607 long = 67.0011
       const forecast_url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=14`;
-
+  
       const forecast = await fetch(forecast_url);
       if (!forecast.ok) {
         throw new Error(`HTTP error!`);
       }
       const forecastData = await forecast.json();
-      if (
-        forecastData.daily.time &&
-        forecastData.daily.weather_code &&
-        forecastData.daily.temperature_2m_max &&
-        forecastData.daily.temperature_2m_min &&
-        forecastData.daily.precipitation_probability_max
-      ) {
-        const maxForecastTemp = forecastData.daily.temperature_2m_max.map(
-          (temp) => parseFloat(temp).toFixed(0)
+      if (forecastData.daily) {
+        const maxForecastTemp = forecastData.daily.temperature_2m_max.map((temp) =>
+          parseFloat(temp).toFixed(0)
         );
-        const minForecastTemp = forecastData.daily.temperature_2m_min.map(
-          (temp) => parseFloat(temp).toFixed(0)
+        const minForecastTemp = forecastData.daily.temperature_2m_min.map((temp) =>
+          parseFloat(temp).toFixed(0)
         );
-
+  
         setdailyDate(forecastData.daily.time);
         setforecastWmoCode(forecastData.daily.weather_code);
         setdailyTempMax(maxForecastTemp);
@@ -618,28 +604,36 @@ export default function Dashboard() {
         setdailyPrec(forecastData.daily.precipitation_probability_max);
       }
     };
-
+  
     const getLocation = () => {
-      // setLoading(true);
+      setLoading(true); // Start loading when fetching starts
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, handleError);
       } else {
-        // setLoading(false);
+        setLoading(false); // Stop loading if geolocation is not supported
       }
     };
-
+  
     const success = (position) => {
       const { latitude, longitude } = position.coords;
-      getCityInfo(latitude, longitude);
-      getForecastInfo(latitude, longitude);
+  
+      // Use Promise.all to wait for both data fetches
+      Promise.all([getCityInfo(latitude, longitude), getForecastInfo(latitude, longitude)])
+        .then(() => {
+          setLoading(false); // Stop loading once both APIs are fetched
+        })
+        .catch(() => {
+          setLoading(false); // Stop loading if any of the fetches fail
+        });
     };
+  
     const handleError = () => {
-      // setLoading(false);
+      setLoading(false); // Stop loading if there's an error fetching location
     };
-
+  
     getLocation();
   }, []);
-
+  
   console.log(isDay);
   console.log(currentCode);
 
@@ -962,7 +956,6 @@ export default function Dashboard() {
                   ) : (
                     <WiNA size={35} color="white" />
                   )}
-
                   <div>
                     <span
                       className="temp_degree"
