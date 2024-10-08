@@ -846,7 +846,7 @@ export default function Dashboard() {
             <div className="weatherInfo">
               <div id="weatherlogo">
                 {currentCode !== undefined && isDay !== undefined ? (
-                  renderWeatherIcon(63, 0)
+                  renderWeatherIcon(currentCode, isDay)
                 ) : (
                   <WiNA size={30} color="#000" />
                 )}

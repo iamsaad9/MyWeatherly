@@ -1,35 +1,120 @@
 import React, { useState, useContext } from "react";
 import "./Worldforcast.css";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
 import Swal from "sweetalert2";
 import { ActiveUnitContext } from "../ActiveUnitContext";
-import {
-  CModal,
-  CButton,
-  CModalHeader,
-  CModalTitle,
-  CModalBody,
-  CModalFooter,
-} from "@coreui/react";
+
+import 'animate.css';
 
 export default function Worldforcast() {
-  const [visible, setVisible] = useState(false);
   const [cityId, setcityId] = useState("");
   const { activeUnit } = useContext(ActiveUnitContext);
-  const [alertVisible, setalertVisible] = useState(false);
-  const [alertMsg, setalertMsg] = useState("");
-  const [alertType, setalertType] = useState("");
 
-  const showAlert = (msg, type) => {
-    setalertMsg(msg);
-    setalertType(type);
-    setalertVisible(true);
-  };
 
-  const handleAlertClose = () => {
-    setalertVisible(false);
-  };
+  const addcity = () =>{
+    if (cities.length >= 10) {
+          maxCityAlert();
+          return;
+        }
+    
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: true
+    });
+    swalWithBootstrapButtons.fire({
+      allowOutsideClick:false,
+      title: "Add Forecast",
+      text: " ",
+      input:'select',
+      inputOptions: {
+       
+          apples: "Apples",
+          bananas: "Bananas",
+          grapes: "Grapes",
+          oranges: "Oranges",
+          potato: "Potato",
+          broccoli: "Broccoli",
+          carrot: "Carrot",
+          icecream: "Ice cream"
+      },
+      customClass: {
+        input: 'selectBg' // Apply this class to the input (select)
+      },
+      inputPlaceholder: "Select Any City",
+      inputLabel: ' ',
+      showCancelButton: true,
+      confirmButtonText: "Add",
+      cancelButtonText: "Cancel!",
+      reverseButtons: true,
+      background: "var(--elementBg)",
+      color: "white",
+      backdrop: `rgba(0, 0, 0, 0.5)`,
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // removeCity(cityId);
+        swalWithBootstrapButtons.fire({
+          title: "Deleted!",
+          text: "Forecast has been deleted.",
+          icon: "success",
+          background: "var(--elementBg)",
+          color: "white",
+          backdrop: `rgba(0, 0, 0, 0.5)`,
+        });
+      }
+    });
+  }
+
+  const handleDelete = () => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: true
+    });
+    swalWithBootstrapButtons.fire({
+      showClass: {
+        popup: `
+        animate__animated
+        animate__fadeInUp
+        animate__faster
+        `
+      },
+      hideClass: {
+        popup: `
+        animate__animated
+        animate__fadeOutDown
+        animate__faster
+        `
+      },
+      icon: "warning",
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonText: "Delete",
+      cancelButtonText: "Cancel!",
+      reverseButtons: true,
+      background: "var(--elementBg)",
+      color: "white",
+      backdrop: `rgba(0, 0, 0, 0.5)`,
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeCity(cityId);
+        swalWithBootstrapButtons.fire({
+          title: "Deleted!",
+          text: "Forecast has been deleted.",
+          icon: "success",
+          background: "var(--elementBg)",
+          color: "white",
+          backdrop: `rgba(0, 0, 0, 0.5)`,
+        });
+      }
+    });
+  }
 
   var temp = 23;
   var minTemp = 17;
@@ -39,7 +124,7 @@ export default function Worldforcast() {
     { id: 3, name: "Antalya", country: "Türkiye", temp: "30°", minTemp: "19°" },
   ]);
 
-  const handleLogoutClick = () => {
+  const maxCityAlert = () => {
     Swal.fire({
       color: "white",
       icon: "error",
@@ -51,34 +136,33 @@ export default function Worldforcast() {
   };
 
   // Add a new city
-  const addCity = () => {
-    if (cities.length >= 10) {
-      handleLogoutClick();
-      return;
-    }
-    var newtemp = temp;
-    var newminTemp = minTemp;
-    if (activeUnit === "F") {
-      newtemp = temp * (9 / 5) + 32;
-      newminTemp = minTemp * (9 / 5) + 32;
-    }
+  // const addCity = () => {
+  //   if (cities.length >= 10) {
+  //     maxCityAlert();
+  //     return;
+  //   }
 
-    const newCity = {
-      id: cities.length + 1,
-      name: "New City",
-      country: "Unknown",
-      temp: `${newtemp}°`,
-      minTemp: `${newminTemp}°`,
-    };
+  //   var newtemp = temp;
+  //   var newminTemp = minTemp;
+  //   if (activeUnit === "F") {
+  //     newtemp = temp * (9 / 5) + 32;
+  //     newminTemp = minTemp * (9 / 5) + 32;
+  //   }
 
-    setCities([newCity, ...cities]);
-    showAlert("City Forecast Added", "success");
-  };
+  //   const newCity = {
+  //     id: cities.length + 1,
+  //     name: "New City",
+  //     country: "Unknown",
+  //     temp: `${newtemp}°`,
+  //     minTemp: `${newminTemp}°`,
+  //   };
+
+  //   setCities([newCity, ...cities]);
+  // };
 
   // Remove a city
   const removeCity = (id) => {
     setCities(cities.filter((city) => city.id !== id));
-    showAlert("City Forecast Removed", "warning");
   };
 
   return (
@@ -88,7 +172,7 @@ export default function Worldforcast() {
           <div className="add-forecast-logo">
             <button
               id="add_forcast_btn"
-              onClick={addCity}
+              onClick={addcity}
             >
               <span className="material-symbols-outlined">add</span>
             </button>
@@ -115,7 +199,7 @@ export default function Worldforcast() {
             id="first-country_forcast_box"
             key={city.id}
             style={{
-              width: "10vw",
+              
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -151,7 +235,8 @@ export default function Worldforcast() {
                 }}
                 onClick={() => {
                   setcityId(city.id);
-                  setVisible(!visible);
+                  // setVisible(!visible);
+                  handleDelete()
                 }}
               >
                 <span className="material-symbols-outlined">{city.id}</span>
@@ -247,72 +332,6 @@ export default function Worldforcast() {
             </div>
           </div>
         ))}
-
-        <Snackbar
-          open={alertVisible}
-          autoHideDuration={2000}
-          onClose={handleAlertClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        >
-          <Alert onClose={handleAlertClose} severity={alertType} variant="filled">
-            {alertMsg}
-          </Alert>
-        </Snackbar>
-
-        <CModal
-          transition={true}
-          // portal={true}
-          visible={visible}
-          onClose={() => setVisible(false)}
-          aria-labelledby="LiveDemoExampleLabel"
-        >
-          <CModalHeader
-            style={{
-              backgroundColor: "var(--elementBg",
-              color: "white",
-              borderRadius: "5px 5px 0px 0px",
-            }}
-          >
-            <CModalTitle id="LiveDemoExampleLabel">Warning</CModalTitle>
-          </CModalHeader>
-          <CModalBody
-            style={{ backgroundColor: "var(--elementBg", color: "white" }}
-          >
-            <p>Are you sure you want to delete this Forcase item?</p>
-          </CModalBody>
-          <CModalFooter
-            style={{
-              backgroundColor: "var(--elementBg",
-              color: "white",
-              borderRadius: "0px 0px 5px 5px",
-            }}
-          >
-            <CButton
-              style={{
-                backgroundColor: "var(--themeColor",
-                border: "none",
-                color: "black",
-                fontWeight: "500",
-              }}
-              onClick={() => setVisible(false)}
-            >
-              Cancel
-            </CButton>
-            <CButton
-              style={{
-                backgroundColor: "#800000",
-                color: "white",
-                fontWeight: "500",
-              }}
-              onClick={() => {
-                removeCity(cityId);
-                setVisible(false);
-              }}
-            >
-              Delete
-            </CButton>
-          </CModalFooter>
-        </CModal>
       </div>
     </div>
   );

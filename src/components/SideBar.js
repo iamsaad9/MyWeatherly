@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import Badge from "@mui/material/Badge";
 
 export default function Sidepanel() {
+  
   const handleLogoutClick = () => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {

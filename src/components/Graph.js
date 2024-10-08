@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
 const Graph = (activebtn) => {
+  const [currentDate,setCurrentDate] = useState();
 
   // const [series] = useState([
   //   {
@@ -10,7 +11,20 @@ const Graph = (activebtn) => {
   //   },
   // ]);
 
+  useEffect(() => {
+    // Get the current date
+    const today = new Date();
     
+    // Format the date to "Mon, 29 July, 2024"
+    const formattedDate = today.toLocaleDateString('en-US', {
+      weekday: 'short',  // 'Mon'
+      day: 'numeric',    // '29'
+      month: 'long',     // 'July'
+      year: 'numeric'    // '2024'
+    });
+    
+    setCurrentDate(formattedDate);
+  }, []);
 
   const [options] = useState({
     chart: {
