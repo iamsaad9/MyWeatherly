@@ -867,7 +867,6 @@ export default function Dashboard() {
                       className="unit-display"
                       style={{
                         fontSize: "15px",
-                        // marginLeft: "-5px",
                         color: "var(--themeColor)",
                       }}
                     >
