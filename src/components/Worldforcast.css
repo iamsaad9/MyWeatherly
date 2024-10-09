@@ -1,246 +1,268 @@
-#WorldforecastDiv.forecast-container::-webkit-scrollbar{ 
+#WorldforecastDiv.forecast-container::-webkit-scrollbar {
   display: none;
 }
 
 #WorldforecastDiv.forecast-container {
-    background-color: '';
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 130px;
-    height: 84vh;
-    padding: 0px;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    gap: 0px;
-  }
-  
-  .forecast-item {
-    background-color: '';
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    padding: 15px 0px;
-  }
-  .forecast-item:hover #closeBtn{
-    opacity: 1;
+  background-color: "";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 130px;
+  height: 84vh;
+  padding: 0px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  gap: 0px;
+}
+
+.forecast-item {
+  background-color: "";
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 15px 0px;
+}
+.forecast-item:hover #closeBtn {
+  opacity: 1;
   visibility: visible;
-  }
+}
 
-  #closeBtn{
-    top: 20px;
-    right: 10px;
-    position: absolute;
-    color: grey;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-  }
-  
-  .add-forecast-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--themeColor);
-    height: 35px;
-    width: 35px;
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-  }
+#closeBtn {
+  top: 20px;
+  right: 10px;
+  position: absolute;
+  color: grey;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
 
-  .add-forecast-box{
-    height: 150px;
-    width: 100%;
-    border-radius: 15px;
-    border: 1.5px solid var(--borderColor);
-    border-style: dashed;
-    padding: 10px;  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.add-forecast-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--themeColor);
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+}
 
-  .add-forecast-box div{
-    height: 90%;
-    width: 100%;
-    /* background-color: 'orange'; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  #add-foracasttextDiv{
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 50%;
-    /* background-color: ; */
-  }
-  #add-forcastsubtitleDiv{
-    /* background-color: ; */
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: 'pink';
-    width: 100%;
-    height: 40%;
-  }
+.add-forecast-box {
+  height: 150px;
+  width: 100%;
+  border-radius: 15px;
+  border: 1.5px solid var(--borderColor);
+  border-style: dashed;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  #add_forcast_icon{
-    /* width: 20px; */
-    /* height: 10px; */
-    height: 35px;
-    width: 35px;
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--themeColor);
-    outline: none;
-  }
+.add-forecast-box div {
+  height: 90%;
+  width: 100%;
+  /* background-color: 'orange'; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#add-foracasttextDiv {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+  /* background-color: ; */
+}
+#add-forcastsubtitleDiv {
+  /* background-color: ; */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: "pink";
+  width: 100%;
+  height: 40%;
+}
 
-  #add_forcast_icon span{
-    color: black;
-    font-size: 25px;
-  }
-  
-  .confirm_btn{
-    width: 100px;
-    height: 40px;
-    color: black;
-    border-radius: 5px;
-    margin: 5px;
-    font-weight: 600;
-    background-color: var(--themeColor);
-    outline: none;
-    border: none;
-  }
-  
-  .confirm_btn:hover{
-    background-color: var(--theme2Hover);
-    color: black;
-  }
-  
-  .cancel_btn{
-    width: 80px;
-    height: 40px;
-    color: white;
-    border-radius: 5px;
-    margin: 5px;
-    /* font-weight: 600; */
-    background-color: gray;
-    outline: none;
-    border: none;
-  }
-  .cancel_btn:hover{
-    background-color: #606060;
-    color: white;
-  }
+#add_forcast_icon {
+  /* width: 20px; */
+  /* height: 10px; */
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--themeColor);
+  outline: none;
+}
 
+#add_forcast_icon span {
+  color: black;
+  font-size: 25px;
+}
 
+.confirm_btn {
+  width: 100px;
+  height: 40px;
+  color: black;
+  border-radius: 5px;
+  margin: 5px;
+  font-weight: 600;
+  background-color: var(--themeColor);
+  outline: none;
+  border: none;
+}
 
-  .swal2-confirm{
-    width: 100px;
-    height: 40px;
-    color: black;
-    border-radius: 5px;
-    margin: 5px;
-    font-weight: 600;
-    background-color: var(--themeColor);
-    outline: none;
-    border: none;
-  }
-  
-  .swal2-confirm:hover{
-    background-color: var(--theme2Hover);
-    color: black;
-  }
-  
-  .swal2-cancel{
-    width: 80px;
-    height: 40px;
-    color: white;
-    border-radius: 5px;
-    margin: 5px;
-    /* font-weight: 600; */
-    background-color: gray;
-    outline: none;
-    border: none;
-  }
-  .swal2-cancel:hover{
-    background-color: #606060;
-    color: whtie;
-  }
+.confirm_btn:hover {
+  background-color: var(--theme2Hover);
+  color: black;
+}
 
+.cancel_btn {
+  width: 80px;
+  height: 40px;
+  color: white;
+  border-radius: 5px;
+  margin: 5px;
+  /* font-weight: 600; */
+  background-color: gray;
+  outline: none;
+  border: none;
+}
+.cancel_btn:hover {
+  background-color: #606060;
+  color: white;
+}
 
-  .selectBg option{
-    background-color: var(--elementBg);
-    color: white;
-    border: 1.5px solid var(--borderColor);
-    border-radius: 5px;
-    outline: none;
-    height: 200px;
+.swal2-modal {
+  height: 350px;
+}
 
-  }
+.swal2-confirm {
+  width: 100px;
+  height: 40px;
+  color: black;
+  border-radius: 5px;
+  margin: 5px;
+  font-weight: 600;
+  background-color: var(--themeColor);
+  outline: none;
+  border: none;
+}
 
-  .swal2-select {
-    display: block;
-    position: relative;
-    appearance: none;
-    background-color: var(--elementBg);
-    border: 1px solid #ccc;
-    padding:  8px;
-    color: white;
-    border-radius: 4px;
-    background-position: right 10px center;
-    appearance: menulist;
-  }
+.swal2-confirm:hover {
+  background-color: var(--theme2Hover);
+  color: black;
+}
 
-  .swal2-input {
-    width: 300px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
-  
-  /* Styles for the suggestion list */
-  #citySuggestions {
-    color: black;
-    background-color: white; /* Background color for suggestions */
-    border: 1px solid #ccc; /* Border around the suggestions */
-    border-radius: 4px; /* Rounded corners */
-    max-height: 100px; /* Max height for the dropdown */
-    overflow-y: auto; /* Scroll if the content exceeds max height */
-    position: static; /* Position to float above other elements */
-    /* width: calc(100% - 20px);  */
-    z-index: 10; /* Ensure it appears above other elements */
-  }
-  
-  /* Styles for individual list items */
-  #citySuggestions li {
-    padding: 10px; /* Padding for each item */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.2s; /* Transition for background color */
-  }
-  
-  /* Hover effect for list items */
-  #citySuggestions li:hover {
-    background-color: #f0f0f0; /* Light gray background on hover */
-  }
-  
-  /* Styling for the modal background */
-  .swal2-overlay {
-    background: rgba(0, 0, 0, 0.5); /* Dark overlay for modal */
-  }
+.swal2-cancel {
+  width: 80px;
+  height: 40px;
+  color: white;
+  border-radius: 5px;
+  margin: 5px;
+  /* font-weight: 600; */
+  background-color: gray;
+  outline: none;
+  border: none;
+}
+.swal2-cancel:hover {
+  background-color: #606060;
+  color: whtie;
+}
+
+.selectBg option {
+  background-color: var(--elementBg);
+  color: white;
+  border: 1.5px solid var(--borderColor);
+  border-radius: 5px;
+  outline: none;
+  height: 200px;
+}
+
+.swal2-select {
+  display: block;
+  position: relative;
+  appearance: none;
+  background-color: var(--elementBg);
+  border: 1px solid #ccc;
+  padding: 8px;
+  color: white;
+  border-radius: 4px;
+  background-position: right 10px center;
+  appearance: menulist;
+}
+
+#citySearch {
+  font-size: 16px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  width: 300px;
+  padding: 10px;
+  outline: none; /* Removes the blue outline */
+  box-shadow: none; /* Removes any box shadow */
+  border: 1px solid var(--borderColor); /* Set your own border color */
+}
+#citySearch:focus {
+  border-color: var(--themeColor); /* Change the border color on focus */
+  background-color: var(
+    --elementBg
+  ) !important; /* Change background color if needed */
+}
+
+#citySuggestions {
+  display: none;
+  color: white;
+  background-color: var(--elementBg);
+  border: 1px solid var(--borderColor);
+  border-radius: 4px;
+  max-height: 100px;
+  overflow-y: auto;
+  position: static;
+  z-index: 10;
+}
+
+#citySuggestions li {
+  text-align: left;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#citySuggestions li:hover {
+  background-color: var(--theme2Hover);
+}
+
+.swal2-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#citySuggestions::-webkit-scrollbar {
+  width: 12px;
+}
+#citySuggestions::-webkit-scrollbar-track {
+  background: var(--elementBg);
+  border-radius: 10px;
+}
+#citySuggestions::-webkit-scrollbar-thumb {
+  background-color: var(--themeColor);
+  border-radius: 10px;
+  border: 2px solid black; /* Adds space around the thumb */
+}
+
+#citySuggestions::-webkit-scrollbar-thumb:hover {
+  background-color: var(--theme2Hover);
+}

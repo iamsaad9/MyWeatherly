@@ -1,23 +1,98 @@
-import React, { useState, useContext } from "react";
-import "./Worldforcast.css";
+import React, { useState, useContext, useEffect } from "react";
 import Swal from "sweetalert2";
 import { ActiveUnitContext } from "../ActiveUnitContext";
-import DeleteIcon from '@mui/icons-material/Delete';
-import 'animate.css';
-import ReactDOM from "react-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
+import "./Worldforcast.css";
+import "animate.css";
 
-export default function Worldforcast() {
-  const [cityId, setcityId] = useState("");
+export default function WorldForecast() {
   const { activeUnit } = useContext(ActiveUnitContext);
-  const [isOpen, setIsOpen] = useState(false);
-  const cityDataset = [
-    "New York",
-    "Los Angeles",
-    "Chicago",
-    "Houston",
-    "Phoenix",
-  ]
-  // A list of cities for search (can be expanded to include more)
+  const [cities, setCities] = useState([]);
+
+  // Load cities from local storage on mount
+  useEffect(() => {
+    const savedCities = localStorage.getItem("cities");
+    if (savedCities) {
+      setCities(JSON.parse(savedCities));
+    }
+  }, []);
+
+  const filterCities = async (query) => {
+    const suggestions = document.getElementById("citySuggestions");
+    suggestions.innerHTML = ""; // Clear previous suggestions
+
+    if (query.length < 1) {
+      suggestions.style.display = "none"; // Hide suggestions if the input is empty
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${query}&count=1&language=en&format=json`
+      );
+      const data = await response.json();
+
+      if (data.results && data.results.length > 0) {
+        data.results.forEach((city) => {
+          const li = document.createElement("li");
+          li.textContent = `${city.name} (${city.country_code})`;
+          li.addEventListener("click", () => {
+            document.getElementById("citySearch").value =
+              `${city.name} (${city.country_code})`;
+            // Immediately call addCity with the selected city's data
+            fetchCity(city.latitude, city.longitude, city.name, city.country_code);
+
+            suggestions.style.display = "none"; // Hide suggestions after selection
+          });
+          suggestions.appendChild(li);
+        });
+
+        suggestions.style.display = "block"; // Show suggestions
+      } else {
+        suggestions.style.display = "none"; // Hide if no matches
+      }
+    } catch (error) {
+      console.error("Error fetching city data:", error);
+    }
+  };
+
+  const fetchCity = async (latitude, longitude, name, country) => {
+    try {
+      const response = await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`
+      );
+      const weatherData = await response.json();
+
+      const maxTemp = weatherData.daily.temperature_2m_max[0];
+      const minTemp = weatherData.daily.temperature_2m_min[0];
+
+      const newCity = {
+        id: cities.length + 1,
+        name,
+        country,
+        temp: `${maxTemp}°`,
+        minTemp: `${minTemp}°`,
+      };
+      const submit = document.querySelector('.confirm_btn')
+      submit.addEventListener("click", () => {
+        const updatedCities = [...cities, newCity];
+        setCities(updatedCities);
+        localStorage.setItem("cities", JSON.stringify(updatedCities)); // Save to local storage
+        Swal.fire({
+          title: "Success!",
+          text: "Forecast has been Added.",
+          icon: "success",
+          background: "var(--elementBg)",
+          color: "white",
+          backdrop: `rgba(0, 0, 0, 0.5)`,
+        });
+      })
+    } catch (error) {
+      console.error("Error fetching weather data:", error);
+    }
+  };
+
+
   const addcity = () => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -26,156 +101,98 @@ export default function Worldforcast() {
       },
       buttonsStyling: false,
     });
-  
-    if (cities.length >= 10) {
-      maxCityAlert();
+
+    if (cities.length >= 5) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Cannot add more than 5 forecasts",
+        confirmButtonColor: "var(--themeColor)",
+        background: "var(--elementBg)",
+      });
       return;
     }
-  
-    let inputHtml = `
-      <input type="text" id="citySearch" class="swal2-input" placeholder="Type to search..." oninput="filterCities(this.value)">
-      <ul id="citySuggestions" style="list-style-type: none; padding: 0; margin-top: 10px; max-height: 150px; overflow-y: auto;"></ul>
-    `;
-  
-    swalWithBootstrapButtons.fire({
-      title: "Add Forecast",
-      html: inputHtml,
-      showCancelButton: true,
-      confirmButtonText: "Add",
-      cancelButtonText: "Cancel!",
-      reverseButtons: true,
-      background: "var(--elementBg)",
-      color: "white",
-      backdrop: `rgba(0, 0, 0, 0.5)`,
-      preConfirm: () => {
-        const selectedCity = document.getElementById('citySearch').value;
-        return selectedCity;
-      }
-    });
-  
-    // Filter city suggestions based on user input
-    window.filterCities = function(query) {
-      const suggestions = cityDataset.filter(city => city.toLowerCase().includes(query.toLowerCase()));
-      const suggestionsList = suggestions.map(city => `<li style="cursor: pointer;">${city}</li>`).join('');
-      document.getElementById('citySuggestions').innerHTML = suggestionsList;
-  
-      // Add click event for each suggestion
-      document.querySelectorAll('#citySuggestions li').forEach(item => {
-        item.onclick = () => {
-          document.getElementById('citySearch').value = item.textContent; // Set the input value
-          document.getElementById('citySuggestions').innerHTML = ''; // Clear suggestions
-        };
+
+    swalWithBootstrapButtons
+      .fire({
+        allowOutsideClick: false,
+        title: "Add Forecast",
+        html: `
+          <input type="text" id="citySearch" class="swal2-input" placeholder="Search Any City...">
+          <ul id="citySuggestions" style="list-style-type: none; padding: 0; margin-top: 10px;"></ul>
+        `,
+        showCancelButton: true,
+        confirmButtonText: "Add",
+        cancelButtonText: "Cancel",
+        reverseButtons: true,
+        background: "var(--elementBg)",
+        color: "white",
+        backdrop: `rgba(0, 0, 0, 0.5)`,
+      })
+
+    setTimeout(() => {
+      const inputField = document.getElementById("citySearch");
+      const suggestions = document.getElementById("citySuggestions");
+
+      inputField.addEventListener("input", function () {
+        const query = this.value;
+        filterCities(query);
       });
-    };
+
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".swal2-popup")) {
+          suggestions.style.display = "none"; // Hide suggestions if clicked outside
+        }
+      });
+    }, 100); // Timeout to ensure elements are rendered
   };
+
 
   const handleDelete = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "confirm_btn",
-        cancelButton: "cancel_btn"
+        cancelButton: "cancel_btn",
       },
-      buttonsStyling: false
+      buttonsStyling: false,
     });
-    swalWithBootstrapButtons.fire({
-      showClass: {
-        popup: `
-        animate__animated
-        animate__fadeInUp
-        animate__faster
-        `
-      },
-      hideClass: {
-        popup: `
-        animate__animated
-        animate__zoomOut
-        animate__faster
-        `
-      },
-      icon: "warning",
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      showCancelButton: true,
-      confirmButtonText: "Delete",
-      cancelButtonText: "Cancel!",
-      reverseButtons: true,
-      background: "var(--elementBg)",
-      color: "white",
-      backdrop: `rgba(0, 0, 0, 0.5)`,
 
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setCities(cities.filter((city) => city.id !== id));
-        swalWithBootstrapButtons.fire({
-          title: "Deleted!",
-          text: "Forecast has been deleted.",
-          icon: "success",
-          background: "var(--elementBg)",
-          color: "white",
-          backdrop: `rgba(0, 0, 0, 0.5)`,
-        });
-      }
-    });
-  }
-
-  var temp = 23;
-  var minTemp = 17;
-  const [cities, setCities] = useState([
-    { id: 1, name: "Lisbon", country: "Portugal", temp: "23°", minTemp: "15°" },
-    { id: 2, name: "Kyoto", country: "Japan", temp: "29°", minTemp: "16°" },
-    { id: 3, name: "Antalya", country: "Türkiye", temp: "30°", minTemp: "19°" },
-  ]);
-
-  const maxCityAlert = () => {
-    Swal.fire({
-      color: "white",
-      icon: "error",
-      title: "Oops...",
-      text: "Cannot add More than 10 Forecast",
-      confirmButtonColor: "var(--themeColor",
-      background: "var(--elementBg",
-    });
+    swalWithBootstrapButtons
+      .fire({
+        icon: "warning",
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        showCancelButton: true,
+        confirmButtonText: "Delete",
+        cancelButtonText: "Cancel!",
+        background: "var(--elementBg)",
+        color: "white",
+        backdrop: `rgba(0, 0, 0, 0.5)`,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          const updatedCities = cities.filter((city) => city.id !== id);
+          setCities(updatedCities);
+          localStorage.setItem("cities", JSON.stringify(updatedCities)); // Update local storage
+          swalWithBootstrapButtons.fire({
+            title: "Deleted!",
+            text: "Forecast has been deleted.",
+            icon: "success",
+            background: "var(--elementBg)",
+            color: "white",
+            backdrop: `rgba(0, 0, 0, 0.5)`,
+          });
+        }
+      });
   };
 
-  // Add a new city
-  // const addCity = () => {
-  //   if (cities.length >= 10) {
-  //     maxCityAlert();
-  //     return;
-  //   }
-
-  //   var newtemp = temp;
-  //   var newminTemp = minTemp;
-  //   if (activeUnit === "F") {
-  //     newtemp = temp * (9 / 5) + 32;
-  //     newminTemp = minTemp * (9 / 5) + 32;
-  //   }
-
-  //   const newCity = {
-  //     id: cities.length + 1,
-  //     name: "New City",
-  //     country: "Unknown",
-  //     temp: `${newtemp}°`,
-  //     minTemp: `${newminTemp}°`,
-  //   };
-
-  //   setCities([newCity, ...cities]);
-  // };
-
-  // Remove a city
-  // const removeCity = (id) => {
-  //   setCities(cities.filter((city) => city.id !== id));
-  // };
 
   return (
     <div>
       <div id="WorldforecastDiv" className="forecast-container">
         <div className="forecast-item">
           <div className="add-forecast-logo">
-            <button
-              id="add_forcast_icon"
-              onClick={addcity}
-            >
+            <button id="add_forcast_icon" onClick={addcity}>
               <span className="material-symbols-outlined">add</span>
             </button>
           </div>
@@ -198,10 +215,8 @@ export default function Worldforcast() {
         {cities.map((city) => (
           <div
             className="forecast-item"
-            id="first-country_forcast_box"
             key={city.id}
             style={{
-              
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -209,12 +224,15 @@ export default function Worldforcast() {
               padding: "15px 0px",
             }}
           >
-            <div id="closeBtn" 
-             onClick={() => {  
-              setcityId(city.id);
-              handleDelete(city.id)
-            }}>
-            <DeleteIcon sx={{width:'15px',height:'15px',cursor:'pointer'}}/>
+            <div
+              id="closeBtn"
+              onClick={() => {
+                handleDelete(city.id);
+              }}
+            >
+              <DeleteIcon
+                sx={{ width: "15px", height: "15px", cursor: "pointer" }}
+              />
             </div>
             <div
               className="forecast-logo"
@@ -233,16 +251,16 @@ export default function Worldforcast() {
               <div
                 id="forcast_icon"
                 style={{
-                  outline: 'none',
+                  outline: "none",
                   height: "35px",
                   width: "35px",
                   borderRadius: "50%",
                   position: "absolute",
                   top: 0,
                   border: "none",
-                  backgroundColor: "var(--themeColor",
+                  backgroundColor: "var(--themeColor)",
                   display: "flex",
-                  cursor:'pointer'
+                  cursor: "pointer",
                 }}
               >
                 <span className="material-symbols-outlined">{city.id}</span>
@@ -250,6 +268,7 @@ export default function Worldforcast() {
             </div>
 
             <div
+
               className="forecast-box"
               style={{
                 height: "150px",

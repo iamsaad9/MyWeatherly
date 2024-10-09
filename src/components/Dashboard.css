@@ -390,7 +390,7 @@
 }
 
 #forecasts::-webkit-scrollbar-thumb:hover {
-  background-color:#b270d6;
+  background-color:var(--theme2Hover);
 }
 
 .forecastitemtextDiv{
