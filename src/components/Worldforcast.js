@@ -4,6 +4,8 @@ import { ActiveUnitContext } from "../ActiveUnitContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./Worldforcast.css";
 import "animate.css";
+import StarIcon from '@mui/icons-material/Star';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function WorldForecast() {
   const { activeUnit } = useContext(ActiveUnitContext);
@@ -30,6 +32,11 @@ export default function WorldForecast() {
       const response = await fetch(
         `https://geocoding-api.open-meteo.com/v1/search?name=${query}&count=1&language=en&format=json`
       );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch city data");
+      }
+
       const data = await response.json();
 
       if (data.results && data.results.length > 0) {
@@ -53,6 +60,13 @@ export default function WorldForecast() {
       }
     } catch (error) {
       console.error("Error fetching city data:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Could not retrieve city data. Please try again later.",
+        confirmButtonColor: "var(--themeColor)",
+        background: "var(--elementBg)",
+      });
     }
   };
 
@@ -61,6 +75,11 @@ export default function WorldForecast() {
       const response = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`
       );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch weather data");
+      }
+
       const weatherData = await response.json();
 
       const maxTemp = weatherData.daily.temperature_2m_max[0];
@@ -73,25 +92,31 @@ export default function WorldForecast() {
         temp: `${maxTemp}°`,
         minTemp: `${minTemp}°`,
       };
-      const submit = document.querySelector('.confirm_btn')
+      const submit = document.querySelector('.confirm_btn');
       submit.addEventListener("click", () => {
         const updatedCities = [...cities, newCity];
         setCities(updatedCities);
         localStorage.setItem("cities", JSON.stringify(updatedCities)); // Save to local storage
         Swal.fire({
           title: "Success!",
-          text: "Forecast has been Added.",
+          text: "Forecast has been added.",
           icon: "success",
           background: "var(--elementBg)",
           color: "white",
           backdrop: `rgba(0, 0, 0, 0.5)`,
         });
-      })
+      });
     } catch (error) {
       console.error("Error fetching weather data:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Could not retrieve weather data. Please try again later.",
+        confirmButtonColor: "var(--themeColor)",
+        background: "var(--elementBg)",
+      });
     }
   };
-
 
   const addcity = () => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -128,7 +153,7 @@ export default function WorldForecast() {
         background: "var(--elementBg)",
         color: "white",
         backdrop: `rgba(0, 0, 0, 0.5)`,
-      })
+      });
 
     setTimeout(() => {
       const inputField = document.getElementById("citySearch");
@@ -148,6 +173,8 @@ export default function WorldForecast() {
   };
 
 
+
+
   const handleDelete = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -164,7 +191,7 @@ export default function WorldForecast() {
         text: "You won't be able to revert this!",
         showCancelButton: true,
         confirmButtonText: "Delete",
-        cancelButtonText: "Cancel!",
+        cancelButtonText: "Cancel",
         background: "var(--elementBg)",
         color: "white",
         backdrop: `rgba(0, 0, 0, 0.5)`,
@@ -260,10 +287,14 @@ export default function WorldForecast() {
                   border: "none",
                   backgroundColor: "var(--themeColor)",
                   display: "flex",
+                  justifyContent:'center',
+                  alignItems:'center',
                   cursor: "pointer",
                 }}
               >
-                <span className="material-symbols-outlined">{city.id}</span>
+                {/* <span className="material-symbols-outlined"></span> */}
+                <StarIcon sx={{ fontSize: 25 }}/>
+                {/* <FontAwesomeIcon icon="fa-solid fa-star" /> */}
               </div>
             </div>
 

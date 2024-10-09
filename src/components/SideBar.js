@@ -8,10 +8,10 @@ export default function Sidepanel() {
   const handleLogoutClick = () => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger",
+        confirmButton: "confirm_btn",
+        cancelButton: "cancel_btn",
       },
-      buttonsStyling: true,
+      buttonsStyling: false,
     });
 
     swalWithBootstrapButtons.fire({
@@ -19,8 +19,8 @@ export default function Sidepanel() {
       text: "Do you want to Log out?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Cancel",
-      cancelButtonText: "Log out",
+      confirmButtonText: "Log Out",
+      cancelButtonText: "Cancel",
       reverseButtons: true,
       background: "var(--elementBg)",
       color: "white",
