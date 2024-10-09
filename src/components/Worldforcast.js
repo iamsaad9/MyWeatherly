@@ -5,7 +5,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import "./Worldforcast.css";
 import "animate.css";
 import StarIcon from '@mui/icons-material/Star';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function WorldForecast() {
   const { activeUnit } = useContext(ActiveUnitContext);
@@ -82,7 +81,7 @@ export default function WorldForecast() {
 
       const weatherData = await response.json();
 
-      const maxTemp = weatherData.daily.temperature_2m_max[0];
+      const maxTemp = parseFloat(weatherData.daily.temperature_2m_max[0]).toFixed(0);
       const minTemp = weatherData.daily.temperature_2m_min[0];
 
       const newCity = {
@@ -94,7 +93,7 @@ export default function WorldForecast() {
       };
       const submit = document.querySelector('.confirm_btn');
       submit.addEventListener("click", () => {
-        const updatedCities = [...cities, newCity];
+        const updatedCities = [...cities,   ];
         setCities(updatedCities);
         localStorage.setItem("cities", JSON.stringify(updatedCities)); // Save to local storage
         Swal.fire({
@@ -353,7 +352,7 @@ export default function WorldForecast() {
                     height: "40%",
                   }}
                 >
-                  <span className="temp_degree" style={{ fontSize: "25px" }}>
+                  <span className="temp_degree" style={{ fontSize: "20px" }}>
                     {city.temp}
                   </span>
                   <span

@@ -565,12 +565,13 @@ export default function Dashboard() {
   
       if (citydata.city && citydata.countryCode && weatherData.current) {
         const fullCountryName = countries.getName(citydata.countryCode, "en");
+        const cityTemperature = parseFloat(weatherData.current.temperature_2m).toFixed(0);
         const roundedTemperatures = weatherData.hourly.temperature_2m.map((temp) =>
           parseFloat(temp).toFixed(0)
         );
   
         setLocation({ city: citydata.city, country: fullCountryName });
-        setcityTemp(weatherData.current.temperature_2m);
+        setcityTemp(cityTemperature);
         setcityHumid(weatherData.current.relative_humidity_2m);
         setcityWind(weatherData.current.wind_speed_10m);
         sethourlyTemp(roundedTemperatures);
@@ -870,7 +871,7 @@ export default function Dashboard() {
                         color: "var(--themeColor)",
                       }}
                     >
-                      C
+                    C
                     </span>
                   </div>
                   <span className="tempLabel">Temperature</span>

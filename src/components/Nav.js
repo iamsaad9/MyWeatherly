@@ -74,11 +74,11 @@ export default function Nav() {
           console.log(toString(farValue));
           const celValue = (farValue - 32) * (5 / 9);
           console.log(toString(celValue));
-          tempDegrees[i].textContent = celValue.toFixed(1) + "°";
+          tempDegrees[i].textContent = celValue.toFixed(0) + "°";
         }
         const unitDisplay = document.querySelectorAll('.unit-display');
     for (let i = 0; i < unitDisplay.length; i++) {
-      unitDisplay[i].textContent = 'C';
+      unitDisplay[i].textContent = ' C';
     }
         console.log(unitDisplay)
       } else if (activeUnit === "F" && changeUnit === "true") {
@@ -94,12 +94,12 @@ export default function Nav() {
           // console.log(celValue)
           const farValue = celValue * (9 / 5) + 32;
           // console.log(farValue)
-          tempDegrees[i].textContent = farValue.toFixed(1) + `°`;
+          tempDegrees[i].textContent = farValue.toFixed(0) + `°`;
         }
 
         const unitDisplay = document.querySelectorAll('.unit-display');
         for (let i = 0; i < unitDisplay.length; i++) {
-          unitDisplay[i].textContent = 'F';
+          unitDisplay[i].textContent = ' F';
         }
       }
     }
