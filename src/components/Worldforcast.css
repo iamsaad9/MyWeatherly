@@ -24,6 +24,20 @@
     position: relative;
     padding: 15px 0px;
   }
+  .forecast-item:hover #closeBtn{
+    opacity: 1;
+  visibility: visible;
+  }
+
+  #closeBtn{
+    top: 20px;
+    right: 10px;
+    position: absolute;
+    color: grey;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  }
   
   .add-forecast-logo {
     display: flex;
@@ -48,6 +62,7 @@
     justify-content: center;
     align-items: center;
   }
+
   .add-forecast-box div{
     height: 90%;
     width: 100%;
@@ -78,7 +93,7 @@
     height: 40%;
   }
 
-  #add_forcast_btn{
+  #add_forcast_icon{
     /* width: 20px; */
     /* height: 10px; */
     height: 35px;
@@ -91,20 +106,141 @@
     justify-content: center;
     align-items: center;
     background-color: var(--themeColor);
+    outline: none;
   }
 
-  #add_forcast_btn span{
+  #add_forcast_icon span{
     color: black;
     font-size: 25px;
   }
   
+  .confirm_btn{
+    width: 100px;
+    height: 40px;
+    color: black;
+    border-radius: 5px;
+    margin: 5px;
+    font-weight: 600;
+    background-color: var(--themeColor);
+    outline: none;
+    border: none;
+  }
+  
+  .confirm_btn:hover{
+    background-color: var(--theme2Hover);
+    color: black;
+  }
+  
+  .cancel_btn{
+    width: 80px;
+    height: 40px;
+    color: white;
+    border-radius: 5px;
+    margin: 5px;
+    /* font-weight: 600; */
+    background-color: gray;
+    outline: none;
+    border: none;
+  }
+  .cancel_btn:hover{
+    background-color: #606060;
+    color: white;
+  }
+
+
+
   .swal2-confirm{
     width: 100px;
+    height: 40px;
     color: black;
+    border-radius: 5px;
+    margin: 5px;
     font-weight: 600;
+    background-color: var(--themeColor);
+    outline: none;
+    border: none;
   }
+  
+  .swal2-confirm:hover{
+    background-color: var(--theme2Hover);
+    color: black;
+  }
+  
+  .swal2-cancel{
+    width: 80px;
+    height: 40px;
+    color: white;
+    border-radius: 5px;
+    margin: 5px;
+    /* font-weight: 600; */
+    background-color: gray;
+    outline: none;
+    border: none;
+  }
+  .swal2-cancel:hover{
+    background-color: #606060;
+    color: whtie;
+  }
+
 
   .selectBg option{
     background-color: var(--elementBg);
     color: white;
+    border: 1.5px solid var(--borderColor);
+    border-radius: 5px;
+    outline: none;
+    height: 200px;
+
+  }
+
+  .swal2-select {
+    display: block;
+    position: relative;
+    appearance: none;
+    background-color: var(--elementBg);
+    border: 1px solid #ccc;
+    padding:  8px;
+    color: white;
+    border-radius: 4px;
+    background-position: right 10px center;
+    appearance: menulist;
+  }
+
+  .swal2-input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  /* Styles for the suggestion list */
+  #citySuggestions {
+    color: black;
+    background-color: white; /* Background color for suggestions */
+    border: 1px solid #ccc; /* Border around the suggestions */
+    border-radius: 4px; /* Rounded corners */
+    max-height: 100px; /* Max height for the dropdown */
+    overflow-y: auto; /* Scroll if the content exceeds max height */
+    position: static; /* Position to float above other elements */
+    /* width: calc(100% - 20px);  */
+    z-index: 10; /* Ensure it appears above other elements */
+  }
+  
+  /* Styles for individual list items */
+  #citySuggestions li {
+    padding: 10px; /* Padding for each item */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.2s; /* Transition for background color */
+  }
+  
+  /* Hover effect for list items */
+  #citySuggestions li:hover {
+    background-color: #f0f0f0; /* Light gray background on hover */
+  }
+  
+  /* Styling for the modal background */
+  .swal2-overlay {
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay for modal */
   }

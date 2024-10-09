@@ -2,48 +2,44 @@ import React, { useState, useContext } from "react";
 import "./Worldforcast.css";
 import Swal from "sweetalert2";
 import { ActiveUnitContext } from "../ActiveUnitContext";
-
+import DeleteIcon from '@mui/icons-material/Delete';
 import 'animate.css';
+import ReactDOM from "react-dom";
 
 export default function Worldforcast() {
   const [cityId, setcityId] = useState("");
   const { activeUnit } = useContext(ActiveUnitContext);
-
-
-  const addcity = () =>{
-    if (cities.length >= 10) {
-          maxCityAlert();
-          return;
-        }
-    
+  const [isOpen, setIsOpen] = useState(false);
+  const cityDataset = [
+    "New York",
+    "Los Angeles",
+    "Chicago",
+    "Houston",
+    "Phoenix",
+  ]
+  // A list of cities for search (can be expanded to include more)
+  const addcity = () => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger"
+        confirmButton: "confirm_btn",
+        cancelButton: "cancel_btn",
       },
-      buttonsStyling: true
+      buttonsStyling: false,
     });
+  
+    if (cities.length >= 10) {
+      maxCityAlert();
+      return;
+    }
+  
+    let inputHtml = `
+      <input type="text" id="citySearch" class="swal2-input" placeholder="Type to search..." oninput="filterCities(this.value)">
+      <ul id="citySuggestions" style="list-style-type: none; padding: 0; margin-top: 10px; max-height: 150px; overflow-y: auto;"></ul>
+    `;
+  
     swalWithBootstrapButtons.fire({
-      allowOutsideClick:false,
       title: "Add Forecast",
-      text: " ",
-      input:'select',
-      inputOptions: {
-       
-          apples: "Apples",
-          bananas: "Bananas",
-          grapes: "Grapes",
-          oranges: "Oranges",
-          potato: "Potato",
-          broccoli: "Broccoli",
-          carrot: "Carrot",
-          icecream: "Ice cream"
-      },
-      customClass: {
-        input: 'selectBg' // Apply this class to the input (select)
-      },
-      inputPlaceholder: "Select Any City",
-      inputLabel: ' ',
+      html: inputHtml,
       showCancelButton: true,
       confirmButtonText: "Add",
       cancelButtonText: "Cancel!",
@@ -51,29 +47,35 @@ export default function Worldforcast() {
       background: "var(--elementBg)",
       color: "white",
       backdrop: `rgba(0, 0, 0, 0.5)`,
-
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // removeCity(cityId);
-        swalWithBootstrapButtons.fire({
-          title: "Deleted!",
-          text: "Forecast has been deleted.",
-          icon: "success",
-          background: "var(--elementBg)",
-          color: "white",
-          backdrop: `rgba(0, 0, 0, 0.5)`,
-        });
+      preConfirm: () => {
+        const selectedCity = document.getElementById('citySearch').value;
+        return selectedCity;
       }
     });
-  }
+  
+    // Filter city suggestions based on user input
+    window.filterCities = function(query) {
+      const suggestions = cityDataset.filter(city => city.toLowerCase().includes(query.toLowerCase()));
+      const suggestionsList = suggestions.map(city => `<li style="cursor: pointer;">${city}</li>`).join('');
+      document.getElementById('citySuggestions').innerHTML = suggestionsList;
+  
+      // Add click event for each suggestion
+      document.querySelectorAll('#citySuggestions li').forEach(item => {
+        item.onclick = () => {
+          document.getElementById('citySearch').value = item.textContent; // Set the input value
+          document.getElementById('citySuggestions').innerHTML = ''; // Clear suggestions
+        };
+      });
+    };
+  };
 
-  const handleDelete = () => {
+  const handleDelete = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger"
+        confirmButton: "confirm_btn",
+        cancelButton: "cancel_btn"
       },
-      buttonsStyling: true
+      buttonsStyling: false
     });
     swalWithBootstrapButtons.fire({
       showClass: {
@@ -86,7 +88,7 @@ export default function Worldforcast() {
       hideClass: {
         popup: `
         animate__animated
-        animate__fadeOutDown
+        animate__zoomOut
         animate__faster
         `
       },
@@ -103,7 +105,7 @@ export default function Worldforcast() {
 
     }).then((result) => {
       if (result.isConfirmed) {
-        removeCity(cityId);
+        setCities(cities.filter((city) => city.id !== id));
         swalWithBootstrapButtons.fire({
           title: "Deleted!",
           text: "Forecast has been deleted.",
@@ -161,9 +163,9 @@ export default function Worldforcast() {
   // };
 
   // Remove a city
-  const removeCity = (id) => {
-    setCities(cities.filter((city) => city.id !== id));
-  };
+  // const removeCity = (id) => {
+  //   setCities(cities.filter((city) => city.id !== id));
+  // };
 
   return (
     <div>
@@ -171,7 +173,7 @@ export default function Worldforcast() {
         <div className="forecast-item">
           <div className="add-forecast-logo">
             <button
-              id="add_forcast_btn"
+              id="add_forcast_icon"
               onClick={addcity}
             >
               <span className="material-symbols-outlined">add</span>
@@ -207,6 +209,13 @@ export default function Worldforcast() {
               padding: "15px 0px",
             }}
           >
+            <div id="closeBtn" 
+             onClick={() => {  
+              setcityId(city.id);
+              handleDelete(city.id)
+            }}>
+            <DeleteIcon sx={{width:'15px',height:'15px',cursor:'pointer'}}/>
+            </div>
             <div
               className="forecast-logo"
               style={{
@@ -221,9 +230,10 @@ export default function Worldforcast() {
                 top: 0,
               }}
             >
-              <button
-                id="forcast_btn"
+              <div
+                id="forcast_icon"
                 style={{
+                  outline: 'none',
                   height: "35px",
                   width: "35px",
                   borderRadius: "50%",
@@ -232,15 +242,11 @@ export default function Worldforcast() {
                   border: "none",
                   backgroundColor: "var(--themeColor",
                   display: "flex",
-                }}
-                onClick={() => {
-                  setcityId(city.id);
-                  // setVisible(!visible);
-                  handleDelete()
+                  cursor:'pointer'
                 }}
               >
                 <span className="material-symbols-outlined">{city.id}</span>
-              </button>
+              </div>
             </div>
 
             <div
