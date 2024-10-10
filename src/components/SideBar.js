@@ -2,9 +2,14 @@ import "./SideBarCss.css";
 import React from "react";
 import Swal from "sweetalert2";
 import Badge from "@mui/material/Badge";
+import Login from '../Pages/Login'
 
 export default function Sidepanel() {
   
+  const logout = () =>{
+    <Login/>
+  }
+
   const handleLogoutClick = () => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -25,6 +30,11 @@ export default function Sidepanel() {
       background: "var(--elementBg)",
       color: "white",
       backdrop: `rgba(0, 0, 0, 0.5)`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        <Login/>
+      } 
     });
   };
 

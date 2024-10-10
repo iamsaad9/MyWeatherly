@@ -4,7 +4,7 @@ import { ActiveUnitContext } from "../ActiveUnitContext";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "./Worldforcast.css";
 import "animate.css";
-import StarIcon from '@mui/icons-material/Star';
+import StarIcon from "@mui/icons-material/Star";
 
 export default function WorldForecast() {
   const { activeUnit } = useContext(ActiveUnitContext);
@@ -17,6 +17,10 @@ export default function WorldForecast() {
       setCities(JSON.parse(savedCities));
     }
   }, []);
+
+  const generateUniqueId = (name, latitude, longitude) => {
+    return `${name}-${latitude}-${longitude}`;
+  };
 
   const filterCities = async (query) => {
     const suggestions = document.getElementById("citySuggestions");
@@ -43,10 +47,16 @@ export default function WorldForecast() {
           const li = document.createElement("li");
           li.textContent = `${city.name} (${city.country_code})`;
           li.addEventListener("click", () => {
-            document.getElementById("citySearch").value =
-              `${city.name} (${city.country_code})`;
+            document.getElementById(
+              "citySearch"
+            ).value = `${city.name} (${city.country_code})`;
             // Immediately call addCity with the selected city's data
-            fetchCity(city.latitude, city.longitude, city.name, city.country_code);
+            fetchCity(
+              city.latitude,
+              city.longitude,
+              city.name,
+              city.country_code
+            );
 
             suggestions.style.display = "none"; // Hide suggestions after selection
           });
@@ -72,7 +82,7 @@ export default function WorldForecast() {
   const fetchCity = async (latitude, longitude, name, country) => {
     try {
       const response = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1`
       );
 
       if (!response.ok) {
@@ -81,19 +91,38 @@ export default function WorldForecast() {
 
       const weatherData = await response.json();
 
-      const maxTemp = parseFloat(weatherData.daily.temperature_2m_max[0]).toFixed(0);
+      const currentTemp = parseFloat(
+        weatherData.current.temperature_2m
+      ).toFixed(0);
       const minTemp = weatherData.daily.temperature_2m_min[0];
 
       const newCity = {
-        id: cities.length + 1,
+        id: generateUniqueId(name, latitude, longitude), // Unique ID
         name,
         country,
-        temp: `${maxTemp}°`,
+        temp: `${currentTemp}°`,
         minTemp: `${minTemp}°`,
       };
-      const submit = document.querySelector('.confirm_btn');
+
+      const isCityAlreadyPresent = cities.some(
+        (city) => city.id === newCity.id
+      );
+
+      const submit = document.querySelector(".confirm_btn");
       submit.addEventListener("click", () => {
-        const updatedCities = [...cities, newCity];
+        if (isCityAlreadyPresent) {
+          Swal.fire({
+            icon: "warning",
+            title: "Duplicate City",
+            text: "This city is already in your list.",
+            background: "var(--elementBg)",
+            color: "white",
+            backdrop: `rgba(0, 0, 0, 0.5)`,
+          });
+          return; // Stop further execution to prevent adding duplicate
+        }
+
+        const updatedCities = [newCity, ...cities];
         setCities(updatedCities);
         localStorage.setItem("cities", JSON.stringify(updatedCities)); // Save to local storage
         Swal.fire({
@@ -137,22 +166,21 @@ export default function WorldForecast() {
       return;
     }
 
-    swalWithBootstrapButtons
-      .fire({
-        allowOutsideClick: false,
-        title: "Add Forecast",
-        html: `
+    swalWithBootstrapButtons.fire({
+      allowOutsideClick: false,
+      title: "Add Forecast",
+      html: `
           <input type="text" id="citySearch" class="swal2-input" placeholder="Search Any City...">
           <ul id="citySuggestions" style="list-style-type: none; padding: 0; margin-top: 10px;"></ul>
         `,
-        showCancelButton: true,
-        confirmButtonText: "Add",
-        cancelButtonText: "Cancel",
-        reverseButtons: true,
-        background: "var(--elementBg)",
-        color: "white",
-        backdrop: `rgba(0, 0, 0, 0.5)`,
-      });
+      showCancelButton: true,
+      confirmButtonText: "Add",
+      cancelButtonText: "Cancel",
+      reverseButtons: true,
+      background: "var(--elementBg)",
+      color: "white",
+      backdrop: `rgba(0, 0, 0, 0.5)`,
+    });
 
     setTimeout(() => {
       const inputField = document.getElementById("citySearch");
@@ -170,9 +198,6 @@ export default function WorldForecast() {
       });
     }, 100); // Timeout to ensure elements are rendered
   };
-
-
-
 
   const handleDelete = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -211,7 +236,6 @@ export default function WorldForecast() {
         }
       });
   };
-
 
   return (
     <div>
@@ -256,9 +280,12 @@ export default function WorldForecast() {
                 handleDelete(city.id);
               }}
             >
-              <DeleteIcon
-                sx={{ width: "15px", height: "15px", cursor: "pointer" }}
-              />
+              <span
+                class="material-symbols-outlined"
+                style={{ fontSize: "15px",cursor:'pointer' }}
+              >
+                close
+              </span>
             </div>
             <div
               className="forecast-logo"
@@ -286,19 +313,18 @@ export default function WorldForecast() {
                   border: "none",
                   backgroundColor: "var(--themeColor)",
                   display: "flex",
-                  justifyContent:'center',
-                  alignItems:'center',
+                  justifyContent: "center",
+                  alignItems: "center",
                   cursor: "pointer",
                 }}
               >
                 {/* <span className="material-symbols-outlined"></span> */}
-                <StarIcon sx={{ fontSize: 25 }}/>
+                <StarIcon sx={{ fontSize: 25 }} />
                 {/* <FontAwesomeIcon icon="fa-solid fa-star" /> */}
               </div>
             </div>
 
             <div
-
               className="forecast-box"
               style={{
                 height: "150px",
