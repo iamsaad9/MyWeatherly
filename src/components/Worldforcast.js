@@ -93,7 +93,7 @@ export default function WorldForecast() {
       };
       const submit = document.querySelector('.confirm_btn');
       submit.addEventListener("click", () => {
-        const updatedCities = [...cities,   ];
+        const updatedCities = [...cities, newCity];
         setCities(updatedCities);
         localStorage.setItem("cities", JSON.stringify(updatedCities)); // Save to local storage
         Swal.fire({
@@ -337,7 +337,7 @@ export default function WorldForecast() {
                   <span style={{ marginBottom: "-5px", fontSize: "20px" }}>
                     {city.name}
                   </span>
-                  <span style={{ fontSize: "10px" }}>{city.country}</span>
+                  <span style={{ fontSize: "10px" }}>{city.id}</span>
                 </div>
 
                 <div
