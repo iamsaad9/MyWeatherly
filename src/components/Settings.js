@@ -9,7 +9,7 @@ export default function Settings() {
     console.log('city display opened')
   return (
     <div>
-      <div style={{backgroundColor:'orange'}}>
+      <div style={{backgroundColor:'orange',width:'77vw',height:'90vh'}}>
             s
       </div>    
     </div>

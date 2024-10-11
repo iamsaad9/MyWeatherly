@@ -1,12 +1,14 @@
 import "./SideBarCss.css";
-import React from "react";
+import React, {useContext} from "react";
 import Swal from "sweetalert2";
 import Badge from "@mui/material/Badge";
 import Login from '../Pages/Login'
 import { useNavigate  } from 'react-router-dom';
+import { ActiveUnitContext } from "../ActiveUnitContext";
 
 export default function Sidepanel() {
   const navigate = useNavigate(); 
+  const { setLoading } = useContext(ActiveUnitContext);
 
   const handleLogoutClick = () => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -41,6 +43,7 @@ export default function Sidepanel() {
   };
 
   const goToDashboard = () => {
+    setLoading(true)
     navigate('/dashboard'); // Navigate to Dashboard
   };
 
