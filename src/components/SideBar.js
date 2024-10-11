@@ -3,12 +3,10 @@ import React from "react";
 import Swal from "sweetalert2";
 import Badge from "@mui/material/Badge";
 import Login from '../Pages/Login'
+import { useNavigate  } from 'react-router-dom';
 
 export default function Sidepanel() {
-  
-  const logout = () =>{
-    <Login/>
-  }
+  const navigate = useNavigate(); 
 
   const handleLogoutClick = () => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -42,6 +40,15 @@ export default function Sidepanel() {
     window.location.reload();
   };
 
+  const goToDashboard = () => {
+    navigate('/dashboard'); // Navigate to Dashboard
+  };
+
+  const goToSettings = () => {
+    navigate('/settings'); // Navigate to Settings
+  };
+
+
   return (
     <div>
       <div id="container" className="sidebar-container">
@@ -60,11 +67,11 @@ export default function Sidepanel() {
               <span className="material-symbols-outlined">notifications</span>
             </Badge>
           </div>
-          <div id="dashboardDiv" className="sideBarDiv menu-item">
+          <div id="dashboardDiv" className="sideBarDiv menu-item" onClick={goToDashboard}>
             <span className="material-symbols-outlined">grid_view</span>
           </div>
 
-          <div id="settingDiv" className="sideBarDiv menu-item">
+          <div id="settingDiv" className="sideBarDiv menu-item" onClick={goToSettings}>
             <span className="material-symbols-outlined">settings</span>
           </div>
         </div>

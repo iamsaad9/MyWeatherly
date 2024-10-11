@@ -2,11 +2,13 @@ import React,{useContext} from 'react';
 import Sidepanel from '../components/SideBar';
 import Nav from '../components/Nav';
 import Dashboard from '../components/Dashboard';
-import Wordforcast from '../components/Worldforcast';
+import Worldforcast from '../components/Worldforcast';
 import { ActiveUnitContext } from '../ActiveUnitContext';
 import LoadingScreen from '../components/LoadingScreen';
-
+import { Routes, Route } from 'react-router-dom';
 import './Home.css';
+import Settings from '../components/Settings'
+import Card from "@mui/material/Card";
 
 export default function Home() {
 
@@ -28,8 +30,11 @@ export default function Home() {
             <Nav />
           </div>
           <div id='dashboardContainer' className='dashboard'>
-            <Dashboard />
-            <Wordforcast />
+          <Routes>
+           <Route path="/*" element={<Dashboard />} />
+           <Route path="/settings" element={<Settings />} />
+          </Routes>
+            <Worldforcast />
           </div>
         </div>
       </div>

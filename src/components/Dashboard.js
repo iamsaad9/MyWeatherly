@@ -543,7 +543,7 @@ export default function Dashboard() {
     },
     // Add more WMO codes as needed
   };
-
+  
   useEffect(() => {
     countries.registerLocale(enLocale);
   
@@ -836,11 +836,6 @@ export default function Dashboard() {
 
   return (
     <div>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-      />
-
       <div id="container">
         <div className="mainRow">
           <div className="weatherCard">

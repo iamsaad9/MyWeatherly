@@ -101,7 +101,15 @@
     color: var(--themeColor);
     background-color: var(--elementDarkBg);
   }
-
+  
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+  }
+  
   .confirm_btn {
     width: 100px;
     height: 40px;

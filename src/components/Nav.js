@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import Avatar from "@mui/material/Avatar";
 import img from "../images/IMG_20210213_183032.jpg"
 import { ActiveUnitContext } from '../ActiveUnitContext';
+import Settings from './Settings'
 
 export default function Nav() {
   const [lang, setLang] = React.useState("");
@@ -109,9 +110,9 @@ export default function Nav() {
     <div>
       <div id="container" className="nav-container">
         <div id="about" className="about-section">
-          <div id="dis_pic" className="display-pic">
+          <div id="dis_pic" className="display-pic" >
             {/* <div className="circle"> */}
-            <Avatar alt="Saad Masood" src={img} />
+            <Avatar alt="Saad Masood" src={img}   />
             {/* </div> */}
           </div>
 
