@@ -40,8 +40,12 @@
     /* padding-bottom: 20px; */
     /* margin: 10px 0px; */
     display: flex;
-    width: 90vw;
+    /* width: 90vw; */
     gap: 10px;
     z-index: 10;
+    width: 90%;
   }
   
+  #worldForecastContainer{
+    margin-right: 30px;
+  }

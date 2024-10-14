@@ -1888,14 +1888,8 @@ export default function Dashboard() {
                         C
                       </span>
                     </div>
-                    <div style={{ alignContent: "end" }}>
-                      <span
-                        className="humidityValue forecasttextSpan"
-                        style={{ fontSize: "15px" }}
-                      >
-                        /
-                      </span>
-                      <span className="humidityValue temp_degree forecasttextSpan">
+                    <div style={{ alignContent: "end",padding:'0px 5px' }}>
+                      <span className="temp_degree forecasttextSpan" style={{fontSize:'15px',color:'grey'}}>
                         {dailyTempMin[1]}°
                       </span>
                       <span
@@ -1941,7 +1935,7 @@ export default function Dashboard() {
                   <div style={{ display: "flex" }}>
                     <div>
                       <span className="humidityValue temp_degree forecasttextSpan">
-                        {dailyTempMax[2]}{" "}
+                        {dailyTempMax[2]}°{" "}
                       </span>
                       <span
                         className="unit-display"
@@ -1956,9 +1950,8 @@ export default function Dashboard() {
                         C
                       </span>
                     </div>
-                    <div style={{ alignContent: "end" }}>
-                      <span className="humidityValue forecasttextSpan">/</span>
-                      <span className="humidityValue temp_degree forecasttextSpan">
+                    <div style={{ alignContent: "end",padding:'0px 5px' }}>
+                    <span className=" temp_degree forecasttextSpan" style={{fontSize:'15px',color:'grey'}}>
                         {dailyTempMin[2]}°
                       </span>
                       <span
@@ -2019,10 +2012,9 @@ export default function Dashboard() {
                         C
                       </span>
                     </div>
-                    <div style={{ alignContent: "end" }}>
-                      <span className="humidityValue forecasttextSpan">/</span>
-                      <span className="humidityValue temp_degree forecasttextSpan">
-                        {dailyTempMin[2]}°
+                    <div style={{ alignContent: "end",padding:'0px 5px' }}>
+                    <span className=" temp_degree forecasttextSpan" style={{fontSize:'15px',color:'grey'}}>
+                        {dailyTempMin[3]}°
                       </span>
                       <span
                         className="unit-display"
@@ -2084,12 +2076,9 @@ export default function Dashboard() {
                           C
                         </span>
                       </div>
-                      <div style={{ alignContent: "end" }}>
-                        <span className="humidityValue forecasttextSpan">
-                          /
-                        </span>
-                        <span className="humidityValue temp_degree forecasttextSpan">
-                          {dailyTempMax[4]}°
+                      <div style={{ alignContent: "end",padding:'0px 5px' }}>
+                    <span className=" temp_degree forecasttextSpan" style={{fontSize:'15px',color:'grey'}}>
+                          {dailyTempMin[4]}°
                         </span>
                         <span
                           className="unit-display"
@@ -2149,12 +2138,9 @@ export default function Dashboard() {
                           C
                         </span>
                       </div>
-                      <div style={{ alignContent: "end" }}>
-                        <span className="humidityValue forecasttextSpan">
-                          /
-                        </span>
-                        <span className="humidityValue temp_degree forecasttextSpan">
-                          {dailyTempMax[5]}°
+                      <div style={{ alignContent: "end",padding:'0px 5px' }}>
+                    <span className=" temp_degree forecasttextSpan" style={{fontSize:'15px',color:'grey'}}>
+                          {dailyTempMin[5]}°
                         </span>
                         <span
                           className="unit-display"
@@ -2214,12 +2200,9 @@ export default function Dashboard() {
                           C
                         </span>
                       </div>
-                      <div style={{ alignContent: "end" }}>
-                        <span className="humidityValue forecasttextSpan">
-                          /
-                        </span>
-                        <span className="humidityValue temp_degree forecasttextSpan">
-                          {dailyTempMax[6]}°
+                      <div style={{ alignContent: "end",padding:'0px 5px' }}>
+                    <span className=" temp_degree forecasttextSpan" style={{fontSize:'15px',color:'grey'}}>
+                          {dailyTempMin[6]}°
                         </span>
                         <span
                           className="unit-display"
@@ -2279,12 +2262,9 @@ export default function Dashboard() {
                           C
                         </span>
                       </div>
-                      <div style={{ alignContent: "end" }}>
-                        <span className="humidityValue forecasttextSpan">
-                          /
-                        </span>
-                        <span className="humidityValue temp_degree forecasttextSpan">
-                          {dailyTempMax[7]}°
+                      <div style={{ alignContent: "end",padding:'0px 5px' }}>
+                    <span className=" temp_degree forecasttextSpan" style={{fontSize:'15px',color:'grey'}}>
+                          {dailyTempMin[7]}°
                         </span>
                         <span
                           className="unit-display"
@@ -2344,12 +2324,9 @@ export default function Dashboard() {
                           C
                         </span>
                       </div>
-                      <div style={{ alignContent: "end" }}>
-                        <span className="humidityValue forecasttextSpan">
-                          /
-                        </span>
-                        <span className="humidityValue temp_degree forecasttextSpan">
-                          {dailyTempMax[8]}°
+                      <div style={{ alignContent: "end",padding:'0px 5px' }}>
+                    <span className=" temp_degree forecasttextSpan" style={{fontSize:'15px',color:'grey'}}>
+                          {dailyTempMin[8]}°
                         </span>
                         <span
                           className="unit-display"
@@ -2409,12 +2386,9 @@ export default function Dashboard() {
                           C
                         </span>
                       </div>
-                      <div style={{ alignContent: "end" }}>
-                        <span className="humidityValue forecasttextSpan">
-                          /
-                        </span>
-                        <span className="humidityValue temp_degree forecasttextSpan">
-                          {dailyTempMax[9]}°
+                      <div style={{ alignContent: "end",padding:'0px 5px' }}>
+                    <span className=" temp_degree forecasttextSpan" style={{fontSize:'15px',color:'grey'}}>
+                          {dailyTempMin[9]}°
                         </span>
                         <span
                           className="unit-display"
@@ -2474,12 +2448,9 @@ export default function Dashboard() {
                           C
                         </span>
                       </div>
-                      <div style={{ alignContent: "end" }}>
-                        <span className="humidityValue forecasttextSpan">
-                          /
-                        </span>
-                        <span className="humidityValue temp_degree forecasttextSpan">
-                          {dailyTempMax[10]}°
+                      <div style={{ alignContent: "end",padding:'0px 5px' }}>
+                    <span className=" temp_degree forecasttextSpan" style={{fontSize:'15px',color:'grey'}}>
+                          {dailyTempMin[10]}°
                         </span>
                         <span
                           className="unit-display"

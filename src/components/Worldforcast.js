@@ -15,13 +15,35 @@ export default function WorldForecast() {
     const savedCities = localStorage.getItem("cities");
     if (savedCities) {
       setCities(JSON.parse(savedCities));
+      updateCitiesWeather(cities);
     }
   }, []);
+
+  const updateCitiesWeather = async (savedCities) => {
+    const updatedCities = await Promise.all(
+      savedCities.map(async (city) => {
+        try {
+          const updatedCity = await fetchCity(city.latitude, city.longitude, city.name, city.country);
+          if (updatedCity) {
+            return { ...city, ...updatedCity }; // Merge updated weather data with existing city info
+          } else {
+            return city; // Keep the old city data if fetching new weather data fails
+          }
+        } catch (error) {
+          console.error("Error updating city weather:", error);
+          return city; // Return the old city data if an error occurs
+        }
+      })
+    );
+    setCities(updatedCities);
+    localStorage.setItem("cities", JSON.stringify(updatedCities)); // Save updated cities to local storage
+  };
 
   const generateUniqueId = (name, latitude, longitude) => {
     return `${name}-${latitude}-${longitude}`;
   };
 
+  
   const filterCities = async (query) => {
     const suggestions = document.getElementById("citySuggestions");
     suggestions.innerHTML = ""; // Clear previous suggestions

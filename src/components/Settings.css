@@ -1,0 +1,21 @@
+#settingContainer{
+    height: 100%;
+    width: 70%;
+    border: 1.5px solid var(--borderColor);
+    border-radius: 20px;
+    contain: content;
+    background-color: var(--elementBg);
+    padding: 0px 10px;
+}
+.settingDividers{
+    display: flex;
+    /* justify-content: center; */
+    /* width: 80px; */
+}
+.css-1mgldq2-MuiDivider-root::before, .css-1mgldq2-MuiDivider-root::after {
+    /* width: 40% !important; */
+    border-top: thin solid var(--themeColor) !important;
+}
+#settingOptionDiv{
+    width: 90%;
+}

@@ -45,6 +45,7 @@ export default function Sidepanel() {
   const goToDashboard = () => {
     setLoading(true)
     navigate('/dashboard'); // Navigate to Dashboard
+    window.location.reload();
   };
 
   const goToSettings = () => {
@@ -62,18 +63,17 @@ export default function Sidepanel() {
         </div>
 
         <div className="menu-section">
-          <div id="accountDiv" className="sideBarDiv menu-item">
-            <span className="material-symbols-outlined">person</span>
+        <div id="dashboardDiv" className="sideBarDiv menu-item" onClick={goToDashboard}>
+            <span className="material-symbols-outlined">grid_view</span>
           </div>
           <div id="notificationDiv" className="sideBarDiv menu-item">
             <Badge color="error" badgeContent=" " variant="dot">
               <span className="material-symbols-outlined">notifications</span>
             </Badge>
           </div>
-          <div id="dashboardDiv" className="sideBarDiv menu-item" onClick={goToDashboard}>
-            <span className="material-symbols-outlined">grid_view</span>
+          <div id="accountDiv" className="sideBarDiv menu-item">
+            <span className="material-symbols-outlined">person</span>
           </div>
-
           <div id="settingDiv" className="sideBarDiv menu-item" onClick={goToSettings}>
             <span className="material-symbols-outlined">settings</span>
           </div>
