@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import { ActiveUnitContext } from "../ActiveUnitContext";
 import "./Settings.css";
 import Divider from "@mui/material/Divider";
@@ -8,35 +8,49 @@ import DarkModeToggle from "react-dark-mode-toggle";
 export default function Settings() {
   const { setLoading } = useContext(ActiveUnitContext);
   const [isDarkMode, setIsDarkMode] = useState(true);
-  setLoading(false);
-  
-  const changeMode = () =>{
-    if(isDarkMode){
-      setIsDarkMode(false)
-      console.log(isDarkMode)
-    }else if(!isDarkMode){
-      setIsDarkMode(true)
-      console.log(isDarkMode)
+  setLoading(false); 
+
+  const changeMode = () => {
+    if (isDarkMode) {
+      setIsDarkMode(false);
+      console.log(isDarkMode);
+    } else if (!isDarkMode) {
+      setIsDarkMode(true);
+      console.log(isDarkMode);
     }
-  }
+  };
 
+  
+  const changeRootColor = (newColor,newHoverColor) => {
+    document.documentElement.style.setProperty('--themeColor', newColor);
+    document.documentElement.style.setProperty('--themeHover', newHoverColor);
+    localStorage.setItem('mainColor', newColor); 
+    localStorage.setItem('hoverColor', newHoverColor); 
+  };
 
+  const addFile = () => {
+    const fileInput = document.getElementById("file");
+    const fileName = document.getElementById("file-name");
+
+    fileInput.addEventListener("change", function () {
+      fileName.textContent = this.files[0].name;
+    });
+  };
   return (
     <div
       style={{
         width: "100%",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "flex-start",
       }}
     >
       <div id="settingContainer">
         <div id="titlespan" style={{ paddingTop: "5px", paddingLeft: "20px" }}>
           Settings
         </div>
-        <div
-          style={{ width: "100%", display: "flex", justifyContent: "center" }}
-        >
+
+        <div id="settingOptionContainer">
           <div id="settingOptionDiv">
             <Divider
               className="settingDividers"
@@ -75,7 +89,6 @@ export default function Settings() {
                   onChange={changeMode}
                   checked={isDarkMode}
                   size={40}
-
                 />
               </Grid>
               <Grid
@@ -89,12 +102,60 @@ export default function Settings() {
                 Theme Color
               </Grid>
 
-              <Grid sx={{ display: "flex", justifyContent: "center",gap:'10px' }} size={6}>
-                <div style={{width:'25px',height:'25px',backgroundColor:'#be83de',borderRadius:'50%',cursor:'pointer'}}/>
-                <div style={{width:'25px',height:'25px',backgroundColor:'#ff7777',borderRadius:'50%',cursor:'pointer'}}/>
-                <div style={{width:'25px',height:'25px',backgroundColor:'#7181fe',borderRadius:'50%',cursor:'pointer'}}/>
-                <div style={{width:'25px',height:'25px',backgroundColor:'#b8e2e9',borderRadius:'50%',cursor:'pointer'}}/>
-                <div style={{width:'25px',height:'25px',backgroundColor:'#5db148',borderRadius:'50%',cursor:'pointer'}}/>
+              <Grid
+                sx={{ display: "flex", justifyContent: "center", gap: "10px" }}
+                size={6}
+              >
+                <div
+                  onClick={() => changeRootColor('#be83de','#b270d6')}
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    backgroundColor: "#be83de",
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                  }}
+                />
+                <div
+                 onClick={() => changeRootColor('#ff7777','#f35d5d')}
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    backgroundColor: "#ff7777",
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                  }}
+                />
+                <div
+                onClick={() => changeRootColor('#7181fe','#5466f1')}
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    backgroundColor: "#7181fe",
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                  }}
+                />
+                <div
+                onClick={() => changeRootColor('#b8e2e9','#7ab9c3')}
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    backgroundColor: "#b8e2e9",
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                  }}
+                />
+                <div
+                onClick={() => changeRootColor('#5db148','#3a782b')}
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    backgroundColor: "#5db148",
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                  }}
+                />
               </Grid>
 
               <Grid
@@ -108,8 +169,28 @@ export default function Settings() {
                 Image Background
               </Grid>
 
-              <Grid sx={{ display: "flex", justifyContent: "center" }} size={6}>
-                <input type='file' style={{width:'90px',border:'1px solid var(--themeColor)',backgroundColor:'var(--elementDarkBg) !important'}}></input>
+              <Grid
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+                size={6}
+              >
+                <input
+                  type="file"
+                  id="file"
+                  style={{ display: "none" }}
+                ></input>
+                <label id="inputLabel" htmlFor="file" onClick={addFile}>
+                  Upload File
+                </label>
+                <span
+                  id="file-name"
+                  style={{ fontSize: "12px", padding: "2px 0px" }}
+                >
+                  
+                </span>
               </Grid>
 
               <Grid
@@ -177,7 +258,6 @@ export default function Settings() {
                   display: "flex",
                   justifyContent: "left",
                   paddingLeft: "50px",
-                  display: "flex",
                   flexDirection: "column",
                 }}
                 size={6}
@@ -203,7 +283,6 @@ export default function Settings() {
                   display: "flex",
                   justifyContent: "left",
                   paddingLeft: "50px",
-                  display: "flex",
                   flexDirection: "column",
                 }}
                 size={6}
@@ -229,7 +308,6 @@ export default function Settings() {
                   display: "flex",
                   justifyContent: "left",
                   paddingLeft: "50px",
-                  display: "flex",
                   flexDirection: "column",
                 }}
                 size={6}

@@ -45,7 +45,7 @@ export default function Sidepanel() {
   const goToDashboard = () => {
     setLoading(true)
     navigate('/dashboard'); // Navigate to Dashboard
-    window.location.reload();
+    // window.location.reload();
   };
 
   const goToSettings = () => {

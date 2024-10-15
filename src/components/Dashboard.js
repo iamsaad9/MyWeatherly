@@ -1121,7 +1121,7 @@ export default function Dashboard() {
                   className="hours"
                 >
                   <span className="hour_text" style={{ backgroundColor: "" }}>
-                    4 am
+                    5 am
                   </span>
                   {wmoCode && timeStamps ? (
                     renderWeather(wmoCode[5], new Date(timeStamps[5]))

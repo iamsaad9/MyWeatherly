@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import Swal from "sweetalert2";
 import { ActiveUnitContext } from "../ActiveUnitContext";
-import DeleteIcon from "@mui/icons-material/Delete";
 import "./Worldforcast.css";
 import "animate.css";
-import StarIcon from "@mui/icons-material/Star";
+// import StarIcon from "@mui/icons-material/Star";
 
 export default function WorldForecast() {
   const { activeUnit } = useContext(ActiveUnitContext);
@@ -341,7 +340,7 @@ export default function WorldForecast() {
                 }}
               >
                 {/* <span className="material-symbols-outlined"></span> */}
-                <StarIcon sx={{ fontSize: 25 }} />
+                {/* <StarIcon sx={{ fontSize: 25 }} /> */}
                 {/* <FontAwesomeIcon icon="fa-solid fa-star" /> */}
               </div>
             </div>

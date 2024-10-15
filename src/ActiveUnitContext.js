@@ -9,10 +9,10 @@ export const ActiveUnitProvider = ({ children }) => {
   const [activeUnit, setActiveUnit] = useState("D");
   const [currentCity,setcurrentCity] = useState('Berlin')
   const [loading, setLoading] = useState(true);
-
+  const [bgColor, setBgColor] = useState('#be83de');
 
   return (
-    <ActiveUnitContext.Provider value={{ activeUnit, setActiveUnit,currentCity,setcurrentCity,loading,setLoading }}>
+    <ActiveUnitContext.Provider value={{ activeUnit, setActiveUnit,currentCity,setcurrentCity,loading,setLoading,bgColor,setBgColor }}>
       {children}
     </ActiveUnitContext.Provider>
   );

@@ -127,7 +127,7 @@
 }
 
 .confirm_btn:hover {
-  background-color: var(--theme2Hover);
+  background-color: var(--themeHover);
   color: black;
 }
 
@@ -164,7 +164,7 @@
 }
 
 .swal2-confirm:hover {
-  background-color: var(--theme2Hover);
+  background-color: var(--themeHover);
   color: black;
 }
 
@@ -243,7 +243,7 @@
 }
 
 #citySuggestions li:hover {
-  background-color: var(--theme2Hover);
+  background-color: var(--themeHover);
 }
 
 .swal2-overlay {
@@ -264,5 +264,5 @@
 }
 
 #citySuggestions::-webkit-scrollbar-thumb:hover {
-  background-color: var(--theme2Hover);
+  background-color: var(--themeHover);
 }
